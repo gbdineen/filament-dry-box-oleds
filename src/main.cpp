@@ -556,7 +556,10 @@ void mqttCallback(char* topic, byte* payload, unsigned int length) {
   
     }
     responseCount=0;
-  } 
+  } else if (String(topic) == "octoPrint/event/plugin_Spoolman_spool_usage_committed") {
+
+    
+  }
 }
 
 
@@ -896,6 +899,8 @@ boolean reconnect() {
     mqttClient.publish("mqttStatus",connectMsg.c_str());
     // ... and resubscribe
     mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_selected");
+    mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_usage_committed");
+    
   }
   return mqttClient.connected();
 }

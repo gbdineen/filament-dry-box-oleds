@@ -8,3 +8,4 @@
 .DS_Store
 .pio/libdeps/drybox_oleds/ArduinoJson/.git
 
+json/
