@@ -1,9 +1,9 @@
 #include "displays.h"
 #include "op_logo.h"
 
-DisplayControl::DisplayControl() {}
+Displays::Displays() {}
 
-bool DisplayControl::initDisplays()
+bool Displays::initDisplays()
 {
 
 	Adafruit_SSD1306 display0(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus1, OLED_RESET);
@@ -38,7 +38,7 @@ bool DisplayControl::initDisplays()
 	return true;
 }
 
-void DisplayControl::drawOPLogo(Adafruit_SSD1306 &display)
+void Displays::drawOPLogo(Adafruit_SSD1306 &display)
 {
 
 	for (int y = 0; y <= LOGO_WIDTH; y += 5)
@@ -54,7 +54,7 @@ void DisplayControl::drawOPLogo(Adafruit_SSD1306 &display)
 	}
 }
 
-void DisplayControl::spoolWeightDisplay()
+void Displays::spoolWeightDisplay()
 {
 
 	/*
@@ -123,7 +123,7 @@ void DisplayControl::spoolWeightDisplay()
 	}
   }
 
-  void DisplayControl::overviewDisplay() {
+  void Display::overviewDisplay() {
 
 	// std::cout << "Address of spoolsVector: " << &spoolsVector << std::endl;
 
@@ -201,7 +201,7 @@ void DisplayControl::spoolWeightDisplay()
 	  */
 }
 
-void DisplayControl::updateDisplay(int displayId, int spoolId, int remWeight, const char *material, const char *name)
+void Displays::updateDisplay(int displayId, int spoolId, int remWeight, const char *material, const char *name)
 {
 
 	screenMode = "overview";
@@ -239,16 +239,16 @@ void DisplayControl::updateDisplay(int displayId, int spoolId, int remWeight, co
 	delay(10);
 }
 
-void DisplayControl::begin()
+void Displays::begin()
 {
 	I2C_Bus0.begin(I2C0_SDA, I2C0_SCL, 100000);
 	I2C_Bus1.begin(I2C1_SDA, I2C1_SCL, 100000);
 }
 
-void DisplayControl::loop()
+void Displays::loop()
 {
 }
 
-DisplayControl::~DisplayControl()
+Displays::~Displays()
 {
 }

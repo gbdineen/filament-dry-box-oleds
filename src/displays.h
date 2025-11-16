@@ -27,13 +27,13 @@
 
 
 
-class DisplayControl
+class Displays
 {
 
 
     public:
-        DisplayControl();
-        ~DisplayControl();  
+        Displays();
+        ~Displays();  
         bool initDisplays();
         void drawOPLogo(Adafruit_SSD1306 &display);
         void spoolWeightDisplay();

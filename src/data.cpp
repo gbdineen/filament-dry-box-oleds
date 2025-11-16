@@ -9,6 +9,15 @@ Data::Data()
     mqttCallbackInstance = this;
 }
 
+
+void Data::mqttCallbackStatic(char *topic, byte *payload, unsigned int length) {
+    if (mqttCallbackInstance){
+
+        mqttCallbackInstance->mqttCallback(topic, payload,length);
+    }
+}
+
+
 void Data::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
 
@@ -88,144 +97,148 @@ void Data::webSocketEventStatic(WStype_t type, uint8_t *payload, size_t length)
 void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 {
 
-    switch (type)
-    {
-    case WStype_DISCONNECTED:
-        Serial.printf("[WSc] Disconnected!\n");
-        break;
+    switch (type){
+        case WStype_DISCONNECTED:
+            Serial.printf("[WSc] Disconnected!\n");
+            break;
 
-    case WStype_CONNECTED:
+        case WStype_CONNECTED:
 
-        if (firstStart)
-        {
-            firstStart = false;
-            Serial.printf("[WSc] Connected to url: %s\n", payload);
-        }
-
-        // send message to server when Connected
-        webSocket.sendTXT("Connected");
-
-        // initDisplays();
-        // getSpoolOrder();
-        // patchSpoolOrder();
-
-        break;
-
-    case WStype_TEXT:
-
-        Serial.println("[WSc] incoming");
-
-        JsonDocument doc;
-        JsonDocument filter;
-
-        DeserializationError error = deserializeJson(doc, payload);
-        if (error)
-        {
-            Serial.print(F("deserializeJson() failed: "));
-            Serial.println(error.c_str());
-            return;
-        }
-
-        serializeJsonPretty(doc, Serial);
-
-        if (doc["type"] == "updated")
-        {
-
-            if (doc["resource"] == "spool")
+            if (firstStart)
             {
-                filter["payload"]["id"] = true;
-                filter["payload"]["remaining_weight"] = true;
-                filter["payload"]["filament"]["name"] = true;
-                filter["payload"]["filament"]["material"] = true;
-
-                error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
-                if (error)
-                {
-                    Serial.print(F("deserializeJson() failed: "));
-                    Serial.println(error.c_str());
-                    return;
-                }
-                // serializeJsonPretty(doc,Serial);
-
-                int spoolId = doc["payload"]["id"];
-                int remWeight = doc["payload"]["remaining_weight"];
-
-                // updateSpool(spoolId, remWeight);
-                // delay(500);
-                // getSpoolOrder();
+                firstStart = false;
+                Serial.printf("[WSc] Connected to url: %s\n", payload);
             }
-            else if (doc["resource"] == "setting")
+
+            // send message to server when Connected
+            webSocket.sendTXT("Connected");
+
+            // initDisplays();
+            // getSpoolOrder();
+            // patchSpoolOrder();
+
+            break;
+
+        case WStype_TEXT:
+
+            Serial.println("[WSc] incoming");
+
+            JsonDocument doc;
+            JsonDocument filter;
+
+            DeserializationError error = deserializeJson(doc, payload);
+            if (error)
+            {
+                Serial.print(F("deserializeJson() failed: "));
+                Serial.println(error.c_str());
+                return;
+            }
+
+            serializeJsonPretty(doc, Serial);
+
+            if (doc["type"] == "updated")
             {
 
-                filter["payload"] = true;
-
-                error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
-                if (error)
+                if (doc["resource"] == "spool")
                 {
-                    Serial.print(F("deserializeJson() failed: "));
-                    Serial.println(error.c_str());
-                    return;
+                    filter["payload"]["id"] = true;
+                    filter["payload"]["remaining_weight"] = true;
+                    filter["payload"]["filament"]["name"] = true;
+                    filter["payload"]["filament"]["material"] = true;
+
+                    error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+                    if (error)
+                    {
+                        Serial.print(F("deserializeJson() failed: "));
+                        Serial.println(error.c_str());
+                        return;
+                    }
+                    // serializeJsonPretty(doc,Serial);
+
+                    int spoolId = doc["payload"]["id"];
+                    int remWeight = doc["payload"]["remaining_weight"];
+
+                    // updateSpool(spoolId, remWeight);
+                    // delay(500);
+                    // getSpoolOrder();
                 }
-                // serializeJsonPretty(doc,Serial);
+                else if (doc["resource"] == "setting")
+                {
 
-                // getSpoolOrder();
+                    filter["payload"] = true;
+
+                    error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+                    if (error)
+                    {
+                        Serial.print(F("deserializeJson() failed: "));
+                        Serial.println(error.c_str());
+                        return;
+                    }
+                    // serializeJsonPretty(doc,Serial);
+
+                    // getSpoolOrder();
+                }
             }
-        }
-
-        break;
+            break;
     }
-}
-
-void Data::loop()
-{
-
-    // if (!mqttClient.connected()) {
-    //     Serial.print("MQTT Disconnected");
-    //     long now = millis();
-    // if (now - lastReconnectAttempt > 5000) {
-    //     lastReconnectAttempt = now;
-    //     // Attempt to reconnect
-    //     if (mqttReconnect()) {
-    //         lastReconnectAttempt = 0;
-    //     }
-    // }
-    // } else {
-    //     // Client connected
-    //     mqttClient.loop();
-    // }
-    // // mqttClient.loop();
-    // webSocket.loop();
 }
 
 void Data::begin()
 {
 
+    WiFi.begin(ssid, password);
+        while (WiFi.status() != WL_CONNECTED) {
+        delay(1000);
+        Serial.println("Connecting to WiFi...");
+    }
+    Serial.println("Connected to WiFi");
+
     webSocket.begin(hostIP, wsPort, "/api/v1/");
     webSocket.onEvent(webSocketEventStatic);
     webSocket.setReconnectInterval(5000);
 
-    // WiFi.begin(ssid, password);
-    //     while (WiFi.status() != WL_CONNECTED) {
-    //     delay(1000);
-    //     Serial.println("Connecting to WiFi...");
-    // }
-    // Serial.println("Connected to WiFi");
 
-    // webSocket.begin(hostIP, wsPort, "/api/v1/");
-    // webSocket.onEvent(webSocketEvent);
-    // webSocket.setReconnectInterval(5000);
+    std::string clientIdStr = mqtt_client_id;
+    std::string connectMsg = "MQTT client " + clientIdStr + " connected";
+    mqttClient.setServer(mqtt_broker, mqtt_port);
+    mqttClient.setCallback(mqttCallbackStatic);
 
-    // std::string clientIdStr = mqtt_client_id;
-    // std::string connectMsg = "MQTT client " + clientIdStr + " connected";
-    // mqttClient.setServer(mqtt_broker, mqtt_port);
-    // mqttClient.setCallback(mqttCallback);
+    if (mqttClient.connect(mqtt_client_id, mqttUN, mqttPW)) {
+        mqttClient.publish("mqttStatus",connectMsg.c_str());
+        // ... and resubscribe
+        mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_selected");
+        mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_usage_committed");
+    }
+}
 
-    // if (mqttClient.connect(mqtt_client_id, mqttUN, mqttPW)) {
-    //     mqttClient.publish("mqttStatus",connectMsg.c_str());
-    //     // ... and resubscribe
-    //     mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_selected");
-    //     mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_usage_committed");
-    // }
+
+boolean Data::mqttReconnect() {
+  if (mqttClient.connect(mqtt_client_id, mqttUN, mqttPW)) {
+    // Once connected, publish an announcement...
+  }
+  return mqttClient.connected();
+}
+
+
+void Data::loop()
+{
+
+    if (!mqttClient.connected()) {
+        Serial.print("MQTT Disconnected");
+        long now = millis();
+    if (now - lastReconnectAttempt > 5000) {
+        lastReconnectAttempt = now;
+        // Attempt to reconnect
+        if (mqttReconnect()) {
+            lastReconnectAttempt = 0;
+        }
+    }
+    } else {
+        // Client connected
+        mqttClient.loop();
+    }
+    // mqttClient.loop();
+    webSocket.loop();
 }
 
 Data::~Data()

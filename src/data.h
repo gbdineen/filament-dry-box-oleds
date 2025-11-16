@@ -48,8 +48,7 @@ private:
     int lastReconnectAttempt = 0;
     bool firstStart = true;
 
-    // void mqttCallback(char* topic, byte* payload, unsigned int length);
-    // boolean mqttReconnect();
+    boolean mqttReconnect();
 };
 
 #endif
