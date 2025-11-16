@@ -1,14 +1,9 @@
-.pio/build/drybox_oleds/src/main.cpp.o: src/main.cpp \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/variants/esp32s3/pins_arduino.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/soc_caps.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/brownout_caps.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/cpu_caps.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/i2c_caps.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/ledc_caps.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/mpu_caps.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/twai_caps.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
+.pio/build/drybox_oleds/src/main.cpp.o: src/main.cpp src/data.h \
+ .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.h \
+ .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.hpp \
+ .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson/Configuration.hpp \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/FreeRTOS.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/esp_additions/freertos/FreeRTOSConfig.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_common/include/esp_compiler.h \
@@ -46,6 +41,13 @@
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/hal/include/hal/cpu_hal.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_common/include/esp_err.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_common/include/esp_compiler.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/soc_caps.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/brownout_caps.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/cpu_caps.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/i2c_caps.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/ledc_caps.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/mpu_caps.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/soc/esp32s3/include/soc/twai_caps.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/hal/include/hal/cpu_types.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/hal/esp32s3/include/hal/cpu_ll.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/xtensa/esp32s3/include/xtensa/config/extreg.h \
@@ -67,15 +69,12 @@
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/xtensa/include/xtensa/xtensa_context.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/port/xtensa/include/freertos/portmacro_deprecated.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/mpu_wrappers.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/semphr.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/queue.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/task.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/list.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/esp_additions/freertos/task_snapshot.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/semphr.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/queue.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/task.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/HTTPClient/src/HTTPClient.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_hw_support/include/esp_sleep.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/hal/include/hal/touch_sensor_types.h \
@@ -94,6 +93,7 @@
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-matrix.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-uart.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-gpio.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/variants/esp32s3/pins_arduino.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-touch.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-dac.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/driver/include/driver/gpio.h \
@@ -180,6 +180,7 @@
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_hw_support/include/soc/esp32/spiram.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/HTTPClient/src/HTTPClient.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiClient.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Client.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src/WiFiClientSecure.h \
@@ -240,20 +241,7 @@
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/mbedtls/port/include/aes/esp_aes.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/hal/include/hal/aes_types.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/mbedtls/mbedtls/include/mbedtls/error.h \
- .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.h \
- .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.hpp \
- .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson/Configuration.hpp \
  .pio/libdeps/drybox_oleds/WebSockets/src/WebSocketsClient.h \
  .pio/libdeps/drybox_oleds/WebSockets/src/WebSockets.h \
  .pio/libdeps/drybox_oleds/WebSockets/src/WebSocketsVersion.h \
- .pio/libdeps/drybox_oleds/PubSubClient/src/PubSubClient.h \
- .pio/libdeps/drybox_oleds/Adafruit\ GFX\ Library/Adafruit_GFX.h \
- .pio/libdeps/drybox_oleds/Adafruit\ GFX\ Library/gfxfont.h \
- .pio/libdeps/drybox_oleds/Adafruit\ BusIO/Adafruit_I2CDevice.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \
- .pio/libdeps/drybox_oleds/Adafruit\ BusIO/Adafruit_SPIDevice.h \
- .pio/libdeps/drybox_oleds/Adafruit\ SSD1306/Adafruit_SSD1306.h \
- .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/U8g2_for_Adafruit_GFX.h \
- .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/u8g2_fonts.h \
- src/op_logo.h src/display_control.h
+ .pio/libdeps/drybox_oleds/PubSubClient/src/PubSubClient.h
