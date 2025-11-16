@@ -16,10 +16,19 @@ public:
     void begin();
     void webSocketEvent(WStype_t type, uint8_t *payload, size_t length);
     void mqttCallback(char *topic, byte *payload, unsigned int length);
+    boolean mqttReconnect();
+    boolean wsConnected();
+
+    
+    WiFiClient wifiClientHttp;
+    HTTPClient http;
+
     Data();
     ~Data();
 
 private:
+    WiFiClient wifiClient;
+
     WebSocketsClient webSocket;
     static void webSocketEventStatic(WStype_t type, uint8_t *payload, size_t length);
     static Data *wsCallbackInstance;
@@ -27,10 +36,6 @@ private:
     PubSubClient mqttClient;
     static void mqttCallbackStatic(char *topic, byte *payload, unsigned int length);
     static Data *mqttCallbackInstance;
-
-    WiFiClient wifiClient;
-    WiFiClient wifiClientHttp;
-    HTTPClient http;
 
     const char *hostIP = "192.168.8.228";
     std::string baseAPI_URL = "http://192.168.8.228:7912/api/v1/";

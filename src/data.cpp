@@ -3,20 +3,24 @@
 Data *Data::wsCallbackInstance = nullptr;
 Data *Data::mqttCallbackInstance = nullptr;
 
+
+
 Data::Data()
 {
     wsCallbackInstance = this;
     mqttCallbackInstance = this;
+    // mqttClient(wifiClient);
 }
 
 
-void Data::mqttCallbackStatic(char *topic, byte *payload, unsigned int length) {
-    if (mqttCallbackInstance){
+void Data::mqttCallbackStatic(char *topic, byte *payload, unsigned int length)
+{
 
-        mqttCallbackInstance->mqttCallback(topic, payload,length);
+    if (mqttCallbackInstance)
+    {
+        mqttCallbackInstance->mqttCallbackStatic(topic, payload, length);
     }
 }
-
 
 void Data::mqttCallback(char *topic, byte *payload, unsigned int length)
 {
@@ -183,8 +187,31 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
     }
 }
 
+boolean Data::wsConnected() {
+    return true;
+
+}
+
+boolean Data::mqttReconnect() {
+  if (mqttClient.connect(mqtt_client_id, mqttUN, mqttPW)) {
+    Serial.println("MQTT connected");
+    // Once connected, publish an announcement...
+
+    std::string clientIdStr = mqtt_client_id;
+    std::string connectMsg = "MQTT client " + clientIdStr + " connected";
+
+    mqttClient.publish("mqttStatus",connectMsg.c_str());
+    // ... and resubscribe
+    mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_selected");
+    mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_usage_committed");
+
+  }
+  return mqttClient.connected();
+}
+
 void Data::begin()
 {
+
 
     WiFi.begin(ssid, password);
         while (WiFi.status() != WL_CONNECTED) {
@@ -197,34 +224,33 @@ void Data::begin()
     webSocket.onEvent(webSocketEventStatic);
     webSocket.setReconnectInterval(5000);
 
+    mqttClient.setClient(wifiClient);
 
-    std::string clientIdStr = mqtt_client_id;
-    std::string connectMsg = "MQTT client " + clientIdStr + " connected";
     mqttClient.setServer(mqtt_broker, mqtt_port);
-    mqttClient.setCallback(mqttCallbackStatic);
+	mqttClient.setCallback(mqttCallbackStatic);
+    // lastReconnectAttempt = 0;
 
-    if (mqttClient.connect(mqtt_client_id, mqttUN, mqttPW)) {
-        mqttClient.publish("mqttStatus",connectMsg.c_str());
-        // ... and resubscribe
-        mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_selected");
-        mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_usage_committed");
-    }
+    
+
+
+    // std::string clientIdStr = mqtt_client_id;
+    // std::string connectMsg = "MQTT client " + clientIdStr + " connected";
+    // mqttClient.setServer(mqtt_broker, mqtt_port);
+    // mqttClient.setCallback(mqttCallbackStatic);
+
+    // if (mqttClient.connect(mqtt_client_id, mqttUN, mqttPW)) {
+    //     mqttClient.publish("mqttStatus",connectMsg.c_str());
+    //     // ... and resubscribe
+    //     mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_selected");
+    //     mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_usage_committed");
+    // }
 }
-
-
-boolean Data::mqttReconnect() {
-  if (mqttClient.connect(mqtt_client_id, mqttUN, mqttPW)) {
-    // Once connected, publish an announcement...
-  }
-  return mqttClient.connected();
-}
-
 
 void Data::loop()
 {
-
+    // Serial.println("looping");
     if (!mqttClient.connected()) {
-        Serial.print("MQTT Disconnected");
+        // Serial.print("MQTT Disconnected");
         long now = millis();
     if (now - lastReconnectAttempt > 5000) {
         lastReconnectAttempt = now;

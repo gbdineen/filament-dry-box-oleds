@@ -1,4 +1,4 @@
-.pio/build/drybox_oleds/src/main.cpp.o: src/main.cpp src/data.h \
+.pio/build/drybox_oleds/src/main.cpp.o: src/main.cpp \
  .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.h \
  .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.hpp \
  .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson/Configuration.hpp \
@@ -180,6 +180,7 @@
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_hw_support/include/soc/esp32/spiram.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
+ src/data.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/HTTPClient/src/HTTPClient.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiClient.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Client.h \
