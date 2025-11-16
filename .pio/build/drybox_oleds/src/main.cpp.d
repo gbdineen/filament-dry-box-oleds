@@ -243,6 +243,10 @@
  .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.h \
  .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.hpp \
  .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson/Configuration.hpp \
+ .pio/libdeps/drybox_oleds/WebSockets/src/WebSocketsClient.h \
+ .pio/libdeps/drybox_oleds/WebSockets/src/WebSockets.h \
+ .pio/libdeps/drybox_oleds/WebSockets/src/WebSocketsVersion.h \
+ .pio/libdeps/drybox_oleds/PubSubClient/src/PubSubClient.h \
  .pio/libdeps/drybox_oleds/Adafruit\ GFX\ Library/Adafruit_GFX.h \
  .pio/libdeps/drybox_oleds/Adafruit\ GFX\ Library/gfxfont.h \
  .pio/libdeps/drybox_oleds/Adafruit\ BusIO/Adafruit_I2CDevice.h \
@@ -252,7 +256,4 @@
  .pio/libdeps/drybox_oleds/Adafruit\ SSD1306/Adafruit_SSD1306.h \
  .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/U8g2_for_Adafruit_GFX.h \
  .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/u8g2_fonts.h \
- .pio/libdeps/drybox_oleds/WebSockets/src/WebSocketsClient.h \
- .pio/libdeps/drybox_oleds/WebSockets/src/WebSockets.h \
- .pio/libdeps/drybox_oleds/WebSockets/src/WebSocketsVersion.h \
- .pio/libdeps/drybox_oleds/PubSubClient/src/PubSubClient.h src/op_logo.h
+ src/op_logo.h src/display_control.h

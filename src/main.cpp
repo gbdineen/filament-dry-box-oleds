@@ -2,33 +2,38 @@
 #include <HTTPClient.h>
 // #include <ArduinoHttpClient.h>
 #include <ArduinoJson.h>
-#include <Adafruit_GFX.h>
-#include <Adafruit_SSD1306.h>
-#include <U8g2_for_Adafruit_GFX.h>
 #include <WebSocketsClient.h>
 #include <PubSubClient.h> // For MQTT
 #include <WiFi.h>
+
+#include <Adafruit_GFX.h>
+#include <Adafruit_SSD1306.h>
+#include <U8g2_for_Adafruit_GFX.h>
+
 #include <iostream>
 #include <string> 
 #include <vector>
+
+// CUSTOM CLASSES AND HEADER
 #include "op_logo.h"
+#include "display_control.h"
 
 // #define USE_SERIAL Serial
 // #define WIFI_un "GL-SFT1200-887"
 // #define WIFI_pw "goodlife"
-#define DEBUG // Uncomment to include verbose serial responses (json, etc)
-#define SCREEN_WIDTH 128 // OLED display width, in pixels
-#define SCREEN_HEIGHT 64 // OLED display height, in pixels
-#define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
-#define SCREEN_ADDRESS_0 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
-#define SCREEN_ADDRESS_1 0x3D 
-#define SCREEN_ADDRESS_2 0x3C
-#define SCREEN_ADDRESS_3 0x3D  
-#define I2C0_SDA 9 // &Wire Bus (default )
-#define I2C0_SCL 8
-#define I2C1_SDA 5  // &I2C_Bus1  
-#define I2C1_SCL 4
-#define WIRE Wire
+// #define DEBUG // Uncomment to include verbose serial responses (json, etc)
+// #define SCREEN_WIDTH 128 // OLED display width, in pixels
+// #define SCREEN_HEIGHT 64 // OLED display height, in pixels
+// #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
+// #define SCREEN_ADDRESS_0 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
+// #define SCREEN_ADDRESS_1 0x3D 
+// #define SCREEN_ADDRESS_2 0x3C
+// #define SCREEN_ADDRESS_3 0x3D  
+// #define I2C0_SDA 9 // &Wire Bus (default )
+// #define I2C0_SCL 8
+// #define I2C1_SDA 5  // &I2C_Bus1  
+// #define I2C1_SCL 4
+// #define WIRE Wire
 // #define LOGO_HEIGHT   16
 // #define LOGO_WIDTH    16
 // #define HOST_IP "192.168.8.228"
@@ -70,39 +75,42 @@ HTTPClient http;
 WebSocketsClient webSocket;
 PubSubClient mqttClient(wifiClient);
 
-// DISPLAY STUFF
-int slots = 4;  // Number of spool slots, also happens to be the number of displays
-std::string screenMode = "overview";
-uint8_t disp_w = 128;
-uint8_t disp_h = 64;
-uint8_t disp_center_x = disp_w/2;
-uint8_t disp_center_y = disp_h/2;
-uint8_t font_height = 10;
-uint8_t padding_screen_top = 10;
-uint8_t padding_screen_left = 10;
-uint8_t padding_font_bottom = 7;
-uint8_t character_height = font_height + padding_font_bottom;
-bool pageDisplays = false; // Rotate through screen views
-void overviewDisplay();
+// DISPLAY STUFF. 
+DisplayControl displayControl;
+// int slots = 4;  // Number of spool slots, also happens to be the number of displays
+// std::string screenMode = "overview";
+// uint8_t disp_w = 128;
+// uint8_t disp_h = 64;
+// uint8_t disp_center_x = disp_w/2;
+// uint8_t disp_center_y = disp_h/2;
+// uint8_t font_height = 10;
+// uint8_t padding_screen_top = 10;
+// uint8_t padding_screen_left = 10;
+// uint8_t padding_font_bottom = 7;
+// uint8_t character_height = font_height + padding_font_bottom;
+// bool pageDisplays = false; // Rotate through screen views
+// void overviewDisplay();
 
 
 // TIMER STUFF
 unsigned long previousMillis = 0;
 
 // Init 4 oled screen objects, one for each slot in the box
-Adafruit_SSD1306 display0(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus1, OLED_RESET);
-Adafruit_SSD1306 display1(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus1, OLED_RESET);
-Adafruit_SSD1306 display2(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus0, OLED_RESET);
-Adafruit_SSD1306 display3(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus0, OLED_RESET);
+// Adafruit_SSD1306 display0(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus1, OLED_RESET);
+// Adafruit_SSD1306 display1(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus1, OLED_RESET);
+// Adafruit_SSD1306 display2(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus0, OLED_RESET);
+// Adafruit_SSD1306 display3(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus0, OLED_RESET);
 // Adafruit_SSD1306 updateDisplay = display0;
-U8G2_FOR_ADAFRUIT_GFX u8g2_for_adafruit_gfx;
+// U8G2_FOR_ADAFRUIT_GFX u8g2_for_adafruit_gfx;
 
 // Array of screens for programatic doing things to each one 
-Adafruit_SSD1306 displayArray[] = {display0, display1, display2, display3};
+// Adafruit_SSD1306 displayArray[] = {display0, display1, display2, display3};
 
 // Four addresses for pointing to each oled individually over I2C
-int addressArray[] = {SCREEN_ADDRESS_1, SCREEN_ADDRESS_0, SCREEN_ADDRESS_1, SCREEN_ADDRESS_0};
+// int addressArray[] = {SCREEN_ADDRESS_1, SCREEN_ADDRESS_0, SCREEN_ADDRESS_1, SCREEN_ADDRESS_0};
 
+
+/* MOVED TO DISPLKAY CONTROL
 void spoolWeightDisplay() {
 
   screenMode = "spool_weight";
@@ -169,7 +177,9 @@ void spoolWeightDisplay() {
     overviewDisplay();
   }
 }
+*/
 
+/* MOVED TO DISPLKAY CONTROL
 void overviewDisplay() {
 
   // std::cout << "Address of spoolsVector: " << &spoolsVector << std::endl;
@@ -249,58 +259,23 @@ void overviewDisplay() {
 
 
 }
+*/
 
-void drawOPLogo() {
-  displayArray[0].clearDisplay();
+/* MOVED TO DISPLKAY CONTROL
+void drawOPLogo(Adafruit_SSD1306 &display) {
+  
+  for (int y=0; y<=LOGO_WIDTH; y+=5){
 
-  // displayArray[0].drawGrayscaleBitmap(
-  //   (disp_w  - LOGO_WIDTH ) / 2,
-  //   (disp_h - LOGO_HEIGHT) / 2,
-  //   op_logo_36_45, 36, 45);
-  // displayArray[0].display();
-  // delay(1000);
+    Serial.println(y);
 
-  displayArray[0].drawBitmap((disp_w  - LOGO_WIDTH ) / 2,(disp_h - LOGO_HEIGHT)/2, op_white_70x70_inv, LOGO_WIDTH, LOGO_HEIGHT, 1);
-  displayArray[0].display();
+    display.clearDisplay();
 
+    display.drawBitmap((disp_w  - y ) / 2,(disp_h - y)/2, op_white_70x70_inv, y, y, 1);
+    display.display();
+    delay(1);
+  }
 }
-
-
-
-void overviewDisplayDEP(int displayId, int spoolId, int remWeight, const char * material, const char * name) {
-
-  screenMode = "overview";
-
-  displayArray[displayId].clearDisplay();
-  u8g2_for_adafruit_gfx.begin(displayArray[displayId]);
-  u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
-  u8g2_for_adafruit_gfx.setFontMode(1);                 // use u8g2 transparent mode (this is default)
-  u8g2_for_adafruit_gfx.setFontDirection(0);
-  u8g2_for_adafruit_gfx.setForegroundColor(WHITE);
-  int16_t disp_center_x = displayArray[displayId].width()/2;
-  int16_t disp_center_y = displayArray[displayId].height()/2;
-
-  int8_t font_height = 10;
-  int8_t padding_screen_top = 10;
-  int8_t padding_screen_left = 10;
-  int8_t padding_font_bottom = 7;
-  int8_t character_height = font_height + padding_font_bottom;
-
-  u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top);
-  u8g2_for_adafruit_gfx.print(name);
-
-  u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + character_height);
-  u8g2_for_adafruit_gfx.print(material);
-
-  u8g2_for_adafruit_gfx.setCursor(padding_screen_left,  padding_screen_top + (character_height*2));
-  u8g2_for_adafruit_gfx.print(F("Rem wt: ")); u8g2_for_adafruit_gfx.print(remWeight);
-
-  u8g2_for_adafruit_gfx.setCursor(padding_screen_left,  padding_screen_top + (character_height*3));
-  u8g2_for_adafruit_gfx.print(F("Spool Id: ")); u8g2_for_adafruit_gfx.print(spoolId);
-
-  displayArray[displayId].display();
-  delay(10);
-}
+*/
 
 void addSpool(int spoolId) {
 
@@ -408,16 +383,6 @@ void getSpools() { // DEPRECATED, use getSpoolOrder instead
 
 }
 
-
-/////////////////////////////////////////////////////////
-//
-//  Query spoolman to get the current order of the spools.
-//  Once the array of ids in order is received, call addSpool 
-//  for each id to build the spoolsVector. 
-//  This is called again any time the locations order is
-//  changed or a spool is removed or replaced
-// 
-////////////////////////////////////////////////////////
 void getSpoolOrder() { 
 
   // Serial.println("getSpoolOrder");
@@ -536,13 +501,15 @@ void getSpoolOrder() {
       }
     #endif
 
-    overviewDisplay();
+    displayControl.overviewDisplay();
 
   http.end();
   // Serial.println("HTTP still connected after end? " + String(http.connected()));
 
 }
 
+
+/* MOVED TO DISPLAY CONTROL
 bool initDisplays() {
 
   for (int i=0; i<slots; i++){  
@@ -551,21 +518,14 @@ bool initDisplays() {
       for(;;); // Don't proceed, loop forever
     } else {
 
-      // Serial.println("Display " + String(i) + "initialized");
-
-      displayArray[i].clearDisplay();
+      drawOPLogo(displayArray[i]);
       
-      for (int y=0; y<20; y+=2){
-
-        displayArray[i].fillCircle(displayArray[i].width() / 2, displayArray[i].height() / 2, y, SSD1306_WHITE);
-        displayArray[i].display(); // Update screen with each newly-drawn circle
-        delay(1);
-      }
     }
   }
   delay(500);
   return true;
 }
+*/
 
 void mqttCallback(char* topic, byte* payload, unsigned int length) {
 
@@ -633,7 +593,7 @@ void mqttCallback(char* topic, byte* payload, unsigned int length) {
   }
 }
 
-
+/* MOVED TO DISPLAY CONTROL
 void updateDisplay(int displayId, int spoolId, int remWeight, const char * material, const char * name) {
 
   screenMode = "overview";
@@ -668,8 +628,9 @@ void updateDisplay(int displayId, int spoolId, int remWeight, const char * mater
   displayArray[displayId].display();
   delay(10);
 }
-
-void updateSpoolsJson (){
+*/
+/* DEPRECATED
+void updateSpoolsJson (){ 
 
   http.useHTTP10(true);
 
@@ -707,6 +668,7 @@ void updateSpoolsJson (){
   delay(100);
 
 }
+*/
 
 void updateSpool(int spoolId, int remWeight) {
 
@@ -802,7 +764,8 @@ void patchSpoolOrder(){
 
 }
 
-void updateSpoolDEP(int spoolId, int remWeight) {
+/* DEPRECATED
+void updateSpoolDEP(int spoolId, int remWeight) {. /// DEPRECATED
 
   for (int i=0; i<4; i++){
   
@@ -863,6 +826,8 @@ void updateSpoolDEP(int spoolId, int remWeight) {
     }  
   }
 }
+*/
+
 
 void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
 
@@ -880,10 +845,7 @@ void webSocketEvent(WStype_t type, uint8_t * payload, size_t length) {
         webSocket.sendTXT("Connected");
 
         initDisplays();
-        // getSpoolOrder();
-
-        drawOPLogo();
-
+        // getSpoolOrder();\
         // patchSpoolOrder();
 
         
@@ -996,8 +958,8 @@ void updateSpoolmanSpoolLocations () {
 void setup() {
   Serial.begin(115200);
 
-  I2C_Bus0.begin(I2C0_SDA, I2C0_SCL, 100000);
-  I2C_Bus1.begin(I2C1_SDA, I2C1_SCL, 100000); 
+  // I2C_Bus0.begin(I2C0_SDA, I2C0_SCL, 100000);
+  // I2C_Bus1.begin(I2C1_SDA, I2C1_SCL, 100000); 
 
   WiFi.begin(ssid, password);
   while (WiFi.status() != WL_CONNECTED) {
