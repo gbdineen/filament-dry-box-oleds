@@ -111,7 +111,8 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
             if (firstStart)
             {
                 firstStart = false;
-                Serial.printf("[WSc] Connected to url: %s\n", payload);
+                // Serial.printf("[WSc] Connected to url: %s\n", payload);
+                wsCallback("[WSc] Connected");
             }
 
             // send message to server when Connected
@@ -187,9 +188,8 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
     }
 }
 
-boolean Data::wsConnected() {
-    return true;
-
+void Data::setWSCallback(std::function<void(const char*)> cb) {
+    this->wsCallback = cb;
 }
 
 boolean Data::mqttReconnect() {
@@ -214,7 +214,7 @@ void Data::begin()
 
 
     WiFi.begin(ssid, password);
-        while (WiFi.status() != WL_CONNECTED) {
+    while (WiFi.status() != WL_CONNECTED) {
         delay(1000);
         Serial.println("Connecting to WiFi...");
     }
@@ -223,27 +223,18 @@ void Data::begin()
     webSocket.begin(hostIP, wsPort, "/api/v1/");
     webSocket.onEvent(webSocketEventStatic);
     webSocket.setReconnectInterval(5000);
+    // while(webSocket.isConnected() != WSC_CONNECTED) {
+    //     delay(1000);
+    //     Serial.println("Connecting to WS...");
+    // }
+
 
     mqttClient.setClient(wifiClient);
-
     mqttClient.setServer(mqtt_broker, mqtt_port);
 	mqttClient.setCallback(mqttCallbackStatic);
     // lastReconnectAttempt = 0;
 
-    
 
-
-    // std::string clientIdStr = mqtt_client_id;
-    // std::string connectMsg = "MQTT client " + clientIdStr + " connected";
-    // mqttClient.setServer(mqtt_broker, mqtt_port);
-    // mqttClient.setCallback(mqttCallbackStatic);
-
-    // if (mqttClient.connect(mqtt_client_id, mqttUN, mqttPW)) {
-    //     mqttClient.publish("mqttStatus",connectMsg.c_str());
-    //     // ... and resubscribe
-    //     mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_selected");
-    //     mqttClient.subscribe("octoPrint/event/plugin_Spoolman_spool_usage_committed");
-    // }
 }
 
 void Data::loop()

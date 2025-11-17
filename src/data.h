@@ -18,8 +18,9 @@ public:
     void mqttCallback(char *topic, byte *payload, unsigned int length);
     boolean mqttReconnect();
     boolean wsConnected();
+    void setWSCallback(std::function<void(const char*)> cb);
 
-    
+    WiFiClient wifiClient;
     WiFiClient wifiClientHttp;
     HTTPClient http;
 
@@ -27,7 +28,8 @@ public:
     ~Data();
 
 private:
-    WiFiClient wifiClient;
+
+    std::function<void(const char*)> wsCallback;
 
     WebSocketsClient webSocket;
     static void webSocketEventStatic(WStype_t type, uint8_t *payload, size_t length);
@@ -53,7 +55,7 @@ private:
     int lastReconnectAttempt = 0;
     bool firstStart = true;
 
-    boolean mqttReconnect();
+    // boolean mqttReconnect();
 };
 
 #endif
