@@ -19,7 +19,7 @@ class Spools
         ~Spools();
         void addSpool(int spoolId);
         std::vector<JsonObject> getSpools();
-        void getSpoolOrder();
+        std::vector<JsonObject> getSpoolOrder();
         void updateSpool(int spoolId, int remWeight);
         void begin();
         
@@ -28,7 +28,9 @@ class Spools
         JsonDocument spoolsJson;
         bool useFilters = true;
         std::vector<JsonDocument> spoolsDocs;   // holds real storage
-        std::vector<JsonObject> spoolsVector;   //
+        std::vector<JsonObject> spoolsVector;  
+
+        int slots = 4;
 
         WiFiClient wifiClientHttp;
         HTTPClient http; 

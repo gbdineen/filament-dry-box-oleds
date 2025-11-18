@@ -3,7 +3,6 @@
 // #include <string>
 // #include <vector>
 
-
 #include "displays.h"
 Displays displays;
 
@@ -16,21 +15,49 @@ Data data;
 // TIMER STUFF
 unsigned long previousMillis = 0;
 
+void getSpools()
+{
+
+	// Serial.println("Receiving spools");
+
+	JsonDocument doc;
+	JsonObject obj;
+
+	std::vector<JsonObject> localSpools = spools.getSpoolOrder();
+
+	for (size_t i = 0; i < localSpools.size(); i++)
+	{
+		Serial.printf("Spool %u:\n", (unsigned)i);
+		serializeJsonPretty(localSpools[i], Serial);
+		Serial.println();
+	}
+
+	// DeserializationError error = deserializeJson(doc, localSpools);
+	// if (error)
+	// {
+	// 	Serial.print(F("deserializeJson() failed: "));
+	// 	Serial.println(error.c_str());
+	// 	return;
+	// }
+
+	// serializeJsonPretty(doc,Serial);
+}
+
 void wsCallback(const char *payload)
 {
 	Serial.println(payload);
 
-	if (payload == "[WSc] Connected") {
+	if (payload == "[WSc] Connected")
+	{
 		// Serial.println("init Displays");
 		displays.begin();
-
 		displays.initDisplays();
 
-		spools.getSpoolOrder();
-		
+		getSpools();
+
+		// spools.getSpoolOrder();
 	}
 }
-
 
 void setup()
 {

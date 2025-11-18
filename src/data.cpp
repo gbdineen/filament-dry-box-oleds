@@ -126,7 +126,7 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
         case WStype_TEXT:
 
-            Serial.println("[WSc] incoming");
+            // Serial.println("[WSc] incoming");
 
             JsonDocument doc;
             JsonDocument filter;
@@ -194,7 +194,7 @@ void Data::setWSCallback(std::function<void(const char*)> cb) {
 
 boolean Data::mqttReconnect() {
   if (mqttClient.connect(mqtt_client_id, mqttUN, mqttPW)) {
-    Serial.println("MQTT connected");
+    // Serial.println("MQTT connected");
     // Once connected, publish an announcement...
 
     std::string clientIdStr = mqtt_client_id;

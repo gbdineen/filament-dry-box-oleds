@@ -1,7 +1,5 @@
 #include "spools.h"
 
-
-
 Spools::Spools() {}
 
 Displays displaySpools;
@@ -21,17 +19,19 @@ void Spools::addSpool(int spoolId)
 	http.GET();
 
 	JsonDocument doc;
+	JsonDocument filter;
 	DeserializationError error;
 
-	if (!useFilters)
-	{
+	// useFilters = false;
 
+	if (!useFilters)// For debugging when you want to see the full json 
+	{
 		error = deserializeJson(doc, http.getStream());
 	}
 	else
 	{
 
-		JsonDocument filter;
+		
 		filter["id"] = true;
 		filter["remaining_weight"] = true;
 		filter["location"] = true;
@@ -47,8 +47,10 @@ void Spools::addSpool(int spoolId)
 		return;
 	}
 
+
+	// serializeJsonPretty(doc, Serial);
 	spoolsDocs.push_back(std::move(doc));
-	serializeJsonPretty(doc,Serial);
+	Serial.print("\n\n");
 
 	http.end();
 	// delay(100);
@@ -60,7 +62,7 @@ std::vector<JsonObject> Spools::getSpools()
 	return spoolsVector;
 }
 
-void Spools::getSpoolOrder()
+std::vector<JsonObject> Spools::getSpoolOrder()
 {
 
 	// Serial.println("getSpoolOrder");
@@ -84,9 +86,10 @@ void Spools::getSpoolOrder()
 	// Serial.println("HTTP connected after GET? " + String(http.connected()));
 
 	JsonDocument doc;
-	JsonDocument filter;
 
-	// filter["value"] = true;
+	JsonDocument filter;
+	filter["value"] = true;
+	// filter["value"]["Drybox"] = true;
 
 	// DeserializationError error =  deserializeJson(doc, http.getStream(),DeserializationOption::Filter(filter));
 	DeserializationError error = deserializeJson(doc, http.getStream());
@@ -94,98 +97,110 @@ void Spools::getSpoolOrder()
 	{
 		Serial.print(F("deserializeJson() failed: "));
 		Serial.println(error.c_str());
-		return;
+		// return;
 	}
 
+	Serial.println("Value");
 	serializeJsonPretty(doc, Serial);
-	Serial.println();
+	Serial.println("\n");
+
 	// Extract the inner JSON string
 	const char *innerJsonStr = doc["value"];
 
 	// Step 2: Parse the inner JSON string
 	JsonDocument innerDoc;
-	// JsonDocument innerFilter;
-
-	// innerFilter["Drybox"];
 
 	error = deserializeJson(innerDoc, innerJsonStr);
 	if (error)
 	{
 		Serial.print(F("Inner JSON parse failed: "));
 		Serial.println(error.f_str());
-		return;
+		// return;
 	}
 
 	// serializeJsonPretty(innerDoc, Serial);
 	// Step 3: Access the "Drybox" array
 	JsonArray drybox = innerDoc["Drybox"];
-	// JsonArray loose = innerDoc["Loose"];
+
+	// Serial.println("Drybox \n");
+	// serializeJsonPretty(drybox, Serial);
+
+	// Serial.println("Drybox:");
+  	// for (int v : drybox) Serial.println(v);	
+
+	// for (int v : innerDoc["Drybox"].as<JsonArray>()) {
+    // 	Serial.println(v);
+	// 	addSpool(v);
+  	// }
 
 	for (int i = 0; i < drybox.size(); i++)
 	{
 		int spoolId = drybox[i];
 
+		// Serial.println("Push spool " + String(spoolId));
 		addSpool(spoolId); // Send to addSpool which builds the vector of ordered spools
-		Serial.println("Push spool " + String(i));
+		
 	}
 
 	// int errorCount = 0;
 
-	// for (int i : drybox) {
-	// for (int i=0; i<slots; i++) {
-
-	// for (int y : loose) {
-
-	//   // std::string dryboxId =  std::to_string(i);
-	//   std::string dryboxId =  drybox[i];
-
-	//   std::string loseId =  std::to_string(y);
-	//   std::string printMsg = "drybox Id: " + dryboxId + " loose Id: " + loseId;
-
-	//   Serial.println(printMsg.c_str());
-
-	//   if (drybox[i] == y){
-	//     errorCount++;
-	//   }
-	//   Serial.println("Error count: " + String(errorCount));
-	//   Serial.println();
-	//   delay(1);
-	// }
-	// if (errorCount == 0)
+	// // for (int i : drybox) {
+	// for (int i = 0; i < slots; i++)
 	// {
-	// int slot = i;
-	// addSpool(i); // Send to addSpool which builds the vector of ordered spools
-	// Serial.println("Push spool " + String(i));
-	//     // Serial.println("Error count next: " + errorCount);
-	//     Serial.println();
-	//   } else {
-	//     errorCount = 0;
-	//   }
+
+	// 	// for (int y : loose)
+	// 	// {
+
+	// 	// 	// std::string dryboxId =  std::to_string(i);
+	// 	// 	std::string dryboxId = drybox[i];
+
+	// 	// 	std::string loseId = std::to_string(y);
+	// 	// 	std::string printMsg = "drybox Id: " + dryboxId + " loose Id: " + loseId;
+
+	// 	// 	Serial.println(printMsg.c_str());
+
+	// 	// 	if (drybox[i] == y)
+	// 	// 	{
+	// 	// 		errorCount++;
+	// 	// 	}
+	// 	// 	Serial.println("Error count: " + String(errorCount));
+	// 	// 	Serial.println();
+	// 	// 	delay(1);
+	// 	// }
+	// 	if (errorCount == 0)
+	// 	{
+	// 		int slot = i;
+	// 		addSpool(i); // Send to addSpool which builds the vector of ordered spools
+	// 		Serial.println("Push spool " + String(i));
+	// 		// Serial.println("Error count next: " + errorCount);
+	// 		Serial.println();
+	// 	}
+	// 	else
+	// 	{
+	// 		errorCount = 0;
+	// 	}
 	// }
 
 	for (auto &d : spoolsDocs)
 	{
 		spoolsVector.push_back(d.as<JsonObject>());
+		
+	}
+
+#ifdef DEBUG
 		// --- Iterate safely ---
 		// for (size_t i = 0; i < spoolsVector.size(); i++) {
 		//   Serial.printf("Spool %u:\n", (unsigned)i);
 		//   serializeJsonPretty(spoolsVector[i], Serial);
 		//   Serial.println();
 		// }
-	}
-
-#ifdef DEBUG
-	for (size_t i = 0; i < spoolsVector.size(); i++)
-	{
-		Serial.printf("Spool %u:\n", (unsigned)i);
-		serializeJsonPretty(spoolsVector[i], Serial);
-		Serial.println();
-	}
-#endif
 
 	// displaySpools.overviewDisplay(spoolsVector);
+#endif
 
 	http.end();
+
+	return spoolsVector;
 	// Serial.println("HTTP still connected after end? " + String(http.connected()));
 }
 
