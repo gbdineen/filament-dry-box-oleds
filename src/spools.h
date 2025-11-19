@@ -10,7 +10,7 @@
 #include <HTTPClient.h>
 #include <WebSocketsClient.h>
 #include <PubSubClient.h> // For MQTT
-#include "displays.h"
+// #include "displays.h"
 
 class Spools 
 {
@@ -19,7 +19,7 @@ class Spools
         ~Spools();
         void addSpool(int spoolId);
         std::vector<JsonObject> getSpools();
-        std::vector<JsonObject> getSpoolOrder();
+        // std::vector<JsonArray> getSpoolOrder();
         void updateSpool(int spoolId, int remWeight);
         void begin();
         
@@ -28,7 +28,7 @@ class Spools
         JsonDocument spoolsJson;
         bool useFilters = true;
         std::vector<JsonDocument> spoolsDocs;   // holds real storage
-        std::vector<JsonObject> spoolsVector;  
+        std::vector<JsonObject> spoolsVector;
 
         int slots = 4;
 

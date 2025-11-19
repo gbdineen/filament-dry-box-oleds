@@ -2,8 +2,6 @@
 
 Spools::Spools() {}
 
-Displays displaySpools;
-
 void Spools::addSpool(int spoolId)
 {
 
@@ -50,19 +48,19 @@ void Spools::addSpool(int spoolId)
 
 	// serializeJsonPretty(doc, Serial);
 	spoolsDocs.push_back(std::move(doc));
-	Serial.print("\n\n");
+	// Serial.print("\n\n");
 
 	http.end();
 	// delay(100);
 }
 
+// std::vector<JsonObject> Spools::getSpools()
+// {
+
+// 	return spoolsVector;
+// }
+
 std::vector<JsonObject> Spools::getSpools()
-{
-
-	return spoolsVector;
-}
-
-std::vector<JsonObject> Spools::getSpoolOrder()
 {
 
 	// Serial.println("getSpoolOrder");
@@ -100,9 +98,9 @@ std::vector<JsonObject> Spools::getSpoolOrder()
 		// return;
 	}
 
-	Serial.println("Value");
-	serializeJsonPretty(doc, Serial);
-	Serial.println("\n");
+	// Serial.println("Value");
+	// serializeJsonPretty(doc, Serial);
+	// Serial.println("\n");
 
 	// Extract the inner JSON string
 	const char *innerJsonStr = doc["value"];
@@ -141,45 +139,6 @@ std::vector<JsonObject> Spools::getSpoolOrder()
 		addSpool(spoolId); // Send to addSpool which builds the vector of ordered spools
 		
 	}
-
-	// int errorCount = 0;
-
-	// // for (int i : drybox) {
-	// for (int i = 0; i < slots; i++)
-	// {
-
-	// 	// for (int y : loose)
-	// 	// {
-
-	// 	// 	// std::string dryboxId =  std::to_string(i);
-	// 	// 	std::string dryboxId = drybox[i];
-
-	// 	// 	std::string loseId = std::to_string(y);
-	// 	// 	std::string printMsg = "drybox Id: " + dryboxId + " loose Id: " + loseId;
-
-	// 	// 	Serial.println(printMsg.c_str());
-
-	// 	// 	if (drybox[i] == y)
-	// 	// 	{
-	// 	// 		errorCount++;
-	// 	// 	}
-	// 	// 	Serial.println("Error count: " + String(errorCount));
-	// 	// 	Serial.println();
-	// 	// 	delay(1);
-	// 	// }
-	// 	if (errorCount == 0)
-	// 	{
-	// 		int slot = i;
-	// 		addSpool(i); // Send to addSpool which builds the vector of ordered spools
-	// 		Serial.println("Push spool " + String(i));
-	// 		// Serial.println("Error count next: " + errorCount);
-	// 		Serial.println();
-	// 	}
-	// 	else
-	// 	{
-	// 		errorCount = 0;
-	// 	}
-	// }
 
 	for (auto &d : spoolsDocs)
 	{

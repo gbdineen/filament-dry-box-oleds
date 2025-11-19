@@ -1,23 +1,35 @@
 #include "displays.h"
 #include "op_logo.h"
 
-Displays::Displays() {}
+Displays::Displays(Spools& spoolsRef)
+    : spoolsRef(spoolsRef),
+	display0(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus1, OLED_RESET),
+	display1(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus1, OLED_RESET),
+	display2(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus0, OLED_RESET),
+	display3(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus0, OLED_RESET)
+{
+}
 
 bool Displays::initDisplays()
 {
 
-	Adafruit_SSD1306 display0(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus1, OLED_RESET);
-	Adafruit_SSD1306 display1(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus1, OLED_RESET);
-	Adafruit_SSD1306 display2(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus0, OLED_RESET);
-	Adafruit_SSD1306 display3(SCREEN_WIDTH, SCREEN_HEIGHT, &I2C_Bus0, OLED_RESET);
+	
 	// Adafruit_SSD1306 updateDisplay = display0;
 	U8G2_FOR_ADAFRUIT_GFX u8g2_for_adafruit_gfx;
 
 	// Array of screens for programatic doing things to each one
-	Adafruit_SSD1306 displayArray[] = {display0, display1, display2, display3};
+	displayArray[0] = display0;
+	displayArray[1] = display1;
+	displayArray[2] = display2;
+	displayArray[3] =  display3;
 
 	// Four addresses for pointing to each oled individually over I2C
-	int addressArray[] = {SCREEN_ADDRESS_1, SCREEN_ADDRESS_0, SCREEN_ADDRESS_1, SCREEN_ADDRESS_0};
+	// addressArray[0] = SCREEN_ADDRESS_1; SCREEN_ADDRESS_0, SCREEN_ADDRESS_1, SCREEN_ADDRESS_0};
+
+	addressArray[0] = SCREEN_ADDRESS_1; 
+	addressArray[1] = SCREEN_ADDRESS_0; 
+	addressArray[2] = SCREEN_ADDRESS_1; 
+	addressArray[3] = SCREEN_ADDRESS_0; 
 
 	for (int i = 0; i < slots; i++)
 	{
@@ -123,100 +135,104 @@ void Displays::spoolWeightDisplay()
   }
 	*/
 
-  void Displays::overviewDisplay(std::vector<JsonObject> &spoolsVector) {
+void Displays::overviewDisplay(std::vector<JsonObject> spoolsVector)
+{
 
 	// std::cout << "Address of spoolsVector: " << &spoolsVector << std::endl;
 
-	JsonDocument obj;
+	// JsonDocument obj;
 
-	DeserializationError error = deserializeJson(obj, spoolsVector);
-	if (error)
+	// DeserializationError error = deserializeJson(obj, spoolsVector);
+	// if (error)
+	// {
+	// 	Serial.print(F("Inner JSON parse failed: "));
+	// 	Serial.println(error.f_str());
+	// 	return;
+	// }
+
+	// serializeJsonPretty(obj, Serial);
+
+	// for (auto &d : spoolsVector)
+	// 	serializeJsonPretty(d, Serial);
+
+	screenMode = "overview";
+
+	int vectorSize = spoolsVector.size();
+
+	for (int i = 0; i < vectorSize; i++)
 	{
-		Serial.print(F("Inner JSON parse failed: "));
-		Serial.println(error.f_str());
-		return;
+		// const char *name = spoolsVector[i]["filament"]["name"];
+		// Serial.println(name);
+
+		int spoolId = spoolsVector[i]["id"];
+		int remWeight = spoolsVector[i]["remaining_weight"];
+		const char *material = spoolsVector[i]["filament"]["material"];
+		const char *name = spoolsVector[i]["filament"]["name"];
+	
+
+		displayArray[i].clearDisplay();
 	}
+	/*
+		u8g2_for_adafruit_gfx.begin(displayArray[i]);
+		u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+		u8g2_for_adafruit_gfx.setFontMode(1);				 // use u8g2 transparent mode (this is default)
+		u8g2_for_adafruit_gfx.setFontDirection(0);
+		// u8g2_for_adafruit_gfx.setForegroundColor(WHITE);
 
-	serializeJsonPretty(obj,Serial);
+		u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + character_height);
+		u8g2_for_adafruit_gfx.print(name);
+		displayArray[i].startscrollright(0x02, 0x03);
+		// delay(2000);
 
+		u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + (character_height * 2));
+		u8g2_for_adafruit_gfx.print(material);
 
+		// u8g2_for_adafruit_gfx.setCursor(padding_screen_left,  padding_screen_top + (character_height*3));
+		// u8g2_for_adafruit_gfx.print(F("Rem wt: ")); u8g2_for_adafruit_gfx.print(remWeight);
 
+		u8g2_for_adafruit_gfx.setCursor(disp_w - 20, padding_screen_top);
+		u8g2_for_adafruit_gfx.print(spoolId);
 
+		displayArray[i].invertDisplay(false);
 
-	// screenMode = "overview";
+		displayArray[i].display();
+		delay(10);
+	}
+		*/
+	/*
+		// if (vectorSize<slots) {
 
+		//   for (size_t i = vectorSize; i < slots; i++) {
+		// 	displayArray[i].clearDisplay();
+		// 	u8g2_for_adafruit_gfx.begin(displayArray[i]);
+		// 	u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+		// 	u8g2_for_adafruit_gfx.setFontMode(1);                 // use u8g2 transparent mode (this is default)
+		// 	u8g2_for_adafruit_gfx.setFontDirection(0);
+		// 	const char *  updateMsg = "NO SPOOL";
 
+		// 	int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(updateMsg);
 
-	// int vectorSize = spoolsVector.size();
+		// 	int16_t x1, y1;
+		// 	uint16_t w, h;
+		// 	displayArray[i].getTextBounds(updateMsg, 0, 0, &x1, &y1, &w, &h);
+		// 	int16_t text_center_x = disp_center_x - (text_width / 2);
+		// 	int16_t text_center_y = disp_center_y + (h/2);
 
+		// 	u8g2_for_adafruit_gfx.setCursor(text_center_x,text_center_y);     // Start at top-left corner
+		// 	// displayArray[i].invertDisplay(true);
+		// 	u8g2_for_adafruit_gfx.print(updateMsg);
 
-	// for (size_t i = 0; i < vectorSize; i++) {
+		// 	// u8g2_for_adafruit_gfx.print(updateMsg);
+		// 	displayArray[i].display();
 
-	//   int spoolId = spoolsVector[i]["id"];
-	//   int remWeight = spoolsVector[i]["remaining_weight"];
-	//   const char * material = spoolsVector[i]["filament"]["material"];
-	//   const char * name = spoolsVector[i]["filament"]["name"];
+		//   }
+		// }
 
-	//   displayArray[i].clearDisplay();
-	//   u8g2_for_adafruit_gfx.begin(displayArray[i]);
-	//   u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
-	//   u8g2_for_adafruit_gfx.setFontMode(1);                 // use u8g2 transparent mode (this is default)
-	//   u8g2_for_adafruit_gfx.setFontDirection(0);
-	//   // u8g2_for_adafruit_gfx.setForegroundColor(WHITE);
-
-	//   u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + character_height);
-	//   u8g2_for_adafruit_gfx.print(name);
-	//   displayArray[i].startscrollright(0x02, 0x03);
-	//   // delay(2000);
-
-	//   u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + (character_height*2));
-	//   u8g2_for_adafruit_gfx.print(material);
-
-	//   // u8g2_for_adafruit_gfx.setCursor(padding_screen_left,  padding_screen_top + (character_height*3));
-	//   // u8g2_for_adafruit_gfx.print(F("Rem wt: ")); u8g2_for_adafruit_gfx.print(remWeight);
-
-	//   u8g2_for_adafruit_gfx.setCursor(disp_w-20,  padding_screen_top);
-	//   u8g2_for_adafruit_gfx.print(spoolId);
-
-	//   displayArray[i].invertDisplay(false);
-
-	//   displayArray[i].display();
-	//   delay(10);
-	// }
-
-	// if (vectorSize<slots) {
-
-	//   for (size_t i = vectorSize; i < slots; i++) {
-	// 	displayArray[i].clearDisplay();
-	// 	u8g2_for_adafruit_gfx.begin(displayArray[i]);
-	// 	u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
-	// 	u8g2_for_adafruit_gfx.setFontMode(1);                 // use u8g2 transparent mode (this is default)
-	// 	u8g2_for_adafruit_gfx.setFontDirection(0);
-	// 	const char *  updateMsg = "NO SPOOL";
-
-	// 	int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(updateMsg);
-
-	// 	int16_t x1, y1;
-	// 	uint16_t w, h;
-	// 	displayArray[i].getTextBounds(updateMsg, 0, 0, &x1, &y1, &w, &h);
-	// 	int16_t text_center_x = disp_center_x - (text_width / 2);
-	// 	int16_t text_center_y = disp_center_y + (h/2);
-
-	// 	u8g2_for_adafruit_gfx.setCursor(text_center_x,text_center_y);     // Start at top-left corner
-	// 	// displayArray[i].invertDisplay(true);
-	// 	u8g2_for_adafruit_gfx.print(updateMsg);
-
-	// 	// u8g2_for_adafruit_gfx.print(updateMsg);
-	// 	displayArray[i].display();
-
-	//   }
-	// }
-
-	// if (pageDisplays) {
-	//   delay(3000);
-	//   spoolWeightDisplay();
-	// }
-
+		// if (pageDisplays) {
+		//   delay(3000);
+		//   spoolWeightDisplay();
+		// }
+		*/
 }
 
 void Displays::updateDisplay(int displayId, int spoolId, int remWeight, const char *material, const char *name)

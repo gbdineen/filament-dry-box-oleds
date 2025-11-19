@@ -1,6 +1,8 @@
 #ifndef DISPLAY_CONTROL_H
 #define DISPLAY_CONTROL_H
 
+#include "spools.h"
+
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
 #include <U8g2_for_Adafruit_GFX.h>
@@ -13,31 +15,17 @@
 
 
 
-// #define SCREEN_WIDTH 128 // OLED display width, in pixels
-// #define SCREEN_HEIGHT 64 // OLED display height, in pixels
-// #define OLED_RESET     -1 // Reset pin # (or -1 if sharing Arduino reset pin)
-// #define SCREEN_ADDRESS_0 0x3C ///< See datasheet for Address; 0x3D for 128x64, 0x3C for 128x32
-// #define SCREEN_ADDRESS_1 0x3D 
-// #define SCREEN_ADDRESS_2 0x3C
-// #define SCREEN_ADDRESS_3 0x3D  
-// #define I2C0_SDA 9 // &Wire Bus (default )
-// #define I2C0_SCL 8
-// #define I2C1_SDA 5  // &I2C_Bus1  
-// #define I2C1_SCL 4
-// #define WIRE Wire
-
-
 class Displays
 {
 
 
     public:
-        Displays();
+        Displays(Spools& spoolsRef);
         ~Displays();  
         bool initDisplays();
         void drawOPLogo(Adafruit_SSD1306 &display);
         void spoolWeightDisplay();
-        void overviewDisplay(std::vector<JsonObject>  &spoolsVector);
+        void overviewDisplay(std::vector<JsonObject>  spoolsVector);
         void updateDisplay(int displayId, int spoolId, int remWeight, const char * material, const char * name);
         void begin();
         void loop();
@@ -45,6 +33,7 @@ class Displays
 
     private:
 
+        Spools& spoolsRef;
 
         int SCREEN_WIDTH = 128;
         int SCREEN_HEIGHT = 64;
@@ -84,11 +73,7 @@ class Displays
         uint8_t padding_font_bottom = 7;
         uint8_t character_height = font_height + padding_font_bottom;
         bool pageDisplays = false; // Rotate through screen views
-
-          
-
-    
-        
+      
 };
 
 

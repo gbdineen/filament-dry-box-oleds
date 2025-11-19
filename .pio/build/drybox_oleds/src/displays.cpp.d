@@ -1,6 +1,8 @@
 .pio/build/drybox_oleds/src/displays.cpp.o: src/displays.cpp \
- src/displays.h \
- .pio/libdeps/drybox_oleds/Adafruit\ GFX\ Library/Adafruit_GFX.h \
+ src/displays.h src/spools.h \
+ .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.h \
+ .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.hpp \
+ .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson/Configuration.hpp \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/FreeRTOS.h \
@@ -179,18 +181,12 @@
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_hw_support/include/soc/esp32/spiram.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Print.h \
- .pio/libdeps/drybox_oleds/Adafruit\ GFX\ Library/gfxfont.h \
- .pio/libdeps/drybox_oleds/Adafruit\ BusIO/Adafruit_I2CDevice.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \
- .pio/libdeps/drybox_oleds/Adafruit\ BusIO/Adafruit_SPIDevice.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
- .pio/libdeps/drybox_oleds/Adafruit\ SSD1306/Adafruit_SSD1306.h \
- .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/U8g2_for_Adafruit_GFX.h \
- .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/u8g2_fonts.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/HTTPClient/src/HTTPClient.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiClient.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Client.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src/WiFiClientSecure.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFi.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Print.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/IPv6Address.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiType.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiSTA.h \
@@ -203,15 +199,11 @@
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiAP.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiScan.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiClient.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Client.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiServer.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Server.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiUdp.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Udp.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/cbuf.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/HTTPClient/src/HTTPClient.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiClient.h \
- /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src/WiFiClientSecure.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/WiFiClientSecure/src/ssl_client.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/mbedtls/mbedtls/include/mbedtls/platform.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/mbedtls/port/include/mbedtls/esp_config.h \
@@ -250,7 +242,19 @@
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/mbedtls/port/include/aes/esp_aes.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/hal/include/hal/aes_types.h \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/mbedtls/mbedtls/include/mbedtls/error.h \
- .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.h \
- .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.hpp \
- .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson/Configuration.hpp \
+ .pio/libdeps/drybox_oleds/WebSockets/src/WebSocketsClient.h \
+ .pio/libdeps/drybox_oleds/WebSockets/src/WebSockets.h \
+ .pio/libdeps/drybox_oleds/WebSockets/src/WebSocketsVersion.h \
+ .pio/libdeps/drybox_oleds/PubSubClient/src/PubSubClient.h \
+ .pio/libdeps/drybox_oleds/Adafruit\ GFX\ Library/Adafruit_GFX.h \
+ .pio/libdeps/drybox_oleds/Adafruit\ GFX\ Library/gfxfont.h \
+ .pio/libdeps/drybox_oleds/Adafruit\ BusIO/Adafruit_I2CDevice.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \
+ .pio/libdeps/drybox_oleds/Adafruit\ BusIO/Adafruit_SPIDevice.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
+ .pio/libdeps/drybox_oleds/Adafruit\ SSD1306/Adafruit_SSD1306.h \
+ .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/U8g2_for_Adafruit_GFX.h \
+ .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/u8g2_fonts.h \
  src/op_logo.h
