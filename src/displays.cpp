@@ -13,6 +13,8 @@ Displays::Displays(Spools& spoolsRef)
 bool Displays::initDisplays()
 {
 
+	I2C_Bus0.begin(I2C0_SDA, I2C0_SCL, 100000);
+	I2C_Bus1.begin(I2C1_SDA, I2C1_SCL, 100000);
 	
 	// Adafruit_SSD1306 updateDisplay = display0;
 	U8G2_FOR_ADAFRUIT_GFX u8g2_for_adafruit_gfx;
@@ -21,11 +23,9 @@ bool Displays::initDisplays()
 	displayArray[0] = display0;
 	displayArray[1] = display1;
 	displayArray[2] = display2;
-	displayArray[3] =  display3;
+	displayArray[3] = display3;
 
 	// Four addresses for pointing to each oled individually over I2C
-	// addressArray[0] = SCREEN_ADDRESS_1; SCREEN_ADDRESS_0, SCREEN_ADDRESS_1, SCREEN_ADDRESS_0};
-
 	addressArray[0] = SCREEN_ADDRESS_1; 
 	addressArray[1] = SCREEN_ADDRESS_0; 
 	addressArray[2] = SCREEN_ADDRESS_1; 
@@ -42,7 +42,6 @@ bool Displays::initDisplays()
 		}
 		else
 		{
-
 			drawOPLogo(displayArray[i]);
 		}
 	}
@@ -53,28 +52,46 @@ bool Displays::initDisplays()
 void Displays::drawOPLogo(Adafruit_SSD1306 &display)
 {
 
-	for (int y = 0; y <= LOGO_WIDTH; y += 5)
+	for (int y = 0; y <= LOGO_WIDTH; y += 10)
 	{
 		// Serial.println(y);
 
 		display.clearDisplay();
 		display.drawBitmap((disp_w - y) / 2, (disp_h - y) / 2, op_white_70x70_inv, y, y, 1);
 		display.display();
-		delay(1);
+		delay(10);
 	}
+	delay(2000);
 }
 
-/*
+void Displays::pageDisplays() 
+{
+
+
+	overviewDisplay();
+	delay(3000);
+
+	spoolWeightDisplay();
+	delay(3000);
+
+	overviewDisplay();
+	delay(3000);
+
+	spoolWeightDisplay();
+	delay(3000);
+
+}
+
 void Displays::spoolWeightDisplay()
 {
 
 
 	screenMode = "spool_weight";
 
-	int vectorSize = spoolsVector.size();
+	std::vector<JsonDocument>& spools = spoolsRef.getSpools();
 
-
-	for (size_t i = 0; i < vectorSize; i++) {
+	for (int i=0; i<spools.size(); i++) 
+	{
 
 	  displayArray[i].clearDisplay();
 
@@ -93,11 +110,12 @@ void Displays::spoolWeightDisplay()
 	  u8g2_for_adafruit_gfx.setFontMode(0);                 // use u8g2 transparent mode (this is default)
 	  u8g2_for_adafruit_gfx.setFontDirection(0);
 	  u8g2_for_adafruit_gfx.setForegroundColor(WHITE);
+	  displayArray[i].stopscroll();
 
 	  displayArray[i].clearDisplay();
 	  displayArray[i].drawRect(meter_x, disp_padding_top, meter_w, meter_h, SSD1306_WHITE);
 
-	  int remWeightInt = spoolsVector[i]["remaining_weight"];
+	  int remWeightInt = spools[i]["remaining_weight"];
 	  std::string remWeightStr = std::to_string(remWeightInt) + "g / 1000g";
 	  const char* remWeightPtr = remWeightStr.c_str();
 	  uint8_t weight_meter = map(remWeightInt, 0, 1000, 0, meter_w);
@@ -128,17 +146,59 @@ void Displays::spoolWeightDisplay()
 	  delay(1);
 
 	}
-	if (pageDisplays) {
-	  delay(3000);
-	  overviewDisplay();
-	}
+	// if (pageDisplays) {
+	//   delay(3000);
+	//   overviewDisplay();
+	// }
   }
-	*/
 
-void Displays::overviewDisplay(std::vector<JsonObject> spoolsVector)
+void Displays::overviewDisplay()
 {
+	
+	std::vector<JsonDocument>& spools = spoolsRef.getSpools();
 
-	// std::cout << "Address of spoolsVector: " << &spoolsVector << std::endl;
+	for (int i=0; i<spools.size(); i++) 
+
+	{
+
+		serializeJsonPretty(spools[i], Serial);
+
+		displayArray[i].clearDisplay();
+
+		int spoolId = spools[i]["id"];
+		int remWeight = spools[i]["remaining_weight"];
+		const char *material = spools[i]["filament"]["material"];
+		const char *name = spools[i]["filament"]["name"];
+
+		u8g2_for_adafruit_gfx.begin(displayArray[i]);
+		u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+		u8g2_for_adafruit_gfx.setFontMode(1);				 // use u8g2 transparent mode (this is default)
+		u8g2_for_adafruit_gfx.setFontDirection(0);
+		// u8g2_for_adafruit_gfx.setForegroundColor(WHITE);
+
+		u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + character_height);
+		u8g2_for_adafruit_gfx.print(name);
+		displayArray[i].startscrollright(0x02, 0x03);
+		// delay(2000);
+
+		u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + (character_height * 2));
+		u8g2_for_adafruit_gfx.print(material);
+
+		// u8g2_for_adafruit_gfx.setCursor(padding_screen_left,  padding_screen_top + (character_height*3));
+		// u8g2_for_adafruit_gfx.print(F("Rem wt: ")); u8g2_for_adafruit_gfx.print(remWeight);
+
+		u8g2_for_adafruit_gfx.setCursor(disp_w - 20, padding_screen_top);
+		u8g2_for_adafruit_gfx.print(spoolId);
+
+		displayArray[i].invertDisplay(false);
+
+		displayArray[i].display();
+		delay(10);
+
+	}
+
+	
+
 
 	// JsonDocument obj;
 
@@ -155,6 +215,7 @@ void Displays::overviewDisplay(std::vector<JsonObject> spoolsVector)
 	// for (auto &d : spoolsVector)
 	// 	serializeJsonPretty(d, Serial);
 
+	/*
 	screenMode = "overview";
 
 	int vectorSize = spoolsVector.size();
@@ -172,6 +233,7 @@ void Displays::overviewDisplay(std::vector<JsonObject> spoolsVector)
 
 		displayArray[i].clearDisplay();
 	}
+		*/
 	/*
 		u8g2_for_adafruit_gfx.begin(displayArray[i]);
 		u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
@@ -233,6 +295,8 @@ void Displays::overviewDisplay(std::vector<JsonObject> spoolsVector)
 		//   spoolWeightDisplay();
 		// }
 		*/
+
+
 }
 
 void Displays::updateDisplay(int displayId, int spoolId, int remWeight, const char *material, const char *name)
@@ -273,14 +337,15 @@ void Displays::updateDisplay(int displayId, int spoolId, int remWeight, const ch
 	delay(10);
 }
 
-void Displays::begin()
-{
-	I2C_Bus0.begin(I2C0_SDA, I2C0_SCL, 100000);
-	I2C_Bus1.begin(I2C1_SDA, I2C1_SCL, 100000);
-}
+// void Displays::begin()
+// {
+// 	I2C_Bus0.begin(I2C0_SDA, I2C0_SCL, 100000);
+// 	I2C_Bus1.begin(I2C1_SDA, I2C1_SCL, 100000);
+// }
 
 void Displays::loop()
 {
+	if 
 }
 
 Displays::~Displays()

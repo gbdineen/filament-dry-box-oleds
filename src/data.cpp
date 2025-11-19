@@ -242,14 +242,7 @@ void Data::loop()
     // Serial.println("looping");
     if (!mqttClient.connected()) {
         // Serial.print("MQTT Disconnected");
-        long now = millis();
-    if (now - lastReconnectAttempt > 5000) {
-        lastReconnectAttempt = now;
-        // Attempt to reconnect
-        if (mqttReconnect()) {
-            lastReconnectAttempt = 0;
-        }
-    }
+    
     } else {
         // Client connected
         mqttClient.loop();

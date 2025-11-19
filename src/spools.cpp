@@ -1,5 +1,7 @@
 #include "spools.h"
 
+
+
 Spools::Spools() {}
 
 void Spools::addSpool(int spoolId)
@@ -54,13 +56,13 @@ void Spools::addSpool(int spoolId)
 	// delay(100);
 }
 
-// std::vector<JsonObject> Spools::getSpools()
-// {
+std::vector<JsonDocument>& Spools::getSpools()
+{
+	return spoolsVector;
 
-// 	return spoolsVector;
-// }
+}
 
-std::vector<JsonObject> Spools::getSpools()
+void Spools::initSpools()
 {
 
 	// Serial.println("getSpoolOrder");
@@ -142,25 +144,37 @@ std::vector<JsonObject> Spools::getSpools()
 
 	for (auto &d : spoolsDocs)
 	{
-		spoolsVector.push_back(d.as<JsonObject>());
+		spoolsVector.push_back(d);
 		
 	}
 
-#ifdef DEBUG
+	if(debug){
 		// --- Iterate safely ---
-		// for (size_t i = 0; i < spoolsVector.size(); i++) {
-		//   Serial.printf("Spool %u:\n", (unsigned)i);
-		//   serializeJsonPretty(spoolsVector[i], Serial);
-		//   Serial.println();
-		// }
-
-	// displaySpools.overviewDisplay(spoolsVector);
-#endif
+		for (size_t i = 0; i < spoolsVector.size(); i++) {
+		  Serial.printf("Spool %u:\n", (unsigned)i);
+		  serializeJsonPretty(spoolsVector[i], Serial);
+		  Serial.println();
+		}
+	}
 
 	http.end();
 
-	return spoolsVector;
+	// return spoolsVector;
 	// Serial.println("HTTP still connected after end? " + String(http.connected()));
+}
+
+/****************************************/
+/*!
+	@brief SpoolId, weight, material, name
+	@param sid	SpoolId
+	@param w 	Spool weight
+	@param m	Spool material
+	@param n 	Spool name
+*/
+/*****************************************/
+void getSpoolInfo(int *sid, int *w, const char* *m, const char* *n) { 
+
+
 }
 
 void Spools::updateSpool(int spoolId, int remWeight)

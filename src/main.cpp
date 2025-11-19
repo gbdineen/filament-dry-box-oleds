@@ -18,24 +18,6 @@ unsigned long previousMillis = 0;
 void getSpools()
 {
 
-	// Serial.println("Receiving spools");
-
-	JsonDocument doc;
-	JsonObject obj;
-
-	// spoolsVector = spools.getSpools();
-
-	// Just for testing 
-	// for (size_t i = 0; i < localSpools.size(); i++)
-	// {
-	// 	// Serial.printf("Spool %u:\n", (unsigned)i);
-	// 	serializeJsonPretty(localSpools[i], Serial);
-	// 	Serial.println();
-	// }
-
-
-
-	// displays.overviewDisplay(std::move(localSpools));
 
 }
 
@@ -46,10 +28,17 @@ void wsCallback(const char *payload)
 	if (payload == "[WSc] Connected")
 	{
 		// Serial.println("init Displays");
-		displays.begin();
+		// displays.begin();
 		displays.initDisplays();
+		spools.initSpools();
 
-		getSpools();
+		displays.pageDisplays();
+
+		// displays.overviewDisplay();
+		// delay(3000);
+		// displays.spoolWeightDisplay();
+
+		// getSpools();
 
 		// spools.getSpoolOrder();
 	}

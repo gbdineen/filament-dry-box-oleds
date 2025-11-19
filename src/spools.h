@@ -1,16 +1,15 @@
 #ifndef SPOOLS_H
 #define SPOOLS_H
 
-
 #include <ArduinoJson.h>
 #include <iostream>
 #include <string> 
 #include <vector>
-// #include <SPI.h>
 #include <HTTPClient.h>
 #include <WebSocketsClient.h>
 #include <PubSubClient.h> // For MQTT
-// #include "displays.h"
+
+#define DEBUG
 
 class Spools 
 {
@@ -18,17 +17,22 @@ class Spools
         Spools();
         ~Spools();
         void addSpool(int spoolId);
-        std::vector<JsonObject> getSpools();
+        void getSpoolInfo(int *sid, int *w, const char* *m, const char* *n);
+        void initSpools();
+        std::vector<JsonDocument>& getSpools();
         // std::vector<JsonArray> getSpoolOrder();
         void updateSpool(int spoolId, int remWeight);
         void begin();
         
     private:
+
+        bool debug = false;
+
         // JSON STUFF
         JsonDocument spoolsJson;
         bool useFilters = true;
         std::vector<JsonDocument> spoolsDocs;   // holds real storage
-        std::vector<JsonObject> spoolsVector;
+        std::vector<JsonDocument> spoolsVector;
 
         int slots = 4;
 

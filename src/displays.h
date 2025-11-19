@@ -13,8 +13,6 @@
 #include <vector>
 #include <ArduinoJson.h>
 
-
-
 class Displays
 {
 
@@ -25,7 +23,8 @@ class Displays
         bool initDisplays();
         void drawOPLogo(Adafruit_SSD1306 &display);
         void spoolWeightDisplay();
-        void overviewDisplay(std::vector<JsonObject>  spoolsVector);
+        void overviewDisplay();
+        void pageDisplays();
         void updateDisplay(int displayId, int spoolId, int remWeight, const char * material, const char * name);
         void begin();
         void loop();
@@ -57,10 +56,8 @@ class Displays
         Adafruit_SSD1306 display3;
         Adafruit_SSD1306 displayArray[4];
         int addressArray[4];
-
-        // std::vector<JsonObject> spoolsVector;   // 
     
-    // DISPLAY STUFF
+        // DISPLAY STUFF
         int slots = 4;  // Number of spool slots, also happens to be the number of displays
         std::string screenMode = "overview";
         uint8_t disp_w = 128;
@@ -72,7 +69,7 @@ class Displays
         uint8_t padding_screen_left = 10;
         uint8_t padding_font_bottom = 7;
         uint8_t character_height = font_height + padding_font_bottom;
-        bool pageDisplays = false; // Rotate through screen views
+        bool displayPaging = false; // Rotate through screen views
       
 };
 
