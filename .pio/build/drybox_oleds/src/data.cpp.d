@@ -1,5 +1,5 @@
 .pio/build/drybox_oleds/src/data.cpp.o: src/data.cpp src/data.h \
- .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.h \
+ src/spools.h .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.h \
  .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson.hpp \
  .pio/libdeps/drybox_oleds/ArduinoJson/src/ArduinoJson/Configuration.hpp \
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
@@ -244,4 +244,15 @@
  .pio/libdeps/drybox_oleds/WebSockets/src/WebSocketsClient.h \
  .pio/libdeps/drybox_oleds/WebSockets/src/WebSockets.h \
  .pio/libdeps/drybox_oleds/WebSockets/src/WebSocketsVersion.h \
- .pio/libdeps/drybox_oleds/PubSubClient/src/PubSubClient.h
+ .pio/libdeps/drybox_oleds/PubSubClient/src/PubSubClient.h src/displays.h \
+ .pio/libdeps/drybox_oleds/Adafruit\ GFX\ Library/Adafruit_GFX.h \
+ .pio/libdeps/drybox_oleds/Adafruit\ GFX\ Library/gfxfont.h \
+ .pio/libdeps/drybox_oleds/Adafruit\ BusIO/Adafruit_I2CDevice.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/Wire/src/Wire.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal.h \
+ .pio/libdeps/drybox_oleds/Adafruit\ BusIO/Adafruit_SPIDevice.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/libraries/SPI/src/SPI.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
+ .pio/libdeps/drybox_oleds/Adafruit\ SSD1306/Adafruit_SSD1306.h \
+ .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/U8g2_for_Adafruit_GFX.h \
+ .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/u8g2_fonts.h

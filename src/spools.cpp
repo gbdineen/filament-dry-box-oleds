@@ -177,69 +177,84 @@ void getSpoolInfo(int *sid, int *w, const char* *m, const char* *n) {
 
 }
 
-void Spools::updateSpool(int spoolId, int remWeight)
+/****************************************/
+/*!
+	@brief SpoolId, weight
+	@param sid	SpoolId
+	@param w 	Spool weight
+	@param m	Spool material
+	@param n 	Spool name
+	@param d 	Id of display to update
+
+*/
+/*****************************************/
+void Spools::updateSpool(int& sid, int& w, const char* &m, const char* &n, int* d)
 {
 
-	// int vectorSize = spoolsVector.size();
+	int vectorSize = spoolsVector.size();
 
-	// for (size_t i = 0; i < vectorSize; i++)
-	// {
+	for (int i = 0; i < vectorSize; i++)
+	{
 
-	// 	if (spoolsVector[i]["id"] == spoolId)
-	// 	{
+		if (spoolsVector[i]["id"] == sid)
+		{
 
-	// 		spoolsVector[i]["remaining_weight"] = remWeight;
-	// 		// serializeJsonPretty(spoolsJson, Serial);
 
-	// 		// updateSpoolsJson();
+			spoolsVector[i]["remaining_weight"] = w;
+			spoolsVector[i]["material"] = m;
+			spoolsVector[i]["name"] = n;
+			*d = i;
+			// // serializeJsonPretty(spoolsJson, Serial);
 
-	// 		const char *material = spoolsVector[i]["filament"]["material"];
-	// 		const char *name = spoolsVector[i]["filament"]["name"];
+			// // updateSpoolsJson();
 
-	// 		displayArray[i].clearDisplay();
-	// 		u8g2_for_adafruit_gfx.begin(displayArray[i]);
-	// 		u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
-	// 		u8g2_for_adafruit_gfx.setFontMode(0);				 // use u8g2 transparent mode (this is default)
-	// 		u8g2_for_adafruit_gfx.setFontDirection(0);
-	// 		// u8g2_for_adafruit_gfx.setForegroundColor(WHITE);
+			// const char *material = spoolsVector[i]["filament"]["material"];
+			// const char *name = spoolsVector[i]["filament"]["name"];
 
-	// 		const char *updateMsg = "UPDATED";
+			// displayArray[i].clearDisplay();
+			// u8g2_for_adafruit_gfx.begin(displayArray[i]);
+			// u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+			// u8g2_for_adafruit_gfx.setFontMode(0);				 // use u8g2 transparent mode (this is default)
+			// u8g2_for_adafruit_gfx.setFontDirection(0);
+			// // u8g2_for_adafruit_gfx.setForegroundColor(WHITE);
 
-	// 		int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(updateMsg);
+			// const char *updateMsg = "UPDATED";
 
-	// 		int16_t x1, y1;
-	// 		uint16_t w, h;
-	// 		displayArray[i].getTextBounds(updateMsg, 0, 0, &x1, &y1, &w, &h);
+			// int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(updateMsg);
 
-	// 		int16_t text_center_x = disp_center_x - (text_width / 2);
-	// 		int16_t text_center_y = disp_center_y + (h / 2);
+			// int16_t x1, y1;
+			// uint16_t w, h;
+			// displayArray[i].getTextBounds(updateMsg, 0, 0, &x1, &y1, &w, &h);
 
-	// 		u8g2_for_adafruit_gfx.setCursor(text_center_x, text_center_y); // Start at top-left corner
-	// 		displayArray[i].invertDisplay(true);
-	// 		u8g2_for_adafruit_gfx.print(updateMsg);
+			// int16_t text_center_x = disp_center_x - (text_width / 2);
+			// int16_t text_center_y = disp_center_y + (h / 2);
 
-	// 		// u8g2_for_adafruit_gfx.print(updateMsg);
-	// 		displayArray[i].display();
+			// u8g2_for_adafruit_gfx.setCursor(text_center_x, text_center_y); // Start at top-left corner
+			// displayArray[i].invertDisplay(true);
+			// u8g2_for_adafruit_gfx.print(updateMsg);
 
-	// 		delay(3000);
+			// // u8g2_for_adafruit_gfx.print(updateMsg);
+			// displayArray[i].display();
 
-	// 		// displayArray[i].clearDisplay();
-	// 		displayArray[i].invertDisplay(false);
+			// delay(3000);
 
-	// 		// screenMode = "overview";
+			// // displayArray[i].clearDisplay();
+			// displayArray[i].invertDisplay(false);
 
-	// 		if (screenMode == "spool_weight")
-	// 		{
+			// // screenMode = "overview";
 
-	// 			spoolWeightDisplay();
-	// 		}
-	// 		else if (screenMode == "overview")
-	// 		{
+			// // if (screenMode == "spool_weight")
+			// // {
 
-	// 			overviewDisplay();
-	// 		}
-	// 	}
-	// }
+			// // 	spoolWeightDisplay();
+			// // }
+			// // else if (screenMode == "overview")
+			// // {
+
+			// // 	overviewDisplay();
+			// // }
+		}
+	}
 	// std::string updateMessage = "Spool " + std::to_string(spoolId) + " updated";
 	// // const char * updateMessagePtr
 	// mqttClient.publish("mqttStatus", updateMessage.c_str());

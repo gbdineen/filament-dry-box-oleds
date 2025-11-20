@@ -1,11 +1,14 @@
 #include "data.h"
 
+
 Data *Data::wsCallbackInstance = nullptr;
 Data *Data::mqttCallbackInstance = nullptr;
 
 
 
-Data::Data()
+Data::Data(Spools &spoolsRef, Displays& displaysRef)
+    : spoolsRef(spoolsRef),
+      displaysRef(displaysRef)
 {
     wsCallbackInstance = this;
     mqttCallbackInstance = this;
@@ -162,23 +165,38 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
                     int spoolId = doc["payload"]["id"];
                     int remWeight = doc["payload"]["remaining_weight"];
+                    const char* name = doc["payload"]["filament"]["name"];
+                    const char* material = doc["payload"]["filament"]["material"];
+                    
+                    displaysRef.stopPageDisplays();
 
-                    // updateSpool(spoolId, remWeight);
-                    // delay(500);
-                    // getSpoolOrder();
+                    int displayId;
+                    spoolsRef.updateSpool(spoolId, remWeight, material, name, &displayId);
+
+                    const char* updateMsg = "UPDATED";
+                    displaysRef.printMessage(displayId, updateMsg, true);
+
+                    displaysRef.startPageDisplays();
+                    
+                    // displaysRef.updateDisplay(spoolId, remWeight, material, name, displayId);
                 }
                 else if (doc["resource"] == "setting")
                 {
 
-                    filter["payload"] = true;
+                    // filter["payload"] = true;
 
-                    error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
-                    if (error)
-                    {
-                        Serial.print(F("deserializeJson() failed: "));
-                        Serial.println(error.c_str());
-                        return;
-                    }
+                    // error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+                    // if (error)
+                    // {
+                    //     Serial.print(F("deserializeJson() failed: "));
+                    //     Serial.println(error.c_str());
+                    //     return;
+                    // }
+                    displaysRef.stopPageDisplays();
+
+                    spoolsRef.initSpools();
+                    
+                    displaysRef.startPageDisplays();
                     // serializeJsonPretty(doc,Serial);
 
                     // getSpoolOrder();
@@ -242,7 +260,14 @@ void Data::loop()
     // Serial.println("looping");
     if (!mqttClient.connected()) {
         // Serial.print("MQTT Disconnected");
-    
+        long now = millis();
+    if (now - lastReconnectAttempt > 5000) {
+        lastReconnectAttempt = now;
+        // Attempt to reconnect
+        if (mqttReconnect()) {
+            lastReconnectAttempt = 0;
+        }
+    }
     } else {
         // Client connected
         mqttClient.loop();

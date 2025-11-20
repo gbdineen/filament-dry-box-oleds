@@ -8,7 +8,7 @@
 #include "data.h"
 Spools spools;
 Displays displays(spools);
-Data data;
+Data data (spools, displays);
 
 // TIMER STUFF
 unsigned long previousMillis = 0;
@@ -32,7 +32,8 @@ void wsCallback(const char *payload)
 		displays.initDisplays();
 		spools.initSpools();
 
-		displays.pageDisplays();
+		// displays.setDisplayPaging(true);
+		displays.startPageDisplays();
 
 		// displays.overviewDisplay();
 		// delay(3000);
@@ -54,4 +55,5 @@ void setup()
 void loop()
 {
 	data.loop();
+	displays.loop();
 }

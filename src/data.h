@@ -1,6 +1,9 @@
 #ifndef DATA_H
 #define DATA_H
 
+#include "spools.h"
+#include "displays.h"
+
 #include <ArduinoJson.h>
 #include <HTTPClient.h>
 #include <WebSocketsClient.h>
@@ -12,6 +15,8 @@
 class Data
 {
 public:
+    Data(Spools& spoolsRef, Displays& displaysRef);
+    ~Data();
     void loop();
     void begin();
     void webSocketEvent(WStype_t type, uint8_t *payload, size_t length);
@@ -19,15 +24,14 @@ public:
     boolean mqttReconnect();
     boolean wsConnected();
     void setWSCallback(std::function<void(const char*)> cb);
-
     WiFiClient wifiClient;
     WiFiClient wifiClientHttp;
     HTTPClient http;
 
-    Data();
-    ~Data();
-
 private:
+
+    Spools& spoolsRef;
+    Displays& displaysRef;
 
     std::function<void(const char*)> wsCallback;
 

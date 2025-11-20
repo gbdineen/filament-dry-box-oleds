@@ -24,8 +24,11 @@ class Displays
         void drawOPLogo(Adafruit_SSD1306 &display);
         void spoolWeightDisplay();
         void overviewDisplay();
-        void pageDisplays();
-        void updateDisplay(int displayId, int spoolId, int remWeight, const char * material, const char * name);
+        void startPageDisplays();
+        void stopPageDisplays();
+        void setDisplayPaging(bool paging);
+        void printPersistantInfo(U8G2_FOR_ADAFRUIT_GFX &gfx, int &sid, const char * &m);
+        void printMessage(int& d, const char*& msg, bool inv);
         void begin();
         void loop();
 
@@ -70,6 +73,8 @@ class Displays
         uint8_t padding_font_bottom = 7;
         uint8_t character_height = font_height + padding_font_bottom;
         bool displayPaging = false; // Rotate through screen views
+        long pageInterval = 3500;
+        long previousMillis = 0;
       
 };
 
