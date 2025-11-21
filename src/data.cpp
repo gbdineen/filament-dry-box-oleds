@@ -142,7 +142,7 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                 return;
             }
 
-            serializeJsonPretty(doc, Serial);
+            // serializeJsonPretty(doc, Serial);
 
             if (doc["type"] == "updated")
             {
@@ -154,7 +154,8 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                     filter["payload"]["filament"]["name"] = true;
                     filter["payload"]["filament"]["material"] = true;
 
-                    error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+                    // error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+                    error = deserializeJson(doc, payload);
                     if (error)
                     {
                         Serial.print(F("deserializeJson() failed: "));
@@ -162,6 +163,8 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                         return;
                     }
                     // serializeJsonPretty(doc,Serial);
+
+                    int numSpools = spoolsRef.getSpoolsCount();
 
                     int spoolId = doc["payload"]["id"];
                     int remWeight = doc["payload"]["remaining_weight"];
@@ -171,12 +174,27 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                     displaysRef.stopPageDisplays();
 
                     int displayId;
-                    spoolsRef.updateSpool(spoolId, remWeight, material, name, &displayId);
 
-                    const char* updateMsg = "UPDATED";
-                    displaysRef.printMessage(displayId, updateMsg, true);
+                    // if (numSpools<4) {
+                    //     // spoolsRef.addSpool(spoolId);
 
-                    displaysRef.startPageDisplays();
+                    //     // const char* updateMsg = "ADDED";
+                    //     // displayId = numSpools++;
+                    //     // displaysRef.printMessage(displayId, updateMsg, true);
+                    //     // spoolsRef.initSpools();
+
+                    //     spoolsRef.getSpool(spoolId);
+
+                    // } else {
+
+                    //     spoolsRef.updateSpool(spoolId, remWeight, material, name, &displayId);
+
+                    //     const char* updateMsg = "UPDATED";
+                    //     displaysRef.printMessage(displayId, updateMsg, true);
+
+                    // }
+
+                    // displaysRef.startPageDisplays();
                     
                     // displaysRef.updateDisplay(spoolId, remWeight, material, name, displayId);
                 }
@@ -192,11 +210,11 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                     //     Serial.println(error.c_str());
                     //     return;
                     // }
-                    displaysRef.stopPageDisplays();
+                    // displaysRef.stopPageDisplays();
 
-                    spoolsRef.initSpools();
+                    // spoolsRef.initSpools();
                     
-                    displaysRef.startPageDisplays();
+                    // displaysRef.startPageDisplays();
                     // serializeJsonPretty(doc,Serial);
 
                     // getSpoolOrder();

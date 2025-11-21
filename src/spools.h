@@ -20,6 +20,8 @@ class Spools
         void getSpoolInfo(int *sid, int *w, const char* *m, const char* *n);
         void initSpools();
         std::vector<JsonDocument>& getSpools();
+        JsonDocument* getSpool(int spoolId);
+        int getSpoolsCount();
         // std::vector<JsonArray> getSpoolOrder();
         void updateSpool(int& sid, int& w, const char* &m, const char* &n, int* d);
         void begin();

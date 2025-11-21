@@ -162,10 +162,7 @@ void Displays::spoolWeightDisplay()
 		displayArray[i].display();
 		delay(1);
 	}
-	// if (pageDisplays) {
-	//   delay(3000);
-	//   overviewDisplay();
-	// }
+	checkEmptySlots();
 }
 
 void Displays::overviewDisplay()
@@ -187,27 +184,23 @@ void Displays::overviewDisplay()
 		const char *name = spools[i]["filament"]["name"];
 
 		u8g2_for_adafruit_gfx.begin(displayArray[i]);
-		u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+		u8g2_for_adafruit_gfx.setFont(u8g2_font_helvB14_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
 		u8g2_for_adafruit_gfx.setFontMode(1);				 // use u8g2 transparent mode (this is default)
 		u8g2_for_adafruit_gfx.setFontDirection(0);
-		// u8g2_for_adafruit_gfx.setForegroundColor(WHITE);
 
-		u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + character_height);
+		int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(name);
+		int16_t x1, y1;
+		uint16_t w, h;
+		displayArray[i].getTextBounds(name, 0, 0, &x1, &y1, &w, &h);
+		int16_t text_center_x = disp_center_x - (text_width / 2);
+		int16_t text_center_y = disp_center_y + (h/2);
+
+		u8g2_for_adafruit_gfx.setCursor(text_center_x,text_center_y+padding_screen_top);
 		u8g2_for_adafruit_gfx.print(name);
-		displayArray[i].startscrollright(0x02, 0x03);
-		// delay(2000);
-
-		// u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + (character_height * 2));
-		// u8g2_for_adafruit_gfx.print(material);
-
-		// u8g2_for_adafruit_gfx.setCursor(padding_screen_left,  padding_screen_top + (character_height*3));
-		// u8g2_for_adafruit_gfx.print(F("Rem wt: ")); u8g2_for_adafruit_gfx.print(remWeight);
-
-		// u8g2_for_adafruit_gfx.setCursor(disp_w - 20, padding_screen_top);
-		// u8g2_for_adafruit_gfx.print(spoolId);
-
-		// u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top);
-		// u8g2_for_adafruit_gfx.print(material);
+		
+		if(text_width >= disp_w) {
+			displayArray[i].startscrollright(0x04, 0x06);
+		}
 
 		printPersistantInfo(u8g2_for_adafruit_gfx, spoolId,material);
 
@@ -215,42 +208,9 @@ void Displays::overviewDisplay()
 
 		displayArray[i].display();
 		delay(10);
+
 	}
-
-	/*
-		// if (vectorSize<slots) {
-
-		//   for (size_t i = vectorSize; i < slots; i++) {
-		// 	displayArray[i].clearDisplay();
-		// 	u8g2_for_adafruit_gfx.begin(displayArray[i]);
-		// 	u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
-		// 	u8g2_for_adafruit_gfx.setFontMode(1);                 // use u8g2 transparent mode (this is default)
-		// 	u8g2_for_adafruit_gfx.setFontDirection(0);
-		// 	const char *  updateMsg = "NO SPOOL";
-
-		// 	int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(updateMsg);
-
-		// 	int16_t x1, y1;
-		// 	uint16_t w, h;
-		// 	displayArray[i].getTextBounds(updateMsg, 0, 0, &x1, &y1, &w, &h);
-		// 	int16_t text_center_x = disp_center_x - (text_width / 2);
-		// 	int16_t text_center_y = disp_center_y + (h/2);
-
-		// 	u8g2_for_adafruit_gfx.setCursor(text_center_x,text_center_y);     // Start at top-left corner
-		// 	// displayArray[i].invertDisplay(true);
-		// 	u8g2_for_adafruit_gfx.print(updateMsg);
-
-		// 	// u8g2_for_adafruit_gfx.print(updateMsg);
-		// 	displayArray[i].display();
-
-		//   }
-		// }
-
-		// if (pageDisplays) {
-		//   delay(3000);
-		//   spoolWeightDisplay();
-		// }
-		*/
+	checkEmptySlots();
 }
 
 /****************************************/
@@ -289,49 +249,43 @@ void Displays::printMessage(int& d, const char*& msg, bool inv)
 		displayArray[d].invertDisplay(false);
 	}
 
-	// displayArray[d].display();
-
-	// delay(3000);
-
-	// displayArray[d].clearDisplay();
-	// u8g2_for_adafruit_gfx.begin(displayArray[d]);
-	// u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
-	// u8g2_for_adafruit_gfx.setFontMode(1);				 // use u8g2 transparent mode (this is default)
-	// u8g2_for_adafruit_gfx.setFontDirection(0);
-	// u8g2_for_adafruit_gfx.setForegroundColor(WHITE);
-	// int16_t disp_center_x = displayArray[d].width() / 2;
-	// int16_t disp_center_y = displayArray[d].height() / 2;
-
-	// int8_t font_height = 10;
-	// int8_t padding_screen_top = 10;
-	// int8_t padding_screen_left = 10;
-	// int8_t padding_font_bottom = 7;
-	// int8_t character_height = font_height + padding_font_bottom;
-
-	// u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top);
-	// u8g2_for_adafruit_gfx.print(n);
-
-	// u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + character_height);
-	// u8g2_for_adafruit_gfx.print(m);
-
-	// u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + (character_height * 2));
-	// u8g2_for_adafruit_gfx.print(F("Rem wt: "));
-	// u8g2_for_adafruit_gfx.print(w);
-
-	// u8g2_for_adafruit_gfx.setCursor(padding_screen_left, padding_screen_top + (character_height * 3));
-	// u8g2_for_adafruit_gfx.print(F("Spool Id: "));
-	// u8g2_for_adafruit_gfx.print(sid);
-
 	displayArray[d].display();
 	delay(10);
 }
 
-// void Displays::begin()
-// {
-// 	I2C_Bus0.begin(I2C0_SDA, I2C0_SCL, 100000);
-// 	I2C_Bus1.begin(I2C1_SDA, I2C1_SCL, 100000);
-// }
+void Displays::checkEmptySlots(){
 
+	int numSpools = spoolsRef.getSpoolsCount();
+
+	if (numSpools<slots) {
+
+		  for (int i=numSpools; i < slots; i++) {
+			displayArray[i].clearDisplay();
+			u8g2_for_adafruit_gfx.begin(displayArray[i]);
+			u8g2_for_adafruit_gfx.setFont(u8g2_font_crox2hb_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+			u8g2_for_adafruit_gfx.setFontMode(1);                 // use u8g2 transparent mode (this is default)
+			u8g2_for_adafruit_gfx.setFontDirection(0);
+			const char *  updateMsg = "NO SPOOL";
+
+			int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(updateMsg);
+
+			int16_t x1, y1;
+			uint16_t w, h;
+			displayArray[i].getTextBounds(updateMsg, 0, 0, &x1, &y1, &w, &h);
+			int16_t text_center_x = disp_center_x - (text_width / 2);
+			int16_t text_center_y = disp_center_y + (h/2);
+
+			u8g2_for_adafruit_gfx.setCursor(text_center_x,text_center_y);     // Start at top-left corner
+			// displayArray[i].invertDisplay(true);
+			u8g2_for_adafruit_gfx.print(updateMsg);
+
+			// u8g2_for_adafruit_gfx.print(updateMsg);
+			displayArray[i].display();
+
+		  }
+		}
+
+}
 void Displays::loop()
 {
 	if (displayPaging)
