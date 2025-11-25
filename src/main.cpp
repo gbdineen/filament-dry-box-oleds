@@ -30,6 +30,9 @@ void wsCallback(const char *payload)
 		// Serial.println("init Displays");
 		// displays.begin();
 		displays.initDisplays();
+		// spools.initSpools();
+
+		
 		spools.initSpools();
 
 		// displays.setDisplayPaging(true);

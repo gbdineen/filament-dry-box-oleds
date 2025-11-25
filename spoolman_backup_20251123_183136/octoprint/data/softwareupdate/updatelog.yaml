@@ -1,0 +1,184 @@
+- current_version: 1.8.6
+  datetime: '2025-07-26 11:44:19'
+  display_name: OctoPrint
+  release_notes: https://github.com/OctoPrint/OctoPrint/releases/tag/1.11.2
+  success: false
+  target: octoprint
+  target_version: 1.11.2
+  text: Update failed
+- current_version: 2.3.0
+  datetime: '2025-07-26 11:45:57'
+  display_name: Print Time Genius Plugin
+  release_notes: https://github.com/eyal0/OctoPrint-PrintTimeGenius/releases/tag/2.4.0
+  success: true
+  target: PrintTimeGenius
+  target_version: 2.4.0
+  text: Update successful
+- current_version: 1.7.0
+  datetime: '2025-07-26 11:46:09'
+  display_name: SpoolManager Plugin
+  release_notes: https://github.com/WildRikku/OctoPrint-SpoolManager/releases/tag/1.7.7
+  success: true
+  target: SpoolManager
+  target_version: 1.7.7
+  text: Update successful
+- current_version: 1.1.1
+  datetime: '2025-07-26 11:46:24'
+  display_name: Bed Visualizer
+  release_notes: https://github.com/jneilliii/OctoPrint-BedLevelVisualizer/releases/tag/1.1.2
+  success: true
+  target: bedlevelvisualizer
+  target_version: 1.1.2
+  text: Update successful
+- current_version: 2021.2.23
+  datetime: '2025-07-26 11:46:58'
+  display_name: File Check Plugin
+  release_notes: https://github.com/OctoPrint/OctoPrint-FileCheck/releases/tag/2025.7.23
+  success: true
+  target: file_check
+  target_version: 2025.7.23
+  text: Update successful
+- current_version: 2021.10.11
+  datetime: '2025-07-26 11:47:26'
+  display_name: Firmware Check Plugin
+  release_notes: https://github.com/OctoPrint/OctoPrint-FirmwareCheck/releases/tag/2025.7.23
+  success: true
+  target: firmware_check
+  target_version: 2025.7.23
+  text: Update successful
+- current_version: 1.13.3
+  datetime: '2025-07-26 11:47:43'
+  display_name: Firmware Updater
+  release_notes: https://github.com/OctoPrint/OctoPrint-FirmwareUpdater/releases/tag/1.14.1
+  success: true
+  target: firmwareupdater
+  target_version: 1.14.1
+  text: Update successful
+- current_version: 2022.6.13
+  datetime: '2025-07-26 11:48:29'
+  display_name: Pi Support Plugin
+  release_notes: https://github.com/OctoPrint/OctoPrint-PiSupport/releases/tag/2025.7.23
+  success: true
+  target: pi_support
+  target_version: 2025.7.23
+  text: Update successful
+- current_version: 1.0.1
+  datetime: '2025-07-26 11:48:51'
+  display_name: Slicer Thumbnails
+  release_notes: https://github.com/jneilliii/OctoPrint-PrusaSlicerThumbnails/releases/tag/1.0.8
+  success: true
+  target: prusaslicerthumbnails
+  target_version: 1.0.8
+  text: Update successful
+- current_version: 1.8.6
+  datetime: '2025-07-26 11:56:12'
+  display_name: OctoPrint
+  release_notes: https://github.com/OctoPrint/OctoPrint/releases/tag/1.11.2
+  success: true
+  target: octoprint
+  target_version: 1.11.2
+  text: Update successful
+- current_version: 2.3.0
+  datetime: '2025-07-26 11:56:43'
+  display_name: Print Time Genius Plugin
+  release_notes: https://github.com/eyal0/OctoPrint-PrintTimeGenius/releases/tag/2.4.0
+  success: true
+  target: PrintTimeGenius
+  target_version: 2.4.0
+  text: Update successful
+- current_version: 1.7.0
+  datetime: '2025-07-26 11:57:01'
+  display_name: SpoolManager Plugin
+  release_notes: https://github.com/WildRikku/OctoPrint-SpoolManager/releases/tag/1.7.7
+  success: true
+  target: SpoolManager
+  target_version: 1.7.7
+  text: Update successful
+- current_version: 1.1.1
+  datetime: '2025-07-26 11:57:26'
+  display_name: Bed Visualizer
+  release_notes: https://github.com/jneilliii/OctoPrint-BedLevelVisualizer/releases/tag/1.1.2
+  success: true
+  target: bedlevelvisualizer
+  target_version: 1.1.2
+  text: Update successful
+- current_version: 2021.2.23
+  datetime: '2025-07-26 11:58:04'
+  display_name: File Check Plugin
+  release_notes: https://github.com/OctoPrint/OctoPrint-FileCheck/releases/tag/2025.7.23
+  success: true
+  target: file_check
+  target_version: 2025.7.23
+  text: Update successful
+- current_version: 2021.10.11
+  datetime: '2025-07-26 11:58:39'
+  display_name: Firmware Check Plugin
+  release_notes: https://github.com/OctoPrint/OctoPrint-FirmwareCheck/releases/tag/2025.7.23
+  success: true
+  target: firmware_check
+  target_version: 2025.7.23
+  text: Update successful
+- current_version: 1.13.3
+  datetime: '2025-07-26 11:58:58'
+  display_name: Firmware Updater
+  release_notes: https://github.com/OctoPrint/OctoPrint-FirmwareUpdater/releases/tag/1.14.1
+  success: true
+  target: firmwareupdater
+  target_version: 1.14.1
+  text: Update successful
+- current_version: 2022.6.13
+  datetime: '2025-07-26 11:59:46'
+  display_name: Pi Support Plugin
+  release_notes: https://github.com/OctoPrint/OctoPrint-PiSupport/releases/tag/2025.7.23
+  success: true
+  target: pi_support
+  target_version: 2025.7.23
+  text: Update successful
+- current_version: 1.0.1
+  datetime: '2025-07-26 12:00:04'
+  display_name: Slicer Thumbnails
+  release_notes: https://github.com/jneilliii/OctoPrint-PrusaSlicerThumbnails/releases/tag/1.0.8
+  success: true
+  target: prusaslicerthumbnails
+  target_version: 1.0.8
+  text: Update successful
+- current_version: 1.7.7
+  datetime: '2025-07-26 12:07:42'
+  display_name: SpoolManager Plugin
+  release_notes: https://github.com/WildRikku/OctoPrint-SpoolManager/releases/tag/1.8.0a2
+  success: true
+  target: SpoolManager
+  target_version: 1.8.0a2
+  text: Update successful
+- current_version: 1.8.0a2
+  datetime: '2025-07-26 12:28:26'
+  display_name: SpoolManager Plugin
+  release_notes: https://github.com/WildRikku/OctoPrint-SpoolManager/releases/tag/1.7.7
+  success: true
+  target: SpoolManager
+  target_version: 1.7.7
+  text: Update successful
+- current_version: 1.7.7
+  datetime: '2025-07-27 16:42:15'
+  display_name: SpoolManager Plugin
+  release_notes: https://github.com/WildRikku/OctoPrint-SpoolManager/releases/tag/1.8.0a2
+  success: true
+  target: SpoolManager
+  target_version: 1.8.0a2
+  text: Update successful
+- current_version: 1.8.0a2
+  datetime: '2025-08-01 15:02:48'
+  display_name: SpoolManager Plugin
+  release_notes: https://github.com/WildRikku/OctoPrint-SpoolManager/releases/tag/1.7.7
+  success: true
+  target: SpoolManager
+  target_version: 1.7.7
+  text: Update successful
+- current_version: 1.7.7
+  datetime: '2025-08-01 15:21:39'
+  display_name: SpoolManager Plugin
+  release_notes: https://github.com/WildRikku/OctoPrint-SpoolManager/releases/tag/1.8.0a2
+  success: true
+  target: SpoolManager
+  target_version: 1.8.0a2
+  text: Update successful

@@ -1,0 +1,12 @@
+gbdineen:
+  active: true
+  apikey: null
+  groups:
+  - users
+  - admins
+  password: be885b7dd4d2f00ad670ad7ff9074de560c9b585dd671d23f4deeb300779f8d006cd7b0213bdc09bf182ca357e41cc72b881ca614ce81a3075ef7a784b1e61b8
+  permissions: []
+  roles:
+  - user
+  - admin
+  settings: {}

@@ -1,0 +1,9 @@
+gbdineen:
+- api_key: 6898EC7C124245A6A2A5A2EDE4D61702
+  app_id: Home Assistant
+- api_key: E85804494BD14440AA938FDBD65A28C3
+  app_id: Cura 5.3
+- api_key: 7rfJhef7d9yRCUhMQfep9-X_qVXVO0xAxcZafAv8XVk
+  app_id: Cura
+- api_key: 7vTO1eb-XIB1v8wlEDu2nXQfYEBbop0qLbqZvkhMXaQ
+  app_id: MQTT Subscribe

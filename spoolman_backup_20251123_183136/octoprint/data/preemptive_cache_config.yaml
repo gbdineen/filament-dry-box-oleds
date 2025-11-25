@@ -1,0 +1,6 @@
+/:
+- _count: 38
+  _timestamp: 1763311209.5514529
+  base_url: http://127.0.0.1:5010/
+  path: /
+  query_string: l10n=en

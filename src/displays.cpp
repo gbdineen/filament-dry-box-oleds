@@ -170,6 +170,8 @@ void Displays::overviewDisplay()
 
 	std::vector<JsonDocument> &spools = spoolsRef.getSpools();
 
+	// std::cout << "Displays Address of spoolsVector: " << &spools << std::endl;
+
 	for (int i = 0; i < spools.size(); i++)
 
 	{
@@ -240,14 +242,14 @@ void Displays::printMessage(int& d, const char*& msg, bool inv)
 	u8g2_for_adafruit_gfx.print(msg);
 
 	if (inv) {
-		displayArray[d].invertDisplay(true);		
-	}
-	displayArray[d].display();
-	delay(3000);
-
-	if (inv) {
+		displayArray[d].invertDisplay(true);	
+		displayArray[d].display();
+		delay(3000);
+		displayArray[d].invertDisplay(false);	
+	} else if (!inv) {
 		displayArray[d].invertDisplay(false);
 	}
+
 
 	displayArray[d].display();
 	delay(10);

@@ -1,0 +1,257 @@
+2025-11-18 02:19:54,949 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 02:19:54,952 - octoprint.server - INFO - --- Log roll over detected ---------------------------------------------------
+2025-11-18 02:19:54,952 - octoprint.server - INFO - OctoPrint 1.11.3
+2025-11-18 02:19:54,953 - octoprint.plugin.core - INFO - 47 plugin(s) registered with the system (22 bundled & 25 third party):
+| Bundled Plugins (22)
+|   Achievements Plugin (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/achievements
+|   Action Command Notification Support (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/action_command_notification
+|   Action Command Prompt Support (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/action_command_prompt
+|   Announcement Plugin (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/announcements
+|   Anonymous Usage Tracking (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/tracking
+|   Application Keys Plugin (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/appkeys
+|   Backup & Restore (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/backup
+|   Classic Webcam (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/classicwebcam
+|   Core Wizard (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/corewizard
+|   Custom Control Manager (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/customcontrolmanager
+|   Discovery (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/discovery
+|   Error Tracking (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/errortracking
+|   Event Manager (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/eventmanager
+|   File Check (2025.7.23) (bundled) = /usr/local/lib/python3.10/site-packages/octoprint_file_check
+|   Firmware Check (2025.7.23) (bundled) = /usr/local/lib/python3.10/site-packages/octoprint_firmware_check
+|   GCode Viewer (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/gcodeviewer
+|   Healthcheck Plugin (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/health_check
+|   Logging (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/logging
+|   Plugin Manager (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/pluginmanager
+|   Software Update (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/softwareupdate
+|   Upload Manager (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/uploadmanager
+|   Virtual Printer (bundled) = /usr/local/lib/python3.10/site-packages/octoprint/plugins/virtual_printer
+| Third Party Plugins (25)
+|   AutoBim (0.4.2) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_autobim
+|   Bed Leveling Wizard (0.2.5) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_bedlevelingwizard
+|   Bed Visualizer (1.1.2) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_bedlevelvisualizer
+|   BLTouch Plugin (0.3.4) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_BLTouch
+|   Consolidate Temp Control (0.1.10) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_consolidate_temp_control
+|   Cost Estimation (3.6.0) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_costestimation
+|   Cura Thumbnails (1.1.0) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_ultimakerformatpackage
+|   DisplayLayerProgress Plugin (1.28.0) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_DisplayLayerProgress
+|   Fan Speed Control (0.2.3) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_fanspeedslider
+|   Firmware Updater (1.14.1) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_firmwareupdater
+|   HomeAssistant Discovery (3.7.0) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_homeassistant
+|   M73 Progress Plugin (0.2.1) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_m73progress
+|   MQTT (0.8.16) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_mqtt
+|   MQTT Publish (0.8.2) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_mqttpublish
+|   MQTT Subscribe (0.1.8) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_mqttsubscribe
+|   Preheat Button (0.8.0) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_preheat
+|   PrettyGCode (1.2.4) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_prettygcode
+|   PrintJobHistory (1.17.3) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_PrintJobHistory
+|   PrintTimeGenius Plugin (2.4.0) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_PrintTimeGenius
+|   Simple Filament Change Buttons (1.2) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_simple_filament_change_buttons
+|   Slicer Thumbnails (1.2.0) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_prusaslicerthumbnails
+|   Spoolman (1.4.0) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_Spoolman
+|   TouchUI (0.3.18) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_touchui
+|   UI Customizer (0.1.9.91) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_uicustomizer
+|   WLED Connection (0.2.1) = /octoprint/plugins/lib/python3.10/site-packages/octoprint_wled
+Prefix legend: ! = disabled, # = blacklisted, * = incompatible
+2025-11-18 02:19:54,954 - octoprint.environment - INFO - Detected environment is Python 3.10.18 under Linux (Linux-6.6.22-linuxkit-x86_64-with-glibc2.31). Details:
+|  hardware:
+|    cores: 12
+|    freq: 0.0
+|    ram: 8220164096
+|  os:
+|    bits: 64
+|    id: linux
+|    platform: Linux-6.6.22-linuxkit-x86_64-with-glibc2.31
+|  python:
+|    pip: 23.0.1
+|    version: 3.10.18
+2025-11-18 02:19:54,954 - octoprint.server - INFO - ------------------------------------------------------------------------------
+2025-11-18 02:20:04,017 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 413109, 'printer_state': 'OPERATIONAL'}
+2025-11-18 02:34:54,966 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 02:35:03,522 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 414009, 'printer_state': 'OPERATIONAL'}
+2025-11-18 02:49:54,973 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 02:50:03,528 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 414909, 'printer_state': 'OPERATIONAL'}
+2025-11-18 03:04:54,989 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 03:05:03,559 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 415809, 'printer_state': 'OPERATIONAL'}
+2025-11-18 03:19:54,998 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 03:20:03,564 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 416709, 'printer_state': 'OPERATIONAL'}
+2025-11-18 03:34:54,980 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 03:35:03,535 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 417609, 'printer_state': 'OPERATIONAL'}
+2025-11-18 03:49:54,909 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 03:50:03,519 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 418509, 'printer_state': 'OPERATIONAL'}
+2025-11-18 04:04:54,903 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 04:05:03,464 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 419409, 'printer_state': 'OPERATIONAL'}
+2025-11-18 04:19:54,913 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 04:20:03,483 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 420309, 'printer_state': 'OPERATIONAL'}
+2025-11-18 04:34:54,914 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 04:35:03,478 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 421209, 'printer_state': 'OPERATIONAL'}
+2025-11-18 04:49:54,928 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 04:50:03,501 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 422109, 'printer_state': 'OPERATIONAL'}
+2025-11-18 05:04:54,935 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 05:05:03,508 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 423009, 'printer_state': 'OPERATIONAL'}
+2025-11-18 05:19:54,947 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 05:20:03,504 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 423909, 'printer_state': 'OPERATIONAL'}
+2025-11-18 05:34:54,957 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 05:35:03,516 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 424809, 'printer_state': 'OPERATIONAL'}
+2025-11-18 05:49:54,970 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 05:50:04,546 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 425709, 'printer_state': 'OPERATIONAL'}
+2025-11-18 06:04:54,954 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 06:05:03,516 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 426609, 'printer_state': 'OPERATIONAL'}
+2025-11-18 06:19:54,963 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 06:20:03,541 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 427509, 'printer_state': 'OPERATIONAL'}
+2025-11-18 06:34:54,940 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 06:35:03,573 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 428409, 'printer_state': 'OPERATIONAL'}
+2025-11-18 06:49:54,949 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 06:50:03,505 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 429309, 'printer_state': 'OPERATIONAL'}
+2025-11-18 07:04:54,958 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 07:05:03,534 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 430209, 'printer_state': 'OPERATIONAL'}
+2025-11-18 07:19:54,979 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 07:20:03,570 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 431109, 'printer_state': 'OPERATIONAL'}
+2025-11-18 07:34:54,992 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 07:35:02,220 - octoprint.plugins.tracking - INFO - Sent tracking event pong, payload: {'version': '1.11.3', 'os': 'linux', 'platform': 'Linux-6.6.22-linuxkit-x86_64-with-glibc2.31', 'bits': 64, 'python': '3.10.18', 'pip': '23.0.1', 'cores': 12, 'freq': 0.0, 'ram': 8220164096, 'plugins': 'mqttpublish:0.8.2,m73progress:0.2.1,autobim:0.4.2,homeassistant:3.7.0,costestimation:3.6.0,bedlevelvisualizer:1.1.2,uicustomizer:0.1.9.91,mqtt:0.8.16,preheat:0.8.0,printjobhistory:1.17.3,touchui:0.3.18,simple_filament_change_buttons:1.2,fanspeedslider:0.2.3,printtimegenius:2.4.0,firmwareupdater:1.14.1,bedlevelingwizard:0.2.5,wled:0.2.1,consolidate_temp_control:0.1.10,mqttsubscribe:0.1.8,ultimakerformatpackage:1.1.0,displaylayerprogress:1.28.0,prettygcode:1.2.4,spoolman:1.4.0,bltouch:0.3.4,prusaslicerthumbnails:1.2.0', 'achievements': 'the_wizard,adventurer,one_small_step_for_man,all_beginnings_are_hard,tinkerer,tgif,one_of_those_days,the_manufacturer_i,weekend_warrior,sprint,the_collector_i,the_organizer'}
+2025-11-18 07:35:03,574 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 432009, 'printer_state': 'OPERATIONAL'}
+2025-11-18 07:49:54,968 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 07:50:03,721 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 432909, 'printer_state': 'OPERATIONAL'}
+2025-11-18 08:04:54,976 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 08:05:03,566 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 433809, 'printer_state': 'OPERATIONAL'}
+2025-11-18 08:19:54,987 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 08:20:03,573 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 434709, 'printer_state': 'OPERATIONAL'}
+2025-11-18 08:34:54,959 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 08:35:03,534 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 435609, 'printer_state': 'OPERATIONAL'}
+2025-11-18 08:49:54,965 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 08:50:03,562 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 436509, 'printer_state': 'OPERATIONAL'}
+2025-11-18 09:04:54,951 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 09:05:03,533 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 437409, 'printer_state': 'OPERATIONAL'}
+2025-11-18 09:19:54,955 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 09:20:03,544 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 438309, 'printer_state': 'OPERATIONAL'}
+2025-11-18 09:34:54,956 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 09:35:03,530 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 439209, 'printer_state': 'OPERATIONAL'}
+2025-11-18 09:49:54,957 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 09:50:03,549 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 440109, 'printer_state': 'OPERATIONAL'}
+2025-11-18 10:04:54,963 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 10:05:03,556 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 441009, 'printer_state': 'OPERATIONAL'}
+2025-11-18 10:19:54,980 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 10:20:03,553 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 441909, 'printer_state': 'OPERATIONAL'}
+2025-11-18 10:34:54,991 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 10:35:03,587 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 442809, 'printer_state': 'OPERATIONAL'}
+2025-11-18 10:49:54,973 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 10:50:03,613 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 443709, 'printer_state': 'OPERATIONAL'}
+2025-11-18 11:04:54,936 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 11:05:03,534 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 444609, 'printer_state': 'OPERATIONAL'}
+2025-11-18 11:19:54,937 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 11:20:03,539 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 445509, 'printer_state': 'OPERATIONAL'}
+2025-11-18 11:34:54,938 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 11:35:03,531 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 446409, 'printer_state': 'OPERATIONAL'}
+2025-11-18 11:49:54,959 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 11:50:03,550 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 447309, 'printer_state': 'OPERATIONAL'}
+2025-11-18 12:04:54,966 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 12:05:03,555 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 448209, 'printer_state': 'OPERATIONAL'}
+2025-11-18 12:19:54,989 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 12:20:03,585 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 449109, 'printer_state': 'OPERATIONAL'}
+2025-11-18 12:34:55,003 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 12:35:03,628 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 450009, 'printer_state': 'OPERATIONAL'}
+2025-11-18 12:49:54,963 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 12:50:03,637 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 450909, 'printer_state': 'OPERATIONAL'}
+2025-11-18 13:04:54,968 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 13:05:03,561 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 451809, 'printer_state': 'OPERATIONAL'}
+2025-11-18 13:19:54,935 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 13:20:03,633 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 452709, 'printer_state': 'OPERATIONAL'}
+2025-11-18 13:34:54,894 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 13:35:03,501 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 453609, 'printer_state': 'OPERATIONAL'}
+2025-11-18 13:49:54,866 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 13:50:03,479 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 454509, 'printer_state': 'OPERATIONAL'}
+2025-11-18 14:04:54,877 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 14:05:03,472 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 455409, 'printer_state': 'OPERATIONAL'}
+2025-11-18 14:19:54,908 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 14:20:04,547 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 456309, 'printer_state': 'OPERATIONAL'}
+2025-11-18 14:34:54,959 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 14:35:03,554 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 457209, 'printer_state': 'OPERATIONAL'}
+2025-11-18 14:49:54,976 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 14:50:03,587 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 458109, 'printer_state': 'OPERATIONAL'}
+2025-11-18 15:04:55,004 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 15:05:03,613 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 459009, 'printer_state': 'OPERATIONAL'}
+2025-11-18 15:19:55,024 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 15:20:03,656 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 459909, 'printer_state': 'OPERATIONAL'}
+2025-11-18 15:34:55,023 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 15:35:03,616 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 460809, 'printer_state': 'OPERATIONAL'}
+2025-11-18 15:49:55,015 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 15:50:03,621 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 461709, 'printer_state': 'OPERATIONAL'}
+2025-11-18 16:04:55,027 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 16:05:03,814 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 462609, 'printer_state': 'OPERATIONAL'}
+2025-11-18 16:19:55,016 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 16:20:03,664 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 463509, 'printer_state': 'OPERATIONAL'}
+2025-11-18 16:34:55,027 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 16:35:03,710 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 464409, 'printer_state': 'OPERATIONAL'}
+2025-11-18 16:49:54,957 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 16:50:03,964 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 465309, 'printer_state': 'OPERATIONAL'}
+2025-11-18 17:04:54,948 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 17:05:03,578 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 466209, 'printer_state': 'OPERATIONAL'}
+2025-11-18 17:19:54,945 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 17:20:03,592 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 467109, 'printer_state': 'OPERATIONAL'}
+2025-11-18 17:34:54,942 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 17:35:03,577 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 468009, 'printer_state': 'OPERATIONAL'}
+2025-11-18 17:49:54,969 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 17:50:03,587 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 468909, 'printer_state': 'OPERATIONAL'}
+2025-11-18 18:04:54,973 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 18:05:03,636 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 469809, 'printer_state': 'OPERATIONAL'}
+2025-11-18 18:19:54,980 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 18:20:03,686 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 470709, 'printer_state': 'OPERATIONAL'}
+2025-11-18 18:34:54,983 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 18:35:03,625 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 471609, 'printer_state': 'OPERATIONAL'}
+2025-11-18 18:49:54,962 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 18:50:03,568 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 472509, 'printer_state': 'OPERATIONAL'}
+2025-11-18 19:04:54,961 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 19:05:03,580 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 473409, 'printer_state': 'OPERATIONAL'}
+2025-11-18 19:19:54,963 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 19:20:03,595 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 474309, 'printer_state': 'OPERATIONAL'}
+2025-11-18 19:34:54,998 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 19:35:03,629 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 475209, 'printer_state': 'OPERATIONAL'}
+2025-11-18 19:35:07,162 - octoprint.plugins.healthcheck.python_eol - INFO - Fetched Python EOL data from https://get.octoprint.org/python-eol
+2025-11-18 19:49:55,011 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 19:50:03,634 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 476109, 'printer_state': 'OPERATIONAL'}
+2025-11-18 20:04:54,996 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 20:05:03,659 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 477009, 'printer_state': 'OPERATIONAL'}
+2025-11-18 20:19:55,006 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 20:20:03,679 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 477909, 'printer_state': 'OPERATIONAL'}
+2025-11-18 20:34:54,999 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 20:35:03,614 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 478809, 'printer_state': 'OPERATIONAL'}
+2025-11-18 20:49:54,995 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 20:50:03,634 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 479709, 'printer_state': 'OPERATIONAL'}
+2025-11-18 21:04:54,926 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 21:05:03,607 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 480609, 'printer_state': 'OPERATIONAL'}
+2025-11-18 21:19:54,940 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 21:20:03,574 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 481509, 'printer_state': 'OPERATIONAL'}
+2025-11-18 21:34:54,941 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 21:35:03,565 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 482409, 'printer_state': 'OPERATIONAL'}
+2025-11-18 21:49:54,879 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 22:04:54,939 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 22:05:03,522 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 484209, 'printer_state': 'OPERATIONAL'}
+2025-11-18 22:19:54,945 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 22:20:03,547 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 485109, 'printer_state': 'OPERATIONAL'}
+2025-11-18 22:34:54,950 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 22:35:03,568 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 486009, 'printer_state': 'OPERATIONAL'}
+2025-11-18 22:49:54,934 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 22:50:03,525 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 486909, 'printer_state': 'OPERATIONAL'}
+2025-11-18 23:04:55,004 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 23:05:03,701 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 487809, 'printer_state': 'OPERATIONAL'}
+2025-11-18 23:19:55,010 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 23:20:03,658 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 488709, 'printer_state': 'OPERATIONAL'}
+2025-11-18 23:53:58,065 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-18 23:54:06,681 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 489609, 'printer_state': 'OPERATIONAL'}
+2025-11-19 00:08:58,072 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-19 00:09:06,677 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 490509, 'printer_state': 'OPERATIONAL'}
+2025-11-19 00:23:58,090 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-19 00:24:06,717 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 491409, 'printer_state': 'OPERATIONAL'}
+2025-11-19 00:38:58,065 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-19 00:39:06,657 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 492309, 'printer_state': 'OPERATIONAL'}
+2025-11-19 00:53:58,080 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-19 00:54:06,702 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 493209, 'printer_state': 'OPERATIONAL'}
+2025-11-19 01:08:58,106 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-19 01:09:06,708 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 494109, 'printer_state': 'OPERATIONAL'}
+2025-11-19 01:23:58,089 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-19 01:24:06,679 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 495009, 'printer_state': 'OPERATIONAL'}
+2025-11-19 01:38:58,106 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-19 01:39:06,707 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 495909, 'printer_state': 'OPERATIONAL'}
+2025-11-19 01:53:58,062 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-19 01:54:06,701 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 496809, 'printer_state': 'OPERATIONAL'}
+2025-11-19 02:08:58,053 - octoprint.server.heartbeat - INFO - Server heartbeat <3
+2025-11-19 02:09:06,660 - octoprint.plugins.tracking - INFO - Sent tracking event ping, payload: {'octoprint_uptime': 497709, 'printer_state': 'OPERATIONAL'}

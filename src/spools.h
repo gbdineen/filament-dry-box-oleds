@@ -17,17 +17,19 @@ class Spools
      public:
         Spools();
         ~Spools();
-        void addSpool(int spoolId);
         void getSpoolInfo(int *sid, int *w, const char* *m, const char* *n);
         void initSpools();
-        void initSpoolsDEP();
-        void initSpoolsDEP2();
         void getSpoolsOrder();
         std::vector<JsonDocument>& getSpools();
-        void getSpool(int spoolId);
+        void getDryboxSpools();
+        void addSpool(int &spoolId);
+        void getSpool(int &spoolId);
+        void deleteSpool(int &spoolId);
         int getSpoolsCount();
         // std::vector<JsonArray> getSpoolOrder();
         void updateSpool(int& sid, int& w, const char* &m, const char* &n, int* d);
+        void pushUpdatedSpoolsOrder();
+        void refactorSpoolsOrder();
         void begin();
         
     private:
@@ -39,6 +41,7 @@ class Spools
         bool useFilters = true;
         std::vector<JsonDocument> spoolsDocs;   // holds real storage
         std::vector<JsonDocument> spoolsVector;
+        std::vector<JsonDocument> unorderedSpools;
         std::vector<int> spoolsOrderVector;
 
         int slots = 4;

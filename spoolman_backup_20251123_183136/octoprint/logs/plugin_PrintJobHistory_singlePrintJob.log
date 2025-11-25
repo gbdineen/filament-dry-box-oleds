@@ -1,0 +1,30 @@
+2025-11-12 20:25:59,933 - INFO - PrintJob 'axel_v2.1_PLA-CF_39m38s.gcode' started!
+2025-11-12 20:25:59,978 - INFO - Try reading Temperature from PreHeat-Plugin...
+2025-11-12 20:26:00,052 - INFO - ... Temperature found '55.0' Tool 'tool0' '150.0'
+2025-11-12 20:30:35,597 - INFO - PrintJob finished!
+2025-11-12 20:30:35,598 - INFO - Print result:success, CaptureMode:always
+2025-11-12 20:30:35,598 - INFO - ----- Start capturing print job data... -----
+2025-11-12 20:30:35,600 - INFO - Start parsing Slicer-Settings
+2025-11-12 20:30:35,675 - INFO - Finished parsing Slicer-Settings
+2025-11-12 20:30:35,676 - INFO - ----- Start grab Image/thumbnail... -----
+2025-11-12 20:30:35,678 - INFO - Try reading Thumbnail
+2025-11-12 20:30:35,679 - INFO - Thumbnail is present
+2025-11-12 20:30:35,680 - INFO - Thumbnail was captured from metadata
+2025-11-12 20:30:35,681 - INFO - Try to take thumbnail, because thumbnail is present and prefered
+2025-11-12 20:30:35,682 - INFO - Try reading Thumbnail
+2025-11-12 20:30:35,684 - INFO - Try converting thumbnail '/octoprint/octoprint/data/PrintJobHistory/../prusaslicerthumbnails/axel_v2.1_PLA-CF_39m38s.png' to '/octoprint/octoprint/data/PrintJobHistory/snapshots/20251112-202559.jpg.png'
+2025-11-12 20:30:35,694 - INFO - Converting successfull!
+2025-11-12 20:30:35,694 - INFO - Thumbnail was captured from metadata
+2025-11-12 20:30:35,694 - INFO - ----- Start reading filament -----
+2025-11-12 20:30:35,697 - INFO - There is no plugin for filament tracking available. Installed and Enabled?
+2025-11-12 20:30:35,697 - INFO - There is no plugin for spool selection. Installed and Enabled?
+2025-11-12 20:30:35,699 - INFO - ----- Start reading costs -----
+2025-11-12 20:30:35,699 - INFO - Try calculating Costs with CostEstimation-Plugin settings
+2025-11-12 20:30:35,700 - INFO - costPerHour '0.05' = powerConsumption '0.2' * costOfElectricity '0.25'
+2025-11-12 20:30:35,700 - INFO - electricityCost '0.0038280724305555557' = costPerHour '0.05' * printTimeInHours '0.07656144861111111'
+2025-11-12 20:30:35,701 - INFO - printerCost '0.0' = (depreciationPerHour '0' + maintenancePerHour '0.0') * printTimeInHours '0.07656144861111111'
+2025-11-12 20:30:35,701 - ERROR - No used filament present. FilamentCost calculation not possible. Maybe no filament tracker, like SpoolManager installed.
+2025-11-12 20:30:35,701 - INFO - totalcost = '0.0038280724305555557'
+2025-11-12 20:30:35,702 - INFO - Adding costs from CostEstimation-Plugin: {'totalCosts': 0.0038280724305555557, 'filamentCost': None, 'electricityCost': 0.0038280724305555557, 'printerCost': 0.0, 'withDefaultSpoolValues': False}
+2025-11-12 20:30:35,702 - INFO - ----- Try storing printjob model ----
+2025-11-12 20:30:35,730 - INFO - ----- ... End PrintJob captured! -----

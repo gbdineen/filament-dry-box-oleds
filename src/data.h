@@ -33,6 +33,8 @@ private:
     Spools& spoolsRef;
     Displays& displaysRef;
 
+     int slots = 4;
+
     std::function<void(const char*)> wsCallback;
 
     WebSocketsClient webSocket;

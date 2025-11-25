@@ -1,0 +1,68 @@
+print_history:
+- analysisFirstFilamentPrintTime: 45.464696636005556
+  analysisLastFilamentPrintTime: 2259.2761610917596
+  analysisPrintTime: 2272.8321749948627
+  compensatedPrintTime: 2322.1619173209438
+  payload:
+    name: axel_v2.1_PLA-CF_39m38s.gcode
+    origin: local
+    owner: gbdineen
+    path: axel_v2.1_PLA-CF_39m38s.gcode
+    size: 2149395
+    time: 275.7600132669995
+  timestamp: 1763001035.7527041
+- analysisFirstFilamentPrintTime: 45.464696636005556
+  analysisLastFilamentPrintTime: 2259.2761610917596
+  analysisPrintTime: 2272.8321749948627
+  compensatedPrintTime: 2322.1619173209438
+  payload:
+    name: axel_v2.1_PLA-CF_39m38s.gcode
+    origin: local
+    owner: gbdineen
+    path: axel_v2.1_PLA-CF_39m38s.gcode
+    size: 2149395
+    time: 294.7500555279985
+  timestamp: 1763000095.8937228
+- analysisFirstFilamentPrintTime: 45.464696636005556
+  analysisLastFilamentPrintTime: 2259.2761610917596
+  analysisPrintTime: 2272.8321749948627
+  compensatedPrintTime: 2322.1619173209438
+  firstFilamentPrintTime: 18.500267408000582
+  lastFilamentPrintTime: 283.60948843799997
+  payload:
+    name: axel_v2.1_PLA-CF_39m38s.gcode
+    origin: local
+    owner: gbdineen
+    path: axel_v2.1_PLA-CF_39m38s.gcode
+    size: 2149395
+    time: 283.7461175690005
+  timestamp: 1762999250.8888676
+- analysisFirstFilamentPrintTime: 45.464696636005556
+  analysisLastFilamentPrintTime: 3402.273675108608
+  analysisPrintTime: 3417.730977238275
+  compensatedPrintTime: 3502.5442971269963
+  firstFilamentPrintTime: 21.51862200200003
+  lastFilamentPrintTime: 357.8999986010001
+  payload:
+    name: OrcaToleranceTest_PETG_59m40s.gcode
+    origin: local
+    owner: gbdineen
+    path: OrcaToleranceTest_PETG_59m40s.gcode
+    size: 1997181
+    time: 358.055601648
+  timestamp: 1762990729.106813
+- analysisFirstFilamentPrintTime: 45.4646966360051
+  analysisLastFilamentPrintTime: 22143.95727148023
+  analysisPrintTime: 22157.816660071305
+  compensatedPrintTime: 22280.354627222427
+  firstFilamentPrintTime: 18.357548311934806
+  lastFilamentPrintTime: 2474.658597681904
+  payload:
+    name: axel_v2.1_PLA-CF_6h30m.gcode
+    origin: local
+    owner: gbdineen
+    path: axel_v2.1_PLA-CF_6h30m.gcode
+    size: 20338355
+    time: 2474.7587882279186
+  timestamp: 1762926974.3304718
+version: 2.4.0
