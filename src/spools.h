@@ -49,8 +49,8 @@ class Spools
         WiFiClient wifiClientHttp;
         HTTPClient http; 
         
-        const char *hostIP = "192.168.8.228";
-        std::string baseAPI_URL = "http://192.168.8.228:7912/api/v1/";
+        const char *hostIP = "10.0.0.110";
+        std::string baseAPI_URL = "http://10.0.0.110:7912/api/v1/";
         int wsPort = 7912;
 
 };

@@ -45,19 +45,20 @@ private:
     static void mqttCallbackStatic(char *topic, byte *payload, unsigned int length);
     static Data *mqttCallbackInstance;
 
-    const char *hostIP = "192.168.8.228";
-    std::string baseAPI_URL = "http://192.168.8.228:7912/api/v1/";
+    const char *apiHostIP = "10.0.0.110";
+    std::string baseAPI_URL = "http://10.0.0.110:7912/api/v1/";
     int wsPort = 7912;
 
-    const char *ssid = "GL-SFT1200-887";
-    const char *password = "goodlife";
+    const char *ssid = "Cedar Basecamp";
+    const char *password = "N1mbl3Sh@rk";
 
     // MQTT broker details
-    const char *mqtt_broker = hostIP;
+    const char *mqttHostIP = "10.0.0.1";
+    const char *mqtt_broker = mqttHostIP;
     const int mqtt_port = 1883; // Or 8883 for SSL/TLS
     const char *mqtt_client_id = "drybox_oleds";
-    const char *mqttUN = "gbdineen";
-    const char *mqttPW = "N1mbl3Sh@rk";
+    const char *mqttUN = "cedar_mqtt";
+    const char *mqttPW = "basecamp";
     int lastReconnectAttempt = 0;
     bool firstStart = true;
 

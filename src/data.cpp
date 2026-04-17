@@ -276,6 +276,7 @@ boolean Data::mqttReconnect() {
 void Data::begin()
 {
 
+    // Serial.print("data begin");w
 
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
@@ -284,7 +285,7 @@ void Data::begin()
     }
     Serial.println("Connected to WiFi");
 
-    webSocket.begin(hostIP, wsPort, "/api/v1/");
+    webSocket.begin(apiHostIP, wsPort, "/api/v1/");
     webSocket.onEvent(webSocketEventStatic);
     webSocket.setReconnectInterval(1000);
     // while(webSocket.isConnected() != WSC_CONNECTED) {

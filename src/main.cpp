@@ -27,20 +27,19 @@ void wsCallback(const char *payload)
 
 	if (payload == "[WSc] Connected")
 	{
-		// Serial.println("init Displays");
-		// displays.begin();
+		Serial.println("init Displays");
+		displays.begin();
 		displays.initDisplays();
-		// spools.initSpools();
-
-		
 		spools.initSpools();
 
-		// displays.setDisplayPaging(true);
+		
+
+		displays.setDisplayPaging(true);
 		displays.startPageDisplays();
 
-		// displays.overviewDisplay();
-		// delay(3000);
-		// displays.spoolWeightDisplay();
+		displays.overviewDisplay();
+		delay(3000);
+		displays.spoolWeightDisplay();
 
 		// getSpools();
 

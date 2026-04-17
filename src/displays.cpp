@@ -288,6 +288,10 @@ void Displays::checkEmptySlots(){
 		}
 
 }
+
+void Displays::begin(){};
+
+
 void Displays::loop()
 {
 	if (displayPaging)
