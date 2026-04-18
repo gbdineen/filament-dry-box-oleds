@@ -45,10 +45,10 @@ class Displays
         int SCREEN_ADDRESS_1 = 0x3D;
         int SCREEN_ADDRESS_2 = 0x3C;
         int SCREEN_ADDRESS_3 = 0x3D;
-        int I2C0_SDA = 9; // &Wire Bus (default )
-        int I2C0_SCL = 8;
-        int I2C1_SDA = 5;  // &I2C_Bus1  
-        int I2C1_SCL = 4;
+        int I2C0_SDA = 5; // &Wire Bus (default )
+        int I2C0_SCL = 4;
+        int I2C1_SDA = 9;  // &I2C_Bus1  
+        int I2C1_SCL = 8;
 
         TwoWire  I2C_Bus0 = TwoWire(0);
         TwoWire  I2C_Bus1 = TwoWire(1);

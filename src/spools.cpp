@@ -107,8 +107,8 @@ void Spools::addSpool(int &spoolId)
 void Spools::deleteSpool(int &spoolId) {
 
 	spoolsVector.erase(std::find(spoolsVector.begin(), spoolsVector.end(), spoolId));
-	spoolsOrderVector.erase(std::find(spoolsOrderVector.begin(), spoolsOrderVector.end(), spoolId)); 
-	pushUpdatedSpoolsOrder();
+	// spoolsOrderVector.erase(std::find(spoolsOrderVector.begin(), spoolsOrderVector.end(), spoolId)); 
+	// pushUpdatedSpoolsOrder();
 }
 
 std::vector<JsonDocument>& Spools::getSpools()
@@ -119,6 +119,7 @@ std::vector<JsonDocument>& Spools::getSpools()
 	return spoolsVector;
 
 }
+
 void Spools::getDryboxSpools() {
 
 	spoolsVector.clear();
@@ -146,20 +147,37 @@ void Spools::getDryboxSpools() {
 	// serializeJsonPretty(outerDoc, Serial);
 	// Serial.println("\n\n\n");
 
-	JsonArray dryboxSpools = outerDoc.as<JsonArray>();
+	// JsonArray dryboxSpools = outerDoc.as<JsonArray>();
 
-	for (int i=0; i < dryboxSpools.size(); i++) {
+	for (int i=0; i < outerDoc.size(); i++) {
 
 		// Serial.println("Item" + i);
-		serializeJsonPretty(dryboxSpools[i], Serial);
-		Serial.println("\n\n\n");
+		if (outerDoc[i]["location"] == "Drybox") {
+			serializeJsonPretty(outerDoc[i], Serial);
+			spoolsVector.push_back(outerDoc[i]);
+		}
+
+		// JsonObject item = outerDoc[i];
+
+		// Serial.println("Item" + i);
+		// serializeJsonPretty(outerDoc[i], Serial);
+		// // spoolsVector.push_back(dryboxSpools[i]);
+		// delay(10);
+		
 	}
+
+	// Serial.print("\n\n\n");
+
+	// for (JsonDocument v : spoolsVector) {
+	// 	serializeJsonPretty(v, Serial);	
+	// }
 
 	// for (int v : dryboxSpools) {
     // 	Serial.println(v);
 	// 	Serial.print("\n\n\n");
 	// 	spoolsOrderVector.push_back(std::move(v));
   	// }
+
 
 	// JsonDocument innerDoc;
 	// JsonDocument innerFilter;

@@ -150,71 +150,76 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
             if (doc["type"] == "updated")
             {
-
+                // Serial.println("\n type - updated");
                 if (doc["resource"] == "spool")
                 {
-                     Serial.println("Resource - Spool");
+                    // Serial.println("\n resource - spool");
 
-                    // filter["payload"]["id"] = true;
-                    // filter["payload"]["location"] = true;
-                    // filter["payload"]["remaining_weight"] = true;
-                    // filter["payload"]["filament"]["name"] = true;
-                    // filter["payload"]["filament"]["material"] = true;
+                    filter["payload"]["id"] = true;
+                    filter["payload"]["location"] = true;
+                    filter["payload"]["remaining_weight"] = true;
+                    filter["payload"]["filament"]["name"] = true;
+                    filter["payload"]["filament"]["material"] = true;
 
-                    // // error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+                    error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
                     // error = deserializeJson(doc, payload);
-                    // if (error)
-                    // {
-                    //     Serial.print(F("deserializeJson() failed: "));
-                    //     Serial.println(error.c_str());
-                    //     return;
-                    // }
-                    // serializeJsonPretty(doc,Serial);
+                    if (error)
+                    {
+                        Serial.print(F("deserializeJson() failed: "));
+                        Serial.println(error.c_str());
+                        return;
+                    }
+                    serializeJsonPretty(doc,Serial);
+                    Serial.println("\n");
 
-                    // // int numSpools = spoolsRef.getSpoolsCount();
+                    // int numSpools = spoolsRef.getSpoolsCount();
 
-                    // int spoolId = doc["payload"]["id"];
-                    // int remWeight = doc["payload"]["remaining_weight"];
-                    // const char* name = doc["payload"]["filament"]["name"];
-                    // const char* material = doc["payload"]["filament"]["material"];
-                    // const char* location = doc["payload"]["location"];
+                    int spoolId = doc["payload"]["id"];
+                    int remWeight = doc["payload"]["remaining_weight"];
+                    const char* name = doc["payload"]["filament"]["name"];
+                    const char* material = doc["payload"]["filament"]["material"];
+                    const char* location = doc["payload"]["location"];
                     
-                    // displaysRef.stopPageDisplays();
+                    displaysRef.stopPageDisplays();
 
-                    // std::vector<JsonDocument> &spools = spoolsRef.getSpools();
+                    std::vector<JsonDocument> spools = spoolsRef.getSpools();
 
-                    // // std::cout << "Data Address of spoolsVector: " << &spools << std::endl;
+                    // std::cout << "Data Address of spoolsVector: " << &spools << std::endl;
 
-                    // int vSize = spools.size();
+                    int vSize = spools.size();
 
-                    // for (int i=0; i<vSize; i++) 
-                    // {
-                    //     if (spoolId == spools[i]["id"])
-                    //     {
-                    //         int displayId = i;
+                    // std::cout << "vSize: " << vSize << std::endl;
 
-                    //         std::cout << location << std::endl;
+                    for (int i=0; i<vSize; i++) 
+                    {
+                        std::cout << "spoolId: " << spools[i]["id"] << std::endl;
+                        
+                        if (spoolId == spools[i]["id"])
+                        {
+                            int displayId = i;
 
-                    //         if (location != "Drybox")
-                    //         {
-                    //             spoolsRef.deleteSpool(spoolId);
-                    //             const char* updateMsg = "REMOVED";
-                    //             displaysRef.printMessage(displayId, updateMsg, true);
+                            // std::cout << location << std::endl;
 
-                    //             // spoolsRef.refactorSpoolsOrder();
+                            if (location != "Drybox")
+                            {
+                                spoolsRef.deleteSpool(spoolId);
+                                const char* updateMsg = "REMOVED";
+                                displaysRef.printMessage(displayId, updateMsg, true);
 
-                    //         } else {
-                    //             spoolsRef.updateSpool(spoolId, remWeight, material, name, &displayId);
-                    //             const char* updateMsg = "UPDATED";
-                    //             displaysRef.printMessage(displayId, updateMsg, true);
+                                // spoolsRef.refactorSpoolsOrder();
+
+                            } else {
+                                spoolsRef.updateSpool(spoolId, remWeight, material, name, &displayId);
+                                const char* updateMsg = "UPDATED";
+                                displaysRef.printMessage(displayId, updateMsg, true);
 
  
-                    //             // spoolsRef.initSpools();
-                    //         }   
-                    //     } else {
-                    //         // spoolsRef.addSpool(spoolId);
-                    //     }
-                    // }
+                                // spoolsRef.initSpools();
+                            }   
+                        } else {
+                            // spoolsRef.addSpool(spoolId);
+                        }
+                    }
                     
                 } else if (doc["resource"] == "setting")
                 
