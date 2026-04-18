@@ -138,71 +138,24 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
             JsonDocument doc;
             JsonDocument filter;
 
-            DeserializationError error = deserializeJson(doc, payload);
-            // DeserializationError error =  deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+            filter["type"] = true;
+            filter["resource"] = true;
+            filter["payload"]["id"] = true;
+            filter["payload"]["location"] = true;
+            filter["payload"]["remaining_weight"] = true;
+            filter["payload"]["filament"]["name"] = true;
+            filter["payload"]["filament"]["material"] = true;
+
+            // DeserializationError error = deserializeJson(doc, payload);
+            DeserializationError error =  deserializeJson(doc, payload, DeserializationOption::Filter(filter));
             if (error)
             {
                 Serial.print(F("deserializeJson() failed: "));
                 Serial.println(error.c_str());
                 return;
             }
-            // filter["payload"]= true;
-            // filter["payload"]["id"] = true;
-            // filter["payload"]["location"] = true;
-            // filter["payload"]["remaining_weight"] = true;
-            // filter["payload"]["filament"]["name"] = true;
-            // filter["payload"]["filament"]["material"] = true;
 
-            // DeserializationError error = deserializeJson(doc, payload);
-            // // DeserializationError error =  deserializeJson(doc, payload, DeserializationOption::Filter(filter));
-            // if (error)
-            // {
-            //     Serial.print(F("deserializeJson() failed: "));
-            //     Serial.println(error.c_str());
-            //     return;
-            // }
-
-            // serializeJsonPretty(doc["payload"][0], Serial);
-
-            // JsonArray innerPayload = doc[0];
-
-            // Serial.print(innerPayload);
-
-
-            // const char *innerJsonStr = doc["payload"][0];
-            // JsonObject innerPayload = doc["payload"];
-
-            // JsonDocument innerDoc;
-            //  error = deserializeJson(innerDoc, innerJsonStr);
-            // if (error)
-            // {
-            //     Serial.print(F("deserializeJson() failed: "));
-            //     Serial.println(error.c_str());
-            //     return;
-            // }
-
-            // serializeJsonPretty(innerDoc, Serial);
-
-
-
-
-
-            // if (doc["type"] == "updated")
-            // {
-
-            //     const char *innerJsonStr = doc["payload"];
-            //     JsonDocument innerDoc;
-                
-            //     error = deserializeJson(innerDoc, innerJsonStr);
-            //     if (error)
-            //     {
-            //         Serial.print(F("deserializeJson() failed: "));
-            //         Serial.println(error.c_str());
-            //         // return;
-            //     }
-
-            //     serializeJsonPretty(innerDoc, Serial);
-            // }
+            // serializeJsonPretty(doc,Serial);
 
             if (doc["type"] == "updated")
             {
@@ -211,49 +164,24 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                 {
                     // Serial.println("\n resource - spool");
 
-                    filter["payload"]["id"] = true;
-                    filter["payload"]["location"] = true;
-                    filter["payload"]["remaining_weight"] = true;
-                    filter["payload"]["filament"]["name"] = true;
-                    filter["payload"]["filament"]["material"] = true;
+                    // filter["payload"]["id"] = true;
+                    // filter["payload"]["location"] = true;
+                    // filter["payload"]["remaining_weight"] = true;
+                    // filter["payload"]["filament"]["name"] = true;
+                    // filter["payload"]["filament"]["material"] = true;
 
                     // filter["payload"] = true;
 
-                    error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
-                    // error = deserializeJson(doc, payload);
-                    if (error)
-                    {
-                        Serial.print(F("deserializeJson() failed: "));
-                        Serial.println(error.c_str());
-                        return;
-                    }
-
-                    // serializeJsonPretty(doc,Serial);
-
-                    // JsonArray dryboxSpools = doc.as<JsonArray>();
-                    
-                    // JsonDocument arrayDoc;
-                    
-                    // //  error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
-                    // error = deserializeJson(arrayDoc, dryboxSpools[0]);
+                    // error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+                    // // error = deserializeJson(doc, payload);
                     // if (error)
                     // {
                     //     Serial.print(F("deserializeJson() failed: "));
                     //     Serial.println(error.c_str());
                     //     return;
                     // }
-                    
-                    // serializeJsonPretty(dryboxSpools[0],Serial);
 
-
-
-
-
-                    
-                    // serializeJsonPretty(doc["payload"][0],Serial);
-                    Serial.println("\n");
-
-                    // int numSpools = spoolsRef.getSpoolsCount();
+                    // Serial.println("\n");
 
                     JsonObject innerPayload = doc["payload"];
                     
@@ -267,17 +195,15 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
                     std::vector<JsonDocument> spools = spoolsRef.getSpools();
 
-                    // std::cout << "Data Address of spoolsVector: " << &spools << std::endl;
-
                     int vSize = spools.size();
-
-                    // std::cout << "vSize: " << vSize << std::endl;
 
                     for (int i=0; i<vSize; i++) 
                     {
-                        std::cout << "Looped Spool ID: " << spools[i]["id"] << std::endl;
-                        std::cout << "spoolId: " << spoolId << std::endl;
-                        std::cout << "Looped location: " << location << std::endl;
+                        // std::cout << "Looped Spool ID: " << spools[i]["id"] << std::endl;
+                        // std::cout << "spoolId: " << spoolId << std::endl;
+                        // std::cout << "Looped location: " << location << std::endl;
+
+                        std::cout << "Vector Lcation: " << spools[i]["location"] << std::endl;
 
                         if (spoolId == spools[i]["id"])
                         {
@@ -287,11 +213,11 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
                             // std::cout << location << std::endl;
 
-                            if (spools[i]["location"] != "Drybox")
+                            if (capturedLocation != "Drybox")
                             {
-                               std::cout << "Captured location: " << capturedLocation << std::endl;
+                               std::cout << "Captured location: " << spools[i]["location"] << std::endl;
                                 
-                                spoolsRef.deleteSpool(spoolId);
+                                spoolsRef.deleteSpool(i);
                                 const char* updateMsg = "REMOVED";
                                 displaysRef.printMessage(displayId, updateMsg, true);
 

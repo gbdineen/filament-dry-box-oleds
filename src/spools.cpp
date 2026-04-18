@@ -51,6 +51,7 @@ void Spools::getSpool(int &spoolId)
 void Spools::addSpool(int &spoolId)
 {
 
+	Serial.println("addSpool");
 	std::string spoolIdStr = std::to_string(spoolId);
 	std::string spoolQuery = baseAPI_URL + "spool/" + spoolIdStr;
 
@@ -106,6 +107,8 @@ void Spools::addSpool(int &spoolId)
 
 void Spools::deleteSpool(int &spoolId) {
 
+	std::cout << "delete" + spoolId << std::endl;
+
 	spoolsVector.erase(std::find(spoolsVector.begin(), spoolsVector.end(), spoolId));
 	// spoolsOrderVector.erase(std::find(spoolsOrderVector.begin(), spoolsOrderVector.end(), spoolId)); 
 	// pushUpdatedSpoolsOrder();
@@ -153,7 +156,7 @@ void Spools::getDryboxSpools() {
 
 		// Serial.println("Item" + i);
 		if (outerDoc[i]["location"] == "Drybox") {
-			serializeJsonPretty(outerDoc[i], Serial);
+			// serializeJsonPretty(outerDoc[i], Serial);
 			spoolsVector.push_back(outerDoc[i]);
 		}
 
