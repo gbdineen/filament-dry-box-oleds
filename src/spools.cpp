@@ -97,7 +97,7 @@ void Spools::addSpool(int &spoolId)
 
 	const char* location = doc["location"];
 	if (doc["location"] == "Drybox") {
-		spoolsDocs.push_back(std::move(doc));
+		spoolsVector.push_back(std::move(doc));
 	}
 	Serial.print("\n\n");
 
@@ -106,8 +106,6 @@ void Spools::addSpool(int &spoolId)
 }
 
 void Spools::deleteSpool(int &spoolId) {
-
-	std::cout << "delete" + spoolId << std::endl;
 
 	spoolsVector.erase(std::find(spoolsVector.begin(), spoolsVector.end(), spoolId));
 	// spoolsOrderVector.erase(std::find(spoolsOrderVector.begin(), spoolsOrderVector.end(), spoolId)); 
@@ -129,38 +127,84 @@ void Spools::getDryboxSpools() {
 
 	http.useHTTP10(true);
 
-	std::string spoolQuery = baseAPI_URL + "spool";
+	std::string spoolQuery = baseAPI_URL + "spool?location=Drybox";
 
 	http.begin(wifiClientHttp, spoolQuery.c_str());
-	http.GET();
+	// http.GET();
 
-	JsonDocument outerDoc;
-	// JsonDocument filter;
-	// filter["Drybox"] = true;
+	int httpCode = http.GET();
+	// Serial.println(httpCode); // Should be 200
+		
+	String payload = http.getString();
+	// Serial.println(payload.length()); // Should be > 0
+	// Serial.println(payload);          // Should show raw JSON
 
-	// DeserializationError error =  deserializeJson(outerDoc, http.getStream(),DeserializationOption::Filter(filter));
-	DeserializationError error = deserializeJson(outerDoc, http.getStream());
+
+	JsonDocument doc;
+	JsonDocument filter;
+
+	filter[0]["id"] = true;
+	filter[0]["location"] = true;
+	filter[0]["remaining_weight"] = true;
+	filter[0]["filament"]["name"] = true;
+	filter[0]["filament"]["material"] = true;
+
+	DeserializationError error =  deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+	// DeserializationError error = deserializeJson(doc, http.getStream());
 	if (error)
 	{
 		Serial.print(F("deserializeJson() failed: "));
 		Serial.println(error.c_str());
-		// return;
+		return;
 	}
 
-	// serializeJsonPretty(outerDoc, Serial);
-	// Serial.println("\n\n\n");
+	JsonArray spoolsArray = doc.as<JsonArray>();
 
-	// JsonArray dryboxSpools = outerDoc.as<JsonArray>();
+	for (JsonObject spool : spoolsArray) {
+        JsonDocument spoolDoc;
+        spoolDoc.set(spool);              // Deep copy each object
+        spoolsVector.push_back(std::move(spoolDoc)); // Move into vector
+		serializeJsonPretty(spool, Serial);
+    }
 
-	for (int i=0; i < outerDoc.size(); i++) {
 
-		// Serial.println("Item" + i);
-		if (outerDoc[i]["location"] == "Drybox") {
-			// serializeJsonPretty(outerDoc[i], Serial);
-			spoolsVector.push_back(outerDoc[i]);
-		}
+	// std::string innerJsonStr = doc[0];
 
-	}
+	// error = deserializeJson(spoolsDoc, innerJsonStr);
+	// if (error)
+	// {
+	// 	Serial.print(F("deserializeJson() failed: "));
+	// 	Serial.println(error.c_str());
+	// 	return;
+	// }
+
+	// serializeJsonPretty(spoolsDoc, Serial);
+
+	// JsonArray spoolsArray = spoolsDoc[0];
+
+	// for (int v : spoolsArray) {
+
+	// 	spoolsVector.push_back(std::move(v));
+	// }
+
+
+
+	// serializeJsonPretty(doc, Serial);
+
+	// JsonArray dryboxSpools = doc[0];
+
+	// for (int v : dryboxSpools) {
+    // 	Serial.println(v);
+	// 	spoolsVector.push_back(std::move(v));
+  	// }
+	// for (int i=0; i < dryboxSpools.size(); i++) {
+
+	// 	// Serial.println("Item" + i);
+	// 	// if (outerDoc[i]["location"] == "Drybox") {
+	// 		serializeJsonPretty(dryboxSpools[i], Serial);
+	// 		spoolsVector.push_back(std::move(dryboxSpools[i]));
+	// 	// }
+	// }
 }
 
 void Spools::initSpools() {
