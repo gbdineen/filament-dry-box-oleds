@@ -255,4 +255,11 @@
  /Users/guydineen/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp32-hal-spi.h \
  .pio/libdeps/drybox_oleds/Adafruit\ SSD1306/Adafruit_SSD1306.h \
  .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/U8g2_for_Adafruit_GFX.h \
- .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/u8g2_fonts.h
+ .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/u8g2_fonts.h \
+ src/spoolman_server.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_wifi/include/esp_wifi.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_wifi/include/esp_wifi_types.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_wifi/include/esp_private/esp_wifi_private.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_wifi/include/esp_wifi_crypto_types.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_wifi/include/esp_private/wifi_os_adapter.h \
+ /Users/guydineen/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_wifi/include/esp_wifi_default.h

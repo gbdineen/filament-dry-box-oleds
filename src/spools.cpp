@@ -65,26 +65,14 @@ void Spools::addSpool(int &spoolId)
 
 	JsonDocument doc;
 	JsonDocument filter;
-	DeserializationError error;
 
-	// useFilters = false;
+	filter["id"] = true;
+	filter["remaining_weight"] = true;
+	filter["location"] = true;
+	filter["filament"]["name"] = true;
+	filter["filament"]["material"] = true;
 
-	if (!useFilters)// For debugging when you want to see the full json 
-	{
-		error = deserializeJson(doc, http.getStream());
-	}
-	else
-	{
-
-		
-		filter["id"] = true;
-		filter["remaining_weight"] = true;
-		filter["location"] = true;
-		filter["filament"]["name"] = true;
-		filter["filament"]["material"] = true;
-
-		error = deserializeJson(doc, http.getStream(), DeserializationOption::Filter(filter));
-	}
+	DeserializationError error = deserializeJson(doc, http.getStream(), DeserializationOption::Filter(filter));
 	if (error)
 	{
 		Serial.print(F("deserializeJson() failed: "));
@@ -92,14 +80,18 @@ void Spools::addSpool(int &spoolId)
 		return;
 	}
 
-
 	serializeJsonPretty(doc, Serial);
 
-	const char* location = doc["location"];
-	if (doc["location"] == "Drybox") {
-		spoolsVector.push_back(std::move(doc));
-	}
-	Serial.print("\n\n");
+	JsonDocument spoolDoc;
+	spoolDoc.set(doc);
+	spoolsVector.push_back(std::move(spoolDoc)); // Move into vector
+	// serializeJsonPretty(spoolDoc, Serial);
+
+	// const char* location = doc["location"];
+	// if (doc["location"] == "Drybox") {
+	// 	spoolsVector.push_back(std::move(doc));
+	// }
+	// Serial.print("\n\n");
 
 	http.end();
 	// delay(100);
@@ -112,16 +104,12 @@ void Spools::deleteSpool(int &spoolId) {
 	// pushUpdatedSpoolsOrder();
 }
 
-std::vector<JsonDocument>& Spools::getSpools()
+const std::vector<JsonDocument>& Spools::getSpools()
 {
-
-	// std::cout << "Spools Address of spoolsVector: " << &spoolsVector << std::endl;
-
 	return spoolsVector;
-
 }
 
-void Spools::getDryboxSpools() {
+void Spools::loadSpools() {
 
 	spoolsVector.clear();
 
@@ -131,14 +119,9 @@ void Spools::getDryboxSpools() {
 
 	http.begin(wifiClientHttp, spoolQuery.c_str());
 	// http.GET();
-
 	int httpCode = http.GET();
-	// Serial.println(httpCode); // Should be 200
-		
+	
 	String payload = http.getString();
-	// Serial.println(payload.length()); // Should be > 0
-	// Serial.println(payload);          // Should show raw JSON
-
 
 	JsonDocument doc;
 	JsonDocument filter;
@@ -160,12 +143,66 @@ void Spools::getDryboxSpools() {
 
 	JsonArray spoolsArray = doc.as<JsonArray>();
 
-	for (JsonObject spool : spoolsArray) {
-        JsonDocument spoolDoc;
-        spoolDoc.set(spool);              // Deep copy each object
-        spoolsVector.push_back(std::move(spoolDoc)); // Move into vector
-		serializeJsonPretty(spool, Serial);
-    }
+	
+	for (int i=0; i < spoolsOrderVector.size(); i++)
+	{
+
+		for (int x=0; x < spoolsArray.size(); x++)
+		{
+			 JsonDocument spoolDoc;
+       		 spoolDoc.set(spoolsArray[x]);  
+			
+			if (spoolsArray[x]["id"] == spoolsOrderVector[i])
+			{
+				// std::cout << "spoolsArray X: " << spoolsArray[x]["id"] << std::endl;
+				// std::cout << "Slot ID: " << spoolsOrderVector[i] << std::endl;
+				spoolsVector.push_back(std::move(spoolDoc));
+				// serializeJsonPretty(spoolsArray[x], Serial);
+				std::cout << "\n\n" << std::endl;
+
+			}
+
+		}
+
+	}
+
+	for (JsonDocument v : spoolsVector) 
+	{
+		std::cout << v << std::endl;
+	}
+	
+	
+	
+	
+	// for (JsonObject spool : spoolsArray) {
+    //     JsonDocument spoolDoc;
+    //     spoolDoc.set(spool);              // Deep copy each object
+		
+	// 	std::cout << "spool[id]: " << spool["id"] << "\n" <<std::endl;
+
+	// 	// for (int i = 0; i < spoolsOrderVector.size(); i++) {
+
+	// 	// 	std::cout << "spoolDoc[id]: " << spoolDoc["id"] << std::endl;
+	// 	// 	std::cout << "spoolsOrderVector[i]: " << spoolsOrderVector[i] << std::endl;
+			
+	// 	// 	if (spoolsOrderVector[i] == spoolDoc["id"]) {
+	// 	// 		spoolsVector.push_back(std::move(spoolDoc)); // Move into vector
+	// 	// 		serializeJsonPretty(spool, Serial);
+	// 	// 	}
+	// 	// }
+		
+	// 	// for (int v : spoolsOrderVector)
+	// 	// {
+	// 	// 	std::cout << "spoolDoc[\"id\"]: " << spoolDoc["id"] << std::endl;
+	// 	// 	if (spoolDoc["id"] == v)
+	// 	// 	{
+	// 	// 		spoolsVector.push_back(std::move(spoolDoc)); // Move into vector
+	// 	// 		serializeJsonPretty(spool, Serial);
+	// 	// 	}
+
+	// 	// }
+
+    // }
 
 
 	// std::string innerJsonStr = doc[0];
@@ -209,10 +246,25 @@ void Spools::getDryboxSpools() {
 
 void Spools::initSpools() {
 
-	Serial.print("init spools");
+	// Serial.print("init spools");
 
-	getDryboxSpools();
+	// getDryboxSpools();
+	getSpoolsOrder();
+}	
 
+// std::vector<int>& Spools::getSpoolsOrderInterior() 
+// {
+// 	return spoolsOrderVector;
+// }
+
+std::vector<int>& Spools::getSpoolsOrderVector() {
+	
+	for (int v : spoolsOrderVector)
+	{
+		std::cout << "Spool Orders: " << v << std::endl;
+	}
+
+    return spoolsOrderVector;
 }
 
 void Spools::getSpoolsOrder() {
@@ -222,19 +274,15 @@ void Spools::getSpoolsOrder() {
 	http.useHTTP10(true);
 
 	// // Query spoolman to get only spools that are in the 'Drybox' location. Should be just4 spools.
-	std::string spoolOrderQuery = baseAPI_URL + "setting/locations_spoolorders";
+	std::string spoolOrderQuery = spoolsOrderServer_URL + "/slotorder";
 
 	http.begin(wifiClientHttp, spoolOrderQuery.c_str());
 	http.GET();
 
-	JsonDocument docGET;
+	JsonDocument doc;
 
-	JsonDocument filter;
-	filter["value"] = true;
-	// filter["value"]["Drybox"] = true;
-
-	DeserializationError error =  deserializeJson(docGET, http.getStream(),DeserializationOption::Filter(filter));
-	// DeserializationError error = deserializeJson(docGET, http.getStream());
+	// DeserializationError error =  deserializeJson(docGET, http.getStream(),DeserializationOption::Filter(filter));
+	DeserializationError error = deserializeJson(doc, http.getStream());
 	if (error)
 	{
 		Serial.print(F("deserializeJson() failed: "));
@@ -242,7 +290,23 @@ void Spools::getSpoolsOrder() {
 		// return;
 	}
 
+	// serializeJsonPretty(doc,Serial);
 
+	JsonArray spoolsOrderArray = doc.as<JsonArray>();
+
+	for (int v : spoolsOrderArray) {
+		spoolsOrderVector.push_back(v);
+	}
+
+	// for (int v : spoolsOrderVector) {
+	// 	std::cout << "SpoolID: " << v << std::endl;
+	// }
+
+	loadSpools();
+
+	/*---------
+	old spoolman stuff... probably deprected 
+	---------------------------------------
 	// Extract the inner JSON string
 	const char *innerJsonStr = docGET["value"];
 
@@ -262,22 +326,15 @@ void Spools::getSpoolsOrder() {
 
 	serializeJsonPretty(innerDoc, Serial);
 	Serial.println("\n");
+
 	// Step 3: Access the "Drybox" array
 	JsonArray drybox = innerDoc["Drybox"];
-
-	// std::vector<int> spoolOrder;
 
 	for (int v : drybox) {
     	Serial.println(v);
 		spoolsOrderVector.push_back(std::move(v));
   	}
-
-	// std::vector<int> *ptr;
-	// ptr = &spoolsOrder;
-
-	// std::cout << "Address of myVariable (using &spoolsOrder): " << &spoolsOrder << std::endl;
-
-	// return spoolsOrderVector;
+	-------------------------------*/
 
 }
 

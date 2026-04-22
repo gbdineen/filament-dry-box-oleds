@@ -98,7 +98,7 @@ void Displays::spoolWeightDisplay()
 
 	// screenMode = "spool_weight";
 
-	std::vector<JsonDocument> &spools = spoolsRef.getSpools();
+	std::vector<JsonDocument> spools = spoolsRef.getSpools();
 
 	for (int i = 0; i < spools.size(); i++)
 	{
@@ -168,7 +168,7 @@ void Displays::spoolWeightDisplay()
 void Displays::overviewDisplay()
 {
 
-	std::vector<JsonDocument> &spools = spoolsRef.getSpools();
+	std::vector<JsonDocument> spools = spoolsRef.getSpools();
 
 	// std::cout << "Displays Address of spoolsVector: " << &spools << std::endl;
 

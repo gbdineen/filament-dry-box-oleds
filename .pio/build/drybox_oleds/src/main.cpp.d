@@ -256,4 +256,4 @@
  .pio/libdeps/drybox_oleds/Adafruit\ SSD1306/Adafruit_SSD1306.h \
  .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/U8g2_for_Adafruit_GFX.h \
  .pio/libdeps/drybox_oleds/U8g2_for_Adafruit_GFX/src/u8g2_fonts.h \
- src/data.h
+ src/data.h src/spoolman_server.h

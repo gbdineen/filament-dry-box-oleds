@@ -1,4 +1,6 @@
 #include "data.h"
+#include "spoolman_server.h"
+#include "esp_wifi.h"
 
 
 Data *Data::wsCallbackInstance = nullptr;
@@ -111,8 +113,6 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
         case WStype_CONNECTED:
 
-            
-
             if (firstStart)
             {
                 firstStart = false;
@@ -140,7 +140,6 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
             filter["resource"]= true;
             filter["type"]= true;
-            filter["payload"]= true;
             filter["payload"]["id"] = true;
             filter["payload"]["location"] = true;
             filter["payload"]["remaining_weight"] = true;
@@ -155,226 +154,78 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                 Serial.println(error.c_str());
                 return;
             }
-            // filter["payload"]= true;
-            // filter["payload"]["id"] = true;
-            // filter["payload"]["location"] = true;
-            // filter["payload"]["remaining_weight"] = true;
-            // filter["payload"]["filament"]["name"] = true;
-            // filter["payload"]["filament"]["material"] = true;
 
-            // DeserializationError error = deserializeJson(doc, payload);
-            // // DeserializationError error =  deserializeJson(doc, payload, DeserializationOption::Filter(filter));
-            // if (error)
-            // {
-            //     Serial.print(F("deserializeJson() failed: "));
-            //     Serial.println(error.c_str());
-            //     return;
-            // }
-
-            // serializeJsonPretty(doc["payload"][0], Serial);
-
-            // JsonArray innerPayload = doc[0];
-
-            // Serial.print(innerPayload);
-
-
-            // const char *innerJsonStr = doc["payload"][0];
-            // JsonObject innerPayload = doc["payload"];
-
-            // JsonDocument innerDoc;
-            //  error = deserializeJson(innerDoc, innerJsonStr);
-            // if (error)
-            // {
-            //     Serial.print(F("deserializeJson() failed: "));
-            //     Serial.println(error.c_str());
-            //     return;
-            // }
-
-            // serializeJsonPretty(innerDoc, Serial);
-
-
-
-
-
-            // if (doc["type"] == "updated")
-            // {
-
-            //     const char *innerJsonStr = doc["payload"];
-            //     JsonDocument innerDoc;
-                
-            //     error = deserializeJson(innerDoc, innerJsonStr);
-            //     if (error)
-            //     {
-            //         Serial.print(F("deserializeJson() failed: "));
-            //         Serial.println(error.c_str());
-            //         // return;
-            //     }
-
-            //     serializeJsonPretty(innerDoc, Serial);
-            // }
-
+            // serializeJsonPretty(doc, Serial);
+            
             if (doc["type"] == "updated")
             {
                 // Serial.println("\n type - updated");
                 if (doc["resource"] == "spool")
                 {
-                    // Serial.println("\n resource - spool");
-
-                    // filter["payload"]["id"] = true;
-                    // filter["payload"]["location"] = true;
-                    // filter["payload"]["remaining_weight"] = true;
-                    // filter["payload"]["filament"]["name"] = true;
-                    // filter["payload"]["filament"]["material"] = true;
-
-                    // // filter["payload"] = true;
-
-                    // error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
-                    // // error = deserializeJson(doc, payload);
-                    // if (error)
-                    // {
-                    //     Serial.print(F("deserializeJson() failed: "));
-                    //     Serial.println(error.c_str());
-                    //     return;
-                    // }
-
-                    // // serializeJsonPretty(doc,Serial);
-
-                    // // JsonArray dryboxSpools = doc.as<JsonArray>();
-                    
-                    // // JsonDocument arrayDoc;
-                    
-                    // // //  error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
-                    // // error = deserializeJson(arrayDoc, dryboxSpools[0]);
-                    // // if (error)
-                    // // {
-                    // //     Serial.print(F("deserializeJson() failed: "));
-                    // //     Serial.println(error.c_str());
-                    // //     return;
-                    // // }
-                    
-                    // // serializeJsonPretty(dryboxSpools[0],Serial);
-
-
-
-
 
                     
-                    // // serializeJsonPretty(doc["payload"][0],Serial);
-                    // Serial.println("\n");
-
-                    // int numSpools = spoolsRef.getSpoolsCount();
-
-                    JsonObject innerPayload = doc["payload"];
-                    
-                    int spoolId = innerPayload["id"];
-                    int remWeight = innerPayload["remaining_weight"];
-                    const char* name = innerPayload["filament"]["name"];
-                    const char* material = innerPayload["filament"]["material"];
-                    const char* location = innerPayload["location"];
+                    int spoolId = doc["payload"]["id"].as<int>();;
+                    int remWeight = doc["payload"]["remaining_weight"];
+                    const char* name = doc["payload"]["filament"]["name"];
+                    const char* material = doc["payload"]["filament"]["material"];
+                    String location = doc["payload"]["location"].as<String>();
                     
                     displaysRef.stopPageDisplays();
 
                     std::vector<JsonDocument> spools = spoolsRef.getSpools();
 
-                    // std::cout << "Data Address of spoolsVector: " << &spools << std::endl;
-
                     int vSize = spools.size();
-
-                    // std::cout << "vSize: " << vSize << std::endl;
-
                     bool newSpool = false;
 
-
-                    for (int i=0; i<vSize; i++) 
+                    for (int i=0; i<vSize; i++)
                     {
-                        std::cout << "Looped Spool ID: " << spools[i]["id"] << std::endl;
-                        std::cout << "spoolId: " << spoolId << std::endl;
-                        std::cout << "Looped location: " << location << std::endl;
 
-                        if (spoolId == spools[i]["id"])
+                        int currId = spools[i]["id"].as<int>();
+
+                        // Serial.print("currId: "); Serial.println(currId);
+                        // Serial.print("spoolId: "); Serial.println(spoolId); 
+
+                        if (currId == spoolId)
                         {
                             int displayId = i;
-
-                            const char* capturedLocation = spools[i]["location"];
-
-                            // std::cout << location << std::endl;
-
-                            if (innerPayload["location"] != "Drybox")
-                            {
-                               std::cout << "Captured location: " << capturedLocation << std::endl;
-                                
-                                spoolsRef.deleteSpool(spoolId);
-                                const char* updateMsg = "REMOVED";
-                                displaysRef.printMessage(displayId, updateMsg, true);
-
-                                // spoolsRef.refactorSpoolsOrder();
-
-                            } else {
+                            if (location == "Drybox")
+                            {  
                                 spoolsRef.updateSpool(spoolId, remWeight, material, name, &displayId);
                                 const char* updateMsg = "UPDATED";
                                 displaysRef.printMessage(displayId, updateMsg, true);
+                            }
+                            else
+                            {
+                                spoolsRef.deleteSpool(spoolId);
+                                // const char* updateMsg = "REMOVED";
+                                // displaysRef.printMessage(displayId, updateMsg, true);
 
- 
-                                // spoolsRef.initSpools();
-                            }   
-                        } else {
-                            newSpool=true;
-                            
+                            }
 
-
-
-                            // if (!adding){
-                            //     adding=true;
-                            //     int addDisplayID = vSize+1;
-                            //     spoolsRef.addSpool(spoolId);
-                            //     const char* updateMsg = "ADDED";
-                            //     displaysRef.printMessage(addDisplayID, updateMsg, true);
-                            // }
-   
                         }
-                         
+                        else
+                        {
+                            newSpool = true;
+                        }
                     }
+                    
                     if (newSpool) {
                         newSpool=false;
-                        int addDisplayID = vSize+1;
+                        int addDisplayID = vSize;
                         spoolsRef.addSpool(spoolId);
-                        const char* updateMsg = "ADDED";
-                        displaysRef.printMessage(addDisplayID, updateMsg, true);
+                        // const char* updateMsg = "ADDED";
+                        // displaysRef.printMessage(addDisplayID, updateMsg, true);
                     }
                     
-                } else if (doc["resource"] == "setting")
-                
+                }
+                else if (doc["resource"] == "setting")
                 {
-                   
-                    Serial.println("Resource - Setting");
-                    // spoolsRef.initSpools();
-
-                    // filter["payload"] = true;
-
-                    // // error = deserializeJson(doc, payload, DeserializationOption::Filter(filter));
-                    // error = deserializeJson(doc, payload);
-                    // if (error)
-                    // {
-                    //     Serial.print(F("deserializeJson() failed: "));
-                    //     Serial.println(error.c_str());
-                    //     return;
-                    // }
-                    // displaysRef.stopPageDisplays();
-                    
-                    // String location = doc["location"];
-
-                    // if (location == "Drybox") {
-
-                    // }
-                    
-                    // displaysRef.startPageDisplays();
-                    // serializeJsonPretty(doc,Serial);
-
-                    // getSpoolOrder();
+                    Serial.println("Resource - Setting"); 
                 }
                 displaysRef.startPageDisplays();
             }
-            break;
+                
+        break;
     }
 }
 
@@ -402,28 +253,40 @@ boolean Data::mqttReconnect() {
 void Data::begin()
 {
 
-    // Serial.print("data begin");w
+    WiFi.disconnect(true);
+    WiFi.mode(WIFI_OFF);
+    delay(500);  // longer delay
+    esp_wifi_stop();  // force stop the wifi driver
+    delay(500);
+    WiFi.mode(WIFI_STA);
 
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
-        delay(1000);
+        delay(500);
         Serial.println("Connecting to WiFi...");
     }
     Serial.println("Connected to WiFi");
 
+    setupSpoolServer();
+
+
+    setOrderUpdateCallback([this](std::vector<int> newOrder) {
+        // spoolsRef.getSpoolsOrderVector() = newOrder;
+    
+        // for (int v : newOrder)
+        // {
+        //     std::cout << "New Spool Orders: " << v << std::endl;
+        // }
+
+    });
+
     webSocket.begin(apiHostIP, wsPort, "/api/v1/");
     webSocket.onEvent(webSocketEventStatic);
     webSocket.setReconnectInterval(1000);
-    // while(webSocket.isConnected() != WSC_CONNECTED) {
-    //     delay(1000);
-    //     Serial.println("Connecting to WS...");
-    // }
-
 
     mqttClient.setClient(wifiClient);
     mqttClient.setServer(mqtt_broker, mqtt_port);
 	mqttClient.setCallback(mqttCallbackStatic);
-    // lastReconnectAttempt = 0;
 
 
 }

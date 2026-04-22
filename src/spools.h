@@ -20,8 +20,9 @@ class Spools
         void getSpoolInfo(int *sid, int *w, const char* *m, const char* *n);
         void initSpools();
         void getSpoolsOrder();
-        std::vector<JsonDocument>& getSpools();
-        void getDryboxSpools();
+        std::vector<int>&  getSpoolsOrderVector();
+        const std::vector<JsonDocument>& getSpools();
+        void loadSpools();
         void addSpool(int &spoolId);
         void getSpool(int &spoolId);
         void deleteSpool(int &spoolId);
@@ -49,9 +50,15 @@ class Spools
         WiFiClient wifiClientHttp;
         HTTPClient http; 
         
+        // Spoolman API
         const char *hostIP = "10.0.0.110";
         std::string baseAPI_URL = "http://10.0.0.110:7912/api/v1/";
         int wsPort = 7912;
+
+        // Spools Order Server API
+        const char *spoolsOrderServerIP = "10.0.0.84";
+        std::string spoolsOrderServer_URL = "http://10.0.0.84";
+        // int wsPort = 7912;
 
 };
 

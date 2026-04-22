@@ -6,6 +6,9 @@
 #include "spools.h"
 #include "displays.h"
 #include "data.h"
+#include "spoolman_server.h"
+#include <WiFi.h>
+// #include "spoolman_server.cpp"
 Spools spools;
 Displays displays(spools);
 Data data (spools, displays);

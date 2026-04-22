@@ -11,6 +11,8 @@
 #include <WiFi.h>
 #include <functional>
 #include <iostream>
+#include <string> 
+#include <vector>
 
 class Data
 {
