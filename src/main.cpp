@@ -16,14 +16,6 @@ Data data (spools, displays);
 // TIMER STUFF
 unsigned long previousMillis = 0;
 
-	// std::vector<JsonObject> &spoolsVector;
-
-void getSpools()
-{
-
-
-}
-
 void wsCallback(const char *payload)
 {
 	Serial.println(payload);
@@ -34,8 +26,6 @@ void wsCallback(const char *payload)
 		displays.begin();
 		displays.initDisplays();
 		spools.initSpools();
-
-		
 
 		displays.setDisplayPaging(true);
 		displays.startPageDisplays();

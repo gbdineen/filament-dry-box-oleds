@@ -271,12 +271,9 @@ void Data::begin()
 
 
     setOrderUpdateCallback([this](std::vector<int> newOrder) {
-        // spoolsRef.getSpoolsOrderVector() = newOrder;
-    
-        // for (int v : newOrder)
-        // {
-        //     std::cout << "New Spool Orders: " << v << std::endl;
-        // }
+        
+        spoolsRef.setSpoolsOrder(newOrder);
+        spoolsRef.loadSpools();
 
     });
 
