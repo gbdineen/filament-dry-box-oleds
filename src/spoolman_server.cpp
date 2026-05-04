@@ -12,7 +12,7 @@
 #include <functional>
 
 // ── Config ────────────────────────────────────
-const char* SPOOLMAN_BASE    = "http://10.0.0.110:7912/api/v1/";
+const char* SPOOLMAN_BASE    = "http://10.0.0.226:7912/api/v1/";
 const char* SLOT_ORDER_FILE  = "/slotorder.json";
 const int   WEB_SERVER_PORT  = 80;
 

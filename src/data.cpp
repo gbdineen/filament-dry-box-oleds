@@ -233,6 +233,11 @@ void Data::setWSCallback(std::function<void(const char*)> cb) {
     this->wsCallback = cb;
 }
 
+std::string Data::getAPI_URL(std::string URL) {
+    Serial.println(baseAPI_URL.c_str());
+    return URL;
+}
+
 boolean Data::mqttReconnect() {
   if (mqttClient.connect(mqtt_client_id, mqttUN, mqttPW)) {
     // Serial.println("MQTT connected");

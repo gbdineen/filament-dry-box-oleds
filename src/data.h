@@ -26,6 +26,7 @@ public:
     boolean mqttReconnect();
     boolean wsConnected();
     void setWSCallback(std::function<void(const char*)> cb);
+    std::string getAPI_URL(std::string URL);
     WiFiClient wifiClient;
     WiFiClient wifiClientHttp;
     HTTPClient http;
@@ -47,15 +48,17 @@ private:
     static void mqttCallbackStatic(char *topic, byte *payload, unsigned int length);
     static Data *mqttCallbackInstance;
 
-    const char *apiHostIP = "10.0.0.110";
-    std::string baseAPI_URL = "http://10.0.0.110:7912/api/v1/";
+
+    const char *apiHostIP = "10.0.0.226";
+    std::string baseAPI_URL = "http://10.0.0.226:7912/api/v1/";
+
     int wsPort = 7912;
 
     const char *ssid = "Cedar Basecamp";
     const char *password = "N1mbl3Sh@rk";
 
     // MQTT broker details
-    const char *mqttHostIP = "10.0.0.1";
+    const char *mqttHostIP = "10.0.0.226";
     const char *mqtt_broker = mqttHostIP;
     const int mqtt_port = 1883; // Or 8883 for SSL/TLS
     const char *mqtt_client_id = "drybox_oleds";

@@ -53,7 +53,7 @@ void Spools::setSpoolsOrder(const std::vector<int>& newOrder) {
 	for (int v : spoolsOrderVector) {
 		// spoolsOrderVector.push_back(v);
 		std::cout << "New Spools Order: " << v << std::endl;
-	}gc
+	}
 
 }
 
