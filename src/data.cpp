@@ -21,6 +21,7 @@ Data::Data(Spools &spoolsRef, Displays& displaysRef)
 void Data::mqttCallbackStatic(char *topic, byte *payload, unsigned int length)
 {
 
+    Serial.println("MQTT Callback Static");
     if (mqttCallbackInstance)
     {
         mqttCallbackInstance->mqttCallbackStatic(topic, payload, length);
@@ -155,7 +156,7 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                 return;
             }
 
-            // serializeJsonPretty(doc, Serial);
+            serializeJsonPretty(doc, Serial);
             
             if (doc["type"] == "updated")
             {
@@ -175,6 +176,7 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                     std::vector<JsonDocument> spools = spoolsRef.getSpools();
 
                     int vSize = spools.size();
+                    Serial.println("Spools Size: " + String(vSize));
                     bool newSpool = false;
 
                     for (int i=0; i<vSize; i++)
@@ -182,8 +184,8 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
                         int currId = spools[i]["id"].as<int>();
 
-                        // Serial.print("currId: "); Serial.println(currId);
-                        // Serial.print("spoolId: "); Serial.println(spoolId); 
+                        Serial.print("currId: "); Serial.print(currId);
+                        Serial.print(" | spoolId: "); Serial.println(spoolId); 
 
                         if (currId == spoolId)
                         {
@@ -193,12 +195,13 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                                 spoolsRef.updateSpool(spoolId, remWeight, material, name, &displayId);
                                 const char* updateMsg = "UPDATED";
                                 displaysRef.printMessage(displayId, updateMsg, true);
+                                break;
                             }
                             else
                             {
                                 spoolsRef.deleteSpool(spoolId);
-                                // const char* updateMsg = "REMOVED";
-                                // displaysRef.printMessage(displayId, updateMsg, true);
+                                const char* updateMsg = "REMOVED";
+                                displaysRef.printMessage(displayId, updateMsg, true);
 
                             }
 
@@ -212,7 +215,7 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                     if (newSpool) {
                         newSpool=false;
                         int addDisplayID = vSize;
-                        spoolsRef.addSpool(spoolId);
+                        // spoolsRef.addSpool(spoolId);
                         // const char* updateMsg = "ADDED";
                         // displaysRef.printMessage(addDisplayID, updateMsg, true);
                     }
@@ -258,12 +261,12 @@ boolean Data::mqttReconnect() {
 void Data::begin()
 {
 
-    WiFi.disconnect(true);
-    WiFi.mode(WIFI_OFF);
-    delay(500);  // longer delay
-    esp_wifi_stop();  // force stop the wifi driver
-    delay(500);
-    WiFi.mode(WIFI_STA);
+    // WiFi.disconnect(true);
+    // WiFi.mode(WIFI_OFF);
+    // delay(500);  // longer delay
+    // esp_wifi_stop();  // force stop the wifi driver
+    // delay(500);
+    // WiFi.mode(WIFI_STA);
 
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {

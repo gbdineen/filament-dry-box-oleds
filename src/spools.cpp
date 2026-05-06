@@ -110,7 +110,7 @@ void Spools::loadSpools() {
 				// std::cout << "spoolsArray X: " << spoolsArray[x]["id"] << std::endl;
 				// std::cout << "Slot ID: " << spoolsOrderVector[i] << std::endl;
 				spoolsVector.push_back(std::move(spoolDoc));
-				// serializeJsonPretty(spoolsArray[x], Serial);
+				serializeJsonPretty(spoolsArray[x], Serial);
 				std::cout << "\n\n" << std::endl;
 
 			}
