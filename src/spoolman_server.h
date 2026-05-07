@@ -11,3 +11,8 @@ void setupSpoolServer();
 // Callback receives the new order as a vector of spool IDs e.g. {1, 3}
 // void setOrderUpdateCallback(std::function<void(std::vector<int>)> cb);
 void setOrderUpdateCallback(std::function<void(const String&)> cb);
+
+// void setCallback(MQTT_CALLBACK_SIGNATURE) {
+//     this->callback = callback;
+//     return *this;
+// }

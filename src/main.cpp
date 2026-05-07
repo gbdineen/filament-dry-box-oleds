@@ -16,6 +16,27 @@ Data data (spools, displays);
 // TIMER STUFF
 unsigned long previousMillis = 0;
 
+void onSlotOrderUpdated(const String& json) {
+    // re-drive your display here
+    // refreshDisplay();
+
+	// Serial.println("Slot Order Updated: " + json);
+	
+	JsonDocument doc;
+    // if (deserializeJson(doc, newOrder) != DeserializationError::Ok) return;
+
+	 DeserializationError error =  deserializeJson(doc, json);
+	if (error)
+	{
+		Serial.print(F("deserializeJson() failed: "));
+		Serial.println(error.c_str());
+		return;
+	}
+
+	 serializeJsonPretty(doc, Serial);
+	
+}
+
 void wsCallback(const char *payload)
 {
 	Serial.println(payload);

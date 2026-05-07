@@ -135,6 +135,7 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
         case WStype_TEXT:
 
             // Serial.println("[WSc] incoming");
+            // Serial.println("[WSc] Payload:");
 
             JsonDocument doc;
             JsonDocument filter;
@@ -283,12 +284,14 @@ void Data::begin()
 
     setupSpoolServer();
 
-    setOrderUpdateCallback([this](const String& json) {
+    // setOrderUpdateCallback([this](const String& json) {
         
-        spoolsRef.setSpoolsOrder(json);
-        spoolsRef.loadSpools();
 
-    });
+    //     Serial.println("Order Update Callback Triggered");
+    //     spoolsRef.setSpoolsOrder(json);
+    //     spoolsRef.loadSpools();
+
+    // });
 
 
     // setOrderUpdateCallback([this](std::vector<int> newOrder) {
