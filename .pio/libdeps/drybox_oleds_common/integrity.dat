@@ -1,0 +1,9 @@
+adafruit/Adafruit SSD1306@^2.5.15
+mathieucarbou/ESPAsyncWebServer @ ^3.3.0
+adafruit/Adafruit GFX Library @ ^1.12.3
+bblanchon/ArduinoJson @ ^7.0.0
+https://github.com/bblanchon/ArduinoJson.git
+mathieucarbou/AsyncTCP @ ^3.2.0
+knolleary/PubSubClient@^2.8
+https://github.com/Links2004/arduinoWebSockets.git
+olikraus/U8g2_for_Adafruit_GFX @ ^1.8.0

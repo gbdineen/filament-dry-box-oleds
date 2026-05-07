@@ -9,7 +9,7 @@ Spools::Spools()
 void Spools::initSpools() {
 
 	getSpoolsOrder();
-	loadSpools();
+	// loadSpools();
 }	
 
 
@@ -36,24 +36,38 @@ void Spools::getSpoolsOrder() {
 		// return;
 	}
 
-	// serializeJsonPretty(doc,Serial);
+	serializeJsonPretty(doc,Serial);
 
-	JsonArray spoolsOrderArray = doc.as<JsonArray>();
+	// JsonArray spoolsOrderArray = doc.as<JsonArray>();
 
-	for (int v : spoolsOrderArray) {
-		spoolsOrderVector.push_back(v);
-		std::cout << "Initial Spools Order: " << v << std::endl;
-	}
+	// for (int v : spoolsOrderArray) {
+	// 	spoolsOrderVector.push_back(v);
+	// 	std::cout << "Initial Spools Order: " << v << std::endl;
+	// }
 
 }
 
-void Spools::setSpoolsOrder(const std::vector<int>& newOrder) {
-    spoolsOrderVector = newOrder;  // copies into the member
+void Spools::setSpoolsOrder(const String& newOrder) {
+    spoolsOrderVector.clear();
+    JsonDocument doc;
+    // if (deserializeJson(doc, newOrder) != DeserializationError::Ok) return;
 
-	for (int v : spoolsOrderVector) {
-		// spoolsOrderVector.push_back(v);
-		std::cout << "New Spools Order: " << v << std::endl;
+	 DeserializationError error =  deserializeJson(doc, newOrder);
+	if (error)
+	{
+		Serial.print(F("deserializeJson() failed: "));
+		Serial.println(error.c_str());
+		return;
 	}
+
+	 serializeJsonPretty(doc, Serial);
+	
+    // for (JsonVariant v : doc.as<JsonArray>()) {
+    //     spoolsOrderVector.push_back(v.as<int>());
+    // }
+    // for (int v : spoolsOrderVector) {
+    //     std::cout << "New Spools Order: " << v << std::endl;
+	// }
 
 }
 
@@ -118,6 +132,7 @@ void Spools::loadSpools() {
 		}
 
 	}
+}
 
 	// for (JsonDocument v : spoolsVector) 
 	// {
@@ -193,7 +208,7 @@ void Spools::loadSpools() {
 	// 		spoolsVector.push_back(std::move(dryboxSpools[i]));
 	// 	// }
 	// }
-}
+// }
 
 
 void Spools::getSpool(int &spoolId)

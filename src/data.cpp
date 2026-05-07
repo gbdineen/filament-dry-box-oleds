@@ -258,6 +258,12 @@ boolean Data::mqttReconnect() {
   return mqttClient.connected();
 }
 
+// void onSlotOrderUpdated(const String& json) {
+//     // parse json into whatever spoolsRef.setSpoolsOrder() expects
+//     spoolsRef.setSpoolsOrder();
+//     spoolsRef.loadSpools();
+// }
+
 void Data::begin()
 {
 
@@ -277,13 +283,20 @@ void Data::begin()
 
     setupSpoolServer();
 
-
-    setOrderUpdateCallback([this](std::vector<int> newOrder) {
+    setOrderUpdateCallback([this](const String& json) {
         
-        spoolsRef.setSpoolsOrder(newOrder);
+        spoolsRef.setSpoolsOrder(json);
         spoolsRef.loadSpools();
 
     });
+
+
+    // setOrderUpdateCallback([this](std::vector<int> newOrder) {
+        
+    //     spoolsRef.setSpoolsOrder(newOrder);
+    //     spoolsRef.loadSpools();
+
+    // });
 
     webSocket.begin(apiHostIP, wsPort, "/api/v1/");
     webSocket.onEvent(webSocketEventStatic);

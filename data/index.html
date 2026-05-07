@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,15 +8,15 @@
   @import url('https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;500;700&display=swap');
 
   :root {
-    --bg:        #0a0c10;
-    --panel:     #111420;
-    --border:    #1e2535;
-    --accent:    #00d4ff;
-    --accent2:   #ff6b35;
-    --text:      #c8d8e8;
-    --muted:     #4a5a6a;
-    --success:   #00ff9d;
-    --radius:    6px;
+    --bg:       #0a0c10;
+    --panel:    #111420;
+    --border:   #1e2535;
+    --accent:   #ccf6ff;   /* was #00d4ff, lightened 80% */
+    --accent2:  #ff6b35;
+    --text:     #c8d8e8;
+    --muted:    #4a5a6a;
+    --success:  #00ff9d;
+    --radius:   6px;
   }
 
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -33,16 +32,16 @@
 
   body::before {
     content: '';
-    position: fixed;
-    inset: 0;
+    position: fixed; inset: 0;
     background: repeating-linear-gradient(
       0deg, transparent, transparent 2px,
-      rgba(0,212,255,0.015) 2px, rgba(0,212,255,0.015) 4px
+      rgba(204,246,255,0.015) 2px, rgba(204,246,255,0.015) 4px
     );
     pointer-events: none;
     z-index: 999;
   }
 
+  /* ── Header ── */
   header {
     display: flex;
     align-items: center;
@@ -56,46 +55,44 @@
     border-radius: 50%;
     display: grid; place-items: center;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
+    font-size: 12px;   /* was 10px */
     color: var(--accent);
-    letter-spacing: 1px;
-    animation: pulse 3s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%,100% { box-shadow: 0 0 0 0 rgba(0,212,255,0.4); }
-    50%      { box-shadow: 0 0 0 8px rgba(0,212,255,0); }
+    flex-shrink: 0;
   }
 
   h1 {
-    font-size: 1.4rem;
-    font-weight: 700;
-    letter-spacing: 3px;
+    font-size: 1.32rem;   /* was 1.1rem */
+    font-weight: 500;
+    letter-spacing: 4px;
     text-transform: uppercase;
     color: var(--accent);
   }
 
   .status-bar {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
-    color: var(--muted);
     margin-left: auto;
     display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 3px;
+    align-items: center;
+    gap: 14px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;   /* was 10px */
+    color: var(--muted);
   }
 
-  .status-bar .ws-status { font-size: 10px; }
   .status-bar span { color: var(--success); }
-  .status-bar .ws-disconnected { color: var(--accent2); }
 
+  .ws-status {
+    font-size: 14px;   /* was 12px */
+    color: var(--muted);
+  }
+
+  /* ── Layout ── */
   .locations-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 16px;
   }
 
+  /* ── Location Panel ── */
   .location-panel {
     background: var(--panel);
     border: 1px solid var(--border);
@@ -103,90 +100,144 @@
     overflow: hidden;
   }
 
-  .location-panel[data-location="Drybox"] { border-top: 2px solid var(--accent); }
-  .location-panel:not([data-location="Drybox"]) { border-top: 2px solid var(--accent2); }
+  .drybox-panel {
+    border-color: var(--accent);
+    box-shadow: 0 0 12px rgba(204,246,255,0.08);
+  }
 
   .location-header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 12px 16px;
+    padding: 10px 14px;
     border-bottom: 1px solid var(--border);
   }
 
   .location-name {
-    font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 3px;
+    font-size: 13px;   /* was 11px */
+    font-weight: 500;
+    letter-spacing: 2px;
     text-transform: uppercase;
+    color: var(--accent);
   }
 
-  .location-panel[data-location="Drybox"] .location-name { color: var(--accent); }
-  .location-panel:not([data-location="Drybox"]) .location-name { color: var(--accent2); }
+  .location-panel:not([data-location="Drybox"]) .location-name {
+    color: var(--accent2);
+  }
 
   .spool-count {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 11px;
+    font-size: 13px;   /* was 11px */
     color: var(--muted);
   }
 
-  .drybox-note {
-    font-size: 10px;
-    color: var(--text);
-    padding: 6px 16px;
+  .drybox-hint {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;   /* was 10px */
+    color: var(--muted);
+    padding: 6px 14px;
     border-bottom: 1px solid var(--border);
     font-style: italic;
+    letter-spacing: 0.5px;
   }
 
-  .spool-list {
-    padding: 10px;
-    min-height: 80px;
+  /* ── Drybox Slot Bays ── */
+  .drybox-slots {
     display: flex;
     flex-direction: column;
-    gap: 6px;
   }
 
-  .spool-list.drag-over {
-    background: rgba(0,212,255,0.04);
-    outline: 1px dashed var(--accent);
-    outline-offset: -4px;
+  .slot-bay {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s, box-shadow 0.15s;
   }
 
-  .location-panel:not([data-location="Drybox"]) .spool-list.drag-over {
-    background: rgba(255,107,53,0.04);
-    outline-color: var(--accent2);
+  .slot-bay:last-child { border-bottom: none; }
+
+  .slot-bay.slot-drag-over {
+    background: rgba(204,246,255,0.07);
+    box-shadow: inset 3px 0 0 var(--accent);
   }
 
+  .slot-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px 12px 4px;
+    background: rgba(0,0,0,0.25);
+    border-bottom: 1px solid rgba(30,37,53,0.7);
+  }
+
+  .slot-number {
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 11px;   /* was 9px */
+    color: var(--accent);
+    letter-spacing: 2px;
+    opacity: 0.7;
+  }
+
+  .slot-status-dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+    margin-left: auto;
+    flex-shrink: 0;
+  }
+
+  .slot-status-dot.occupied { background: var(--success); box-shadow: 0 0 4px var(--success); }
+  .slot-status-dot.empty    { background: var(--muted); }
+
+  /* ── Empty Slot ── */
+  .slot-empty-card {
+    margin: 8px;
+    padding: 14px;
+    border: 1px dashed rgba(74,90,106,0.5);
+    border-radius: var(--radius);
+    text-align: center;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;   /* was 10px */
+    color: var(--muted);
+    letter-spacing: 2px;
+    user-select: none;
+  }
+
+  /* ── Spool Card ── */
   .spool-card {
     display: flex;
     align-items: center;
     gap: 10px;
     padding: 10px 12px;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
     cursor: grab;
-    transition: border-color 0.15s, transform 0.15s, opacity 0.15s;
+    transition: background 0.15s, opacity 0.15s;
     user-select: none;
   }
 
-  .spool-card:active { cursor: grabbing; }
-  .spool-card:hover { border-color: var(--muted); }
-  .spool-card.dragging { opacity: 0.35; transform: scale(0.97); }
-  .spool-card.drag-target-above { border-top: 2px solid var(--accent); }
-  .spool-card.drag-target-below { border-bottom: 2px solid var(--accent); }
+  .spool-card:hover   { background: rgba(255,255,255,0.03); }
+  .spool-card.dragging { opacity: 0.4; cursor: grabbing; }
+
+  .spool-list .spool-card { border-bottom: 1px solid var(--border); }
+  .spool-list .spool-card:last-child { border-bottom: none; }
+  .spool-list .spool-card.drag-target-above { box-shadow: inset 0 2px 0 var(--accent); }
+  .spool-list .spool-card.drag-target-below { box-shadow: inset 0 -2px 0 var(--accent); }
+
+  .drag-handle {
+    font-size: 17px;   /* was 14px */
+    color: var(--muted);
+    cursor: grab;
+    flex-shrink: 0;
+    line-height: 1;
+  }
 
   .color-dot {
     width: 12px; height: 12px;
     border-radius: 50%;
     flex-shrink: 0;
-    border: 1px solid rgba(255,255,255,0.15);
+    border: 1px solid rgba(255,255,255,0.1);
   }
 
   .spool-info { flex: 1; min-width: 0; }
 
   .spool-name {
-    font-size: 0.8rem;
+    font-size: 0.96rem;   /* was 0.8rem */
     font-weight: 500;
     white-space: nowrap;
     overflow: hidden;
@@ -195,38 +246,37 @@
 
   .spool-meta {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;   /* was 10px */
     color: var(--muted);
     margin-top: 2px;
   }
 
   .spool-id {
     font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
+    font-size: 12px;   /* was 10px */
     color: var(--muted);
     flex-shrink: 0;
   }
 
-  .drag-handle { color: var(--muted); font-size: 14px; flex-shrink: 0; opacity: 0.5; }
+  /* ── Non-Drybox spool list ── */
+  .spool-list { min-height: 48px; }
 
-  .slot-badge {
-    font-family: 'Share Tech Mono', monospace;
-    font-size: 10px;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    border-radius: 3px;
-    padding: 1px 5px;
-    flex-shrink: 0;
+  .spool-list.drag-over {
+    background: rgba(255,107,53,0.05);
+    box-shadow: inset 3px 0 0 var(--accent2);
   }
 
+  /* ── Empty state ── */
   .empty-state {
     text-align: center;
     padding: 24px;
     color: var(--muted);
-    font-size: 0.75rem;
-    letter-spacing: 1px;
+    font-family: 'Share Tech Mono', monospace;
+    font-size: 12px;   /* was 10px */
+    letter-spacing: 2px;
   }
 
+  /* ── Toast ── */
   .toast {
     position: fixed;
     bottom: 24px; right: 24px;
@@ -234,7 +284,7 @@
     border: 1px solid var(--success);
     color: var(--success);
     font-family: 'Share Tech Mono', monospace;
-    font-size: 12px;
+    font-size: 14px;   /* was 12px */
     padding: 10px 18px;
     border-radius: var(--radius);
     opacity: 0;
@@ -245,13 +295,14 @@
   }
 
   .toast.error { border-color: var(--accent2); color: var(--accent2); }
-  .toast.show { opacity: 1; transform: translateY(0); }
+  .toast.show  { opacity: 1; transform: translateY(0); }
 
+  /* ── Loading ── */
   .loading {
     text-align: center;
     padding: 60px;
     font-family: 'Share Tech Mono', monospace;
-    font-size: 12px;
+    font-size: 14px;   /* was 12px */
     color: var(--muted);
     letter-spacing: 2px;
     animation: blink 1s step-end infinite;
@@ -267,7 +318,7 @@
   <h1>Spool Manager</h1>
   <div class="status-bar" id="statusBar">
     <div>LOADING<span>...</span></div>
-    <div class="ws-status ws-disconnected" id="wsStatus">WS ●</div>
+    <div class="ws-status" id="wsStatus">WS ●</div>
   </div>
 </header>
 
@@ -275,41 +326,42 @@
 <div class="toast" id="toast"></div>
 
 <script>
+// ─── Config ──────────────────────────────────
+const DRYBOX_SLOTS = 4;
+
 // ─── State ───────────────────────────────────
 let locations   = [];
 let spoolsByLoc = {};
-let slotOrder   = [];
 
-let dragSpool   = null;
-let dragEl      = null;
+// slots: [{slot: 1, spoolId: 4}, {slot: 2, spoolId: null}, ...]
+let slots = Array.from({ length: DRYBOX_SLOTS }, (_, i) => ({ slot: i + 1, spoolId: null }));
 
-// ─── WebSocket to ESP32 ──────────────────────
+let dragSpool = null; // { spool, fromLocation, fromSlot }
+let dragEl    = null;
+
+// ─── WebSocket ───────────────────────────────
 let espWs = null;
 
 function connectEspWs() {
   espWs = new WebSocket(`ws://${location.host}/ws`);
 
   espWs.onopen = () => {
-    document.getElementById('wsStatus').textContent = 'WS ●';
-    document.getElementById('wsStatus').className = 'ws-status';
-    document.getElementById('wsStatus').style.color = 'var(--success)';
+    const el = document.getElementById('wsStatus');
+    if (el) { el.textContent = 'WS ●'; el.style.color = 'var(--success)'; }
   };
 
   espWs.onclose = () => {
-    document.getElementById('wsStatus').textContent = 'WS ●';
-    document.getElementById('wsStatus').className = 'ws-status ws-disconnected';
-    document.getElementById('wsStatus').style.color = '';
-    // Reconnect after 3 seconds
+    const el = document.getElementById('wsStatus');
+    if (el) { el.textContent = 'WS ●'; el.style.color = ''; }
     setTimeout(connectEspWs, 3000);
   };
 
   espWs.onerror = () => espWs.close();
 }
 
-// Send new slot order via WebSocket
-function pushOrderViaWs(order) {
+function pushOrderViaWs() {
   if (espWs && espWs.readyState === WebSocket.OPEN) {
-    espWs.send(JSON.stringify({ type: 'slotorder', payload: order }));
+    espWs.send(JSON.stringify({ type: 'slotorder', payload: slots }));
   }
 }
 
@@ -327,18 +379,47 @@ async function init() {
       ? JSON.parse(locRaw.value)
       : locRaw;
 
-    slotOrder = Array.isArray(orderRaw) ? orderRaw : [];
+    // ── Migrate or load slot data ─────────────
+    if (Array.isArray(orderRaw) && orderRaw.length > 0) {
+      if (typeof orderRaw[0] === 'number') {
+        // Old flat format [4, 2, 1, 3] → new object format
+        slots = Array.from({ length: DRYBOX_SLOTS }, (_, i) => ({
+          slot: i + 1,
+          spoolId: orderRaw[i] ?? null
+        }));
+        await saveSlotOrder();
+      } else {
+        // New format — ensure correct length
+        slots = Array.from({ length: DRYBOX_SLOTS }, (_, i) => {
+          const stored = orderRaw.find(s => s.slot === i + 1);
+          return stored ?? { slot: i + 1, spoolId: null };
+        });
+      }
+    }
 
+    // ── Fetch spools for all locations ────────
     const fetches = locations.map(loc =>
       fetch(`/spools?location=${encodeURIComponent(loc)}`).then(r => r.json())
     );
     const results = await Promise.all(fetches);
     locations.forEach((loc, i) => { spoolsByLoc[loc] = results[i]; });
 
+    // ── Auto-assign unslotted Drybox spools ───
+    const dryboxSpools = spoolsByLoc['Drybox'] || [];
+    for (const spool of dryboxSpools) {
+      const alreadySlotted = slots.some(s => s.spoolId === spool.id);
+      if (!alreadySlotted) {
+        const emptySlot = slots.find(s => s.spoolId === null);
+        if (emptySlot) {
+          emptySlot.spoolId = spool.id;
+          await saveSlotOrder();
+        }
+      }
+    }
+
     render();
-    document.getElementById('statusBar').firstElementChild.innerHTML =
-      `ONLINE &nbsp;<span>●</span>`;
-  } catch(e) {
+    document.getElementById('statusBar').firstElementChild.innerHTML = 'ONLINE &nbsp;<span>●</span>';
+  } catch (e) {
     document.getElementById('app').innerHTML =
       `<div class="empty-state">FAILED TO LOAD — ${e.message}</div>`;
   }
@@ -348,199 +429,303 @@ async function init() {
 function render() {
   const app = document.getElementById('app');
   app.innerHTML = '';
+
   const grid = document.createElement('div');
   grid.className = 'locations-grid';
 
   const ordered = ['Drybox', ...locations.filter(l => l !== 'Drybox')];
 
   ordered.forEach(loc => {
-    const spools = spoolsByLoc[loc] || [];
+    const spools   = spoolsByLoc[loc] || [];
     const isDrybox = loc === 'Drybox';
-
-    let displaySpools = [...spools];
-    if (isDrybox && slotOrder.length) {
-      displaySpools.sort((a, b) => {
-        const ai = slotOrder.indexOf(a.id);
-        const bi = slotOrder.indexOf(b.id);
-        return (ai === -1 ? 9999 : ai) - (bi === -1 ? 9999 : bi);
-      });
-    }
-
-    const panel = document.createElement('div');
-    panel.className = 'location-panel';
+    const panel    = document.createElement('div');
+    panel.className = 'location-panel' + (isDrybox ? ' drybox-panel' : '');
     panel.dataset.location = loc;
+
+    const occupiedCount = isDrybox
+      ? slots.filter(s => s.spoolId !== null).length
+      : spools.length;
+
     panel.innerHTML = `
       <div class="location-header">
-        <div class="location-name">${loc}</div>
-        <div class="spool-count">${spools.length} SPOOL${spools.length !== 1 ? 'S' : ''}</div>
+        <div class="location-name">${isDrybox ? '⬡ ' : ''}${loc}</div>
+        <div class="spool-count">${occupiedCount} / ${isDrybox ? DRYBOX_SLOTS : spools.length} SLOT${isDrybox || spools.length !== 1 ? 'S' : ''}</div>
       </div>
-      ${isDrybox ? '<div class="drybox-note">Drag to reorder slots · Move to other locations below</div>' : ''}
+      ${isDrybox ? '<div class="drybox-hint">DRAG SPOOL → SLOT TO PLACE &nbsp;|&nbsp; SLOT → SLOT TO SWAP &nbsp;|&nbsp; SLOT → PANEL TO REMOVE</div>' : ''}
     `;
 
-    const list = document.createElement('div');
-    list.className = 'spool-list';
-    list.dataset.location = loc;
-    list.addEventListener('dragover', onDragOver);
-    list.addEventListener('dragleave', onDragLeave);
-    list.addEventListener('drop', e => onDrop(e, loc));
-
-    if (displaySpools.length === 0) {
-      list.innerHTML = '<div class="empty-state">NO SPOOLS</div>';
+    if (isDrybox) {
+      panel.appendChild(buildDryboxSlots());
     } else {
-      displaySpools.forEach((spool, idx) => {
-        list.appendChild(buildSpoolCard(spool, loc, isDrybox ? idx + 1 : null));
-      });
+      const list = document.createElement('div');
+      list.className = 'spool-list';
+      list.dataset.location = loc;
+      list.addEventListener('dragover', onListDragOver);
+      list.addEventListener('dragleave', onListDragLeave);
+      list.addEventListener('drop', e => onListDrop(e, loc));
+
+      if (spools.length === 0) {
+        list.innerHTML = '<div class="empty-state">NO SPOOLS</div>';
+      } else {
+        spools.forEach(spool => list.appendChild(buildSpoolCard(spool, loc, null)));
+      }
+      panel.appendChild(list);
     }
 
-    panel.appendChild(list);
     grid.appendChild(panel);
   });
 
   app.appendChild(grid);
 }
 
+// ─── Drybox Slot Bays ────────────────────────
+function buildDryboxSlots() {
+  const container = document.createElement('div');
+  container.className = 'drybox-slots';
+
+  for (let s = 1; s <= DRYBOX_SLOTS; s++) {
+    const entry = slots.find(e => e.slot === s) || { slot: s, spoolId: null };
+    const spool = entry.spoolId != null
+      ? (spoolsByLoc['Drybox'] || []).find(sp => sp.id === entry.spoolId)
+      : null;
+
+    const bay = document.createElement('div');
+    bay.className = 'slot-bay';
+    bay.dataset.slot = s;
+
+    const header = document.createElement('div');
+    header.className = 'slot-header';
+    header.innerHTML = `
+      <span class="slot-number">SLOT ${s}</span>
+      <span class="slot-status-dot ${spool ? 'occupied' : 'empty'}"></span>
+    `;
+    bay.appendChild(header);
+
+    if (spool) {
+      bay.appendChild(buildSpoolCard(spool, 'Drybox', s));
+    } else {
+      const empty = document.createElement('div');
+      empty.className = 'slot-empty-card';
+      empty.textContent = '— EMPTY —';
+      bay.appendChild(empty);
+    }
+
+    bay.addEventListener('dragover', e => {
+      e.preventDefault();
+      e.stopPropagation();
+      bay.classList.add('slot-drag-over');
+    });
+    bay.addEventListener('dragleave', e => {
+      if (!bay.contains(e.relatedTarget)) bay.classList.remove('slot-drag-over');
+    });
+    bay.addEventListener('drop', e => onSlotDrop(e, s));
+
+    container.appendChild(bay);
+  }
+
+  return container;
+}
+
+// ─── Spool Card ──────────────────────────────
 function buildSpoolCard(spool, location, slotNum) {
   const card = document.createElement('div');
-  card.className = 'spool-card';
-  card.draggable = true;
+  card.className  = 'spool-card';
+  card.draggable  = true;
   card.dataset.id = spool.id;
-  card.dataset.location = location;
 
-  const color = spool.filament?.color_hex ? `#${spool.filament.color_hex}` : '#444';
-  const weight = spool.remaining_weight != null ? `${Math.round(spool.remaining_weight)}g remaining` : '';
+  const color  = spool.filament?.color_hex ? `#${spool.filament.color_hex}` : '#444';
+  const weight = spool.remaining_weight != null ? `${Math.round(spool.remaining_weight)}g` : '—';
+  const mat    = spool.filament?.material ?? '';
 
   card.innerHTML = `
     <div class="drag-handle">⠿</div>
-    ${slotNum != null ? `<div class="slot-badge">S${slotNum}</div>` : ''}
     <div class="color-dot" style="background:${color}"></div>
     <div class="spool-info">
       <div class="spool-name">${spool.filament?.name ?? 'Unknown'}</div>
-      <div class="spool-meta">${spool.filament?.material ?? ''} · ${weight}</div>
+      <div class="spool-meta">${mat}${mat ? ' · ' : ''}${weight}</div>
     </div>
     <div class="spool-id">#${spool.id}</div>
   `;
 
-  card.addEventListener('dragstart', e => onDragStart(e, spool, location));
-  card.addEventListener('dragend', onDragEnd);
-  card.addEventListener('dragover', onCardDragOver);
-  card.addEventListener('dragleave', onCardDragLeave);
+  card.addEventListener('dragstart', e => onDragStart(e, spool, location, slotNum));
+  card.addEventListener('dragend',   onDragEnd);
+
+  if (location !== 'Drybox') {
+    card.addEventListener('dragover',  onCardDragOver);
+    card.addEventListener('dragleave', onCardDragLeave);
+  }
+
   return card;
 }
 
-// ─── Drag & Drop ─────────────────────────────
-function onDragStart(e, spool, fromLocation) {
-  dragSpool = { spool, fromLocation };
-  dragEl = e.currentTarget;
-  setTimeout(() => dragEl.classList.add('dragging'), 0);
+// ─── Drag Handlers ───────────────────────────
+function onDragStart(e, spool, fromLocation, fromSlot) {
+  dragSpool = { spool, fromLocation, fromSlot: fromSlot ?? null };
+  dragEl    = e.currentTarget;
+  setTimeout(() => dragEl?.classList.add('dragging'), 0);
   e.dataTransfer.effectAllowed = 'move';
 }
 
 function onDragEnd() {
   if (dragEl) dragEl.classList.remove('dragging');
-  document.querySelectorAll('.drag-target-above, .drag-target-below, .drag-over')
-    .forEach(el => el.classList.remove('drag-target-above', 'drag-target-below', 'drag-over'));
+  document.querySelectorAll(
+    '.drag-target-above, .drag-target-below, .drag-over, .slot-drag-over'
+  ).forEach(el => el.classList.remove('drag-target-above', 'drag-target-below', 'drag-over', 'slot-drag-over'));
   dragEl = null;
 }
 
-function onDragOver(e) {
+// ── Slot Bay Drop ─────────────────────────────
+async function onSlotDrop(e, targetSlot) {
+  e.preventDefault();
+  e.stopPropagation();
+  document.querySelectorAll('.slot-drag-over').forEach(el => el.classList.remove('slot-drag-over'));
+
+  if (!dragSpool) return;
+  const { spool, fromLocation, fromSlot } = dragSpool;
+  dragSpool = null;
+
+  const targetEntry   = slots.find(s => s.slot === targetSlot);
+  const targetSpoolId = targetEntry?.spoolId ?? null;
+
+  // Same slot — no-op
+  if (fromLocation === 'Drybox' && fromSlot === targetSlot) return;
+
+  // Drybox slot → different slot (swap)
+  if (fromLocation === 'Drybox' && fromSlot !== null) {
+    const fromEntry = slots.find(s => s.slot === fromSlot);
+    if (fromEntry)   fromEntry.spoolId   = targetSpoolId;
+    if (targetEntry) targetEntry.spoolId = spool.id;
+    await saveSlotOrder();
+    render();
+    showToast(targetSpoolId != null ? `Slot ${fromSlot} ↔ Slot ${targetSlot}` : `#${spool.id} → Slot ${targetSlot}`);
+    return;
+  }
+
+  // External → Drybox slot
+  if (fromLocation !== 'Drybox') {
+    if (targetSpoolId !== null) {
+      // Occupied: swap displaced spool back to source location
+      const displacedSpool = (spoolsByLoc['Drybox'] || []).find(s => s.id === targetSpoolId);
+      try {
+        const [r1, r2] = await Promise.all([
+          fetch('/movespool', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: spool.id, location: 'Drybox' }) }),
+          fetch('/movespool', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ id: targetSpoolId, location: fromLocation }) })
+        ]);
+        if (!r1.ok || !r2.ok) throw new Error();
+
+        spoolsByLoc[fromLocation] = (spoolsByLoc[fromLocation] || []).filter(s => s.id !== spool.id);
+        spool.location = 'Drybox';
+        spoolsByLoc['Drybox'] = [...(spoolsByLoc['Drybox'] || []), spool];
+
+        if (displacedSpool) {
+          spoolsByLoc['Drybox'] = spoolsByLoc['Drybox'].filter(s => s.id !== targetSpoolId);
+          displacedSpool.location = fromLocation;
+          spoolsByLoc[fromLocation] = [...(spoolsByLoc[fromLocation] || []), displacedSpool];
+        }
+
+        if (targetEntry) targetEntry.spoolId = spool.id;
+        await saveSlotOrder();
+        render();
+        showToast(`#${spool.id} ↔ #${targetSpoolId} swapped`);
+      } catch {
+        showToast('Swap failed', true);
+      }
+    } else {
+      // Empty slot: simple move in
+      try {
+        const r = await fetch('/movespool', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ id: spool.id, location: 'Drybox' }) });
+        if (!r.ok) throw new Error();
+
+        spoolsByLoc[fromLocation] = (spoolsByLoc[fromLocation] || []).filter(s => s.id !== spool.id);
+        spool.location = 'Drybox';
+        spoolsByLoc['Drybox'] = [...(spoolsByLoc['Drybox'] || []), spool];
+
+        if (targetEntry) targetEntry.spoolId = spool.id;
+        await saveSlotOrder();
+        render();
+        showToast(`#${spool.id} → Slot ${targetSlot}`);
+      } catch {
+        showToast('Move failed', true);
+      }
+    }
+  }
+}
+
+// ── Non-Drybox List Drop ──────────────────────
+function onListDragOver(e) {
   e.preventDefault();
   e.currentTarget.classList.add('drag-over');
 }
 
-function onDragLeave(e) {
-  e.currentTarget.classList.remove('drag-over');
+function onListDragLeave(e) {
+  if (!e.currentTarget.contains(e.relatedTarget))
+    e.currentTarget.classList.remove('drag-over');
 }
 
+async function onListDrop(e, toLocation) {
+  e.preventDefault();
+  e.currentTarget.classList.remove('drag-over');
+  if (!dragSpool) return;
+
+  const { spool, fromLocation, fromSlot } = dragSpool;
+  dragSpool = null;
+
+  if (fromLocation === toLocation) return;
+
+  try {
+    const r = await fetch('/movespool', { method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ id: spool.id, location: toLocation }) });
+    if (!r.ok) throw new Error();
+
+    spoolsByLoc[fromLocation] = (spoolsByLoc[fromLocation] || []).filter(s => s.id !== spool.id);
+    spool.location = toLocation;
+    spoolsByLoc[toLocation] = [...(spoolsByLoc[toLocation] || []), spool];
+
+    if (fromLocation === 'Drybox' && fromSlot !== null) {
+      const entry = slots.find(s => s.slot === fromSlot);
+      if (entry) entry.spoolId = null;
+      await saveSlotOrder();
+    }
+
+    render();
+    showToast(`#${spool.id} → ${toLocation}`);
+  } catch {
+    showToast('Move failed', true);
+  }
+}
+
+// ── Card insert indicators (non-Drybox) ───────
 function onCardDragOver(e) {
   e.preventDefault();
+  e.stopPropagation();
   if (!dragSpool) return;
   const card = e.currentTarget;
   if (card === dragEl) return;
-  const rect = card.getBoundingClientRect();
+  const mid = card.getBoundingClientRect().top + card.getBoundingClientRect().height / 2;
   document.querySelectorAll('.drag-target-above, .drag-target-below')
     .forEach(el => el.classList.remove('drag-target-above', 'drag-target-below'));
-  card.classList.add(e.clientY < rect.top + rect.height / 2 ? 'drag-target-above' : 'drag-target-below');
+  card.classList.add(e.clientY < mid ? 'drag-target-above' : 'drag-target-below');
 }
 
 function onCardDragLeave(e) {
   e.currentTarget.classList.remove('drag-target-above', 'drag-target-below');
 }
 
-async function onDrop(e, toLocation) {
-  e.preventDefault();
-  e.currentTarget.classList.remove('drag-over');
-  if (!dragSpool) return;
-
-  const { spool, fromLocation } = dragSpool;
-
-  // ── Moving between locations ──────────────
-  if (fromLocation !== toLocation) {
-    try {
-      const res = await fetch('/movespool', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ id: spool.id, location: toLocation })
-      });
-      if (!res.ok) throw new Error();
-
-      spoolsByLoc[fromLocation] = spoolsByLoc[fromLocation].filter(s => s.id !== spool.id);
-      spool.location = toLocation;
-      spoolsByLoc[toLocation] = [...(spoolsByLoc[toLocation] || []), spool];
-
-      if (fromLocation === 'Drybox') {
-        slotOrder = slotOrder.filter(id => id !== spool.id);
-        await saveSlotOrder();
-      }
-      if (toLocation === 'Drybox' && !slotOrder.includes(spool.id)) {
-        slotOrder.push(spool.id);
-        await saveSlotOrder();
-      }
-
-      render();
-      showToast(`#${spool.id} moved to ${toLocation}`);
-    } catch {
-      showToast('Move failed', true);
-    }
-    return;
-  }
-
-  // ── Reordering within Drybox ──────────────
-  if (toLocation === 'Drybox') {
-    const targetCard = document.querySelector('.drag-target-above, .drag-target-below');
-    if (!targetCard) return;
-
-    const targetId    = parseInt(targetCard.dataset.id);
-    const insertAbove = targetCard.classList.contains('drag-target-above');
-
-    const currentOrder = [...document.querySelectorAll(
-      `.location-panel[data-location="Drybox"] .spool-card`
-    )].map(c => parseInt(c.dataset.id));
-
-    const fromIdx = currentOrder.indexOf(spool.id);
-    let   toIdx   = currentOrder.indexOf(targetId);
-    if (fromIdx === -1 || toIdx === -1) return;
-
-    currentOrder.splice(fromIdx, 1);
-    toIdx = currentOrder.indexOf(targetId);
-    currentOrder.splice(insertAbove ? toIdx : toIdx + 1, 0, spool.id);
-
-    slotOrder = currentOrder;
-    await saveSlotOrder();
-    render();
-    showToast('Slot order saved');
-  }
-}
-
-// ─── API + WS calls ──────────────────────────
+// ─── Persistence ─────────────────────────────
 async function saveSlotOrder() {
-  // Save to LittleFS via HTTP POST
-  await fetch('/slotorder', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(slotOrder)
-  });
-  // Also push via WebSocket so ESP32 updates in real time
-  pushOrderViaWs(slotOrder);
+  try {
+    await fetch('/slotorder', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(slots)
+    });
+    pushOrderViaWs();
+  } catch {
+    showToast('Save failed', true);
+  }
 }
 
 // ─── Toast ───────────────────────────────────
@@ -548,7 +733,8 @@ function showToast(msg, isError = false) {
   const t = document.getElementById('toast');
   t.textContent = msg;
   t.className = 'toast' + (isError ? ' error' : '') + ' show';
-  setTimeout(() => t.classList.remove('show'), 2500);
+  clearTimeout(t._timer);
+  t._timer = setTimeout(() => t.classList.remove('show'), 2500);
 }
 
 // ─── Go ──────────────────────────────────────

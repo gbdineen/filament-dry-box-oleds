@@ -22,7 +22,7 @@ class Spools
         void getSpoolsOrder();
         std::vector<int>&  getSpoolsOrderVector();
         const std::vector<JsonDocument>& getSpools();
-        void setSpoolsOrder(const std::vector<int>& newOrder);
+        void setSpoolsOrder(const String& newOrder);
         void loadSpools();
         void addSpool(int &spoolId);
         void getSpool(int &spoolId);
