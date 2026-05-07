@@ -38,12 +38,12 @@ void Spools::getSpoolsOrder() {
 
 	serializeJsonPretty(doc,Serial);
 
-	// JsonArray spoolsOrderArray = doc.as<JsonArray>();
+	JsonArray spoolsOrderArray = doc.as<JsonArray>()[0];
 
-	// for (int v : spoolsOrderArray) {
-	// 	spoolsOrderVector.push_back(v);
-	// 	std::cout << "Initial Spools Order: " << v << std::endl;
-	// }
+	for (int v : spoolsOrderArray) {
+		// spoolsOrderVector.push_back(v);
+		std::cout << "Slot: " << v << std::endl;
+	}
 
 }
 
