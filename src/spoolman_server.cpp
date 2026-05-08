@@ -18,15 +18,6 @@ static const int   DRYBOX_SLOTS    = 4;   // must match the UI constant
 static AsyncWebServer server(WEB_SERVER_PORT);
 static AsyncWebSocket ws("/ws");
 
-static std::function<void(const String&)> orderUpdateCallback = nullptr;
-
-// ─────────────────────────────────────────────
-//  Public: register callback
-// ─────────────────────────────────────────────
-void setOrderUpdateCallback(std::function<void(const String&)> cb) {
-    orderUpdateCallback = cb;
-}
-
 // ─────────────────────────────────────────────
 //  LittleFS helpers
 // ─────────────────────────────────────────────
@@ -181,6 +172,7 @@ void onWsEvent(AsyncWebSocket*, AsyncWebSocketClient* client,
         if (deserializeJson(doc, msg) != DeserializationError::Ok) return;
         if (strcmp(doc["type"] | "", "slotorder") != 0) return;
 
+        Serial.println("onWSEvent spoolman_server");
         String orderJson;
         serializeJson(doc["payload"], orderJson);
         if (writeSlotOrder(orderJson)) {

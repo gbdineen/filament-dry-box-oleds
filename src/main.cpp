@@ -20,7 +20,7 @@ void onSlotOrderUpdated(const String& json) {
     // re-drive your display here
     // refreshDisplay();
 
-	// Serial.println("Slot Order Updated: " + json);
+	Serial.println("Slot Order Updated: " + json);
 	
 	JsonDocument doc;
     // if (deserializeJson(doc, newOrder) != DeserializationError::Ok) return;
@@ -33,7 +33,7 @@ void onSlotOrderUpdated(const String& json) {
 		return;
 	}
 
-	 serializeJsonPretty(doc, Serial);
+	//  serializeJsonPretty(doc, Serial);
 	
 }
 
@@ -45,25 +45,17 @@ void wsCallback(const char *payload)
 	{
 		Serial.println("init Displays");
 		displays.begin();
-		displays.initDisplays();
+		// displays.initDisplays();
 		spools.initSpools();
 
 		// displays.setDisplayPaging(true);
-		displays.startPageDisplays();
-
-		// displays.overviewDisplay();
-		// delay(3000);
-		// displays.spoolWeightDisplay();
-
-		// getSpools();
-
-		// spools.getSpoolOrder();
+		// displays.startPageDisplays();
 	}
 }
 
 void setup()
 {
-	Serial.begin(115200);
+	Serial.begin(230400);
 	data.setWSCallback(wsCallback);
 	data.begin();
 }

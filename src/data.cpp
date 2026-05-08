@@ -134,8 +134,10 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
         case WStype_TEXT:
 
-            // Serial.println("[WSc] incoming");
-            // Serial.println("[WSc] Payload:");
+            Serial.println("[WSc] incoming");
+            // Serial.println(payload.as<String>());
+
+            // break;
 
             JsonDocument doc;
             JsonDocument filter;
@@ -158,6 +160,8 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
             }
 
             serializeJsonPretty(doc, Serial);
+
+            
             
             if (doc["type"] == "updated")
             {

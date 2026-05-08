@@ -16,6 +16,7 @@ void Spools::initSpools() {
 void Spools::getSpoolsOrder() {
 
 	spoolsOrderVector.clear();
+	spoolsVector.clear();
 
 	http.useHTTP10(true);
 
@@ -25,10 +26,13 @@ void Spools::getSpoolsOrder() {
 	http.begin(wifiClientHttp, spoolOrderQuery.c_str());
 	http.GET();
 
+	JsonDocument filter;
 	JsonDocument doc;
 
-	// DeserializationError error =  deserializeJson(docGET, http.getStream(),DeserializationOption::Filter(filter));
-	DeserializationError error = deserializeJson(doc, http.getStream());
+	filter[0] = true;
+
+	DeserializationError error =  deserializeJson(doc, http.getStream(),DeserializationOption::Filter(filter));
+	// DeserializationError error = deserializeJson(doc, http.getStream());
 	if (error)
 	{
 		Serial.print(F("deserializeJson() failed: "));
@@ -36,14 +40,30 @@ void Spools::getSpoolsOrder() {
 		// return;
 	}
 
-	serializeJsonPretty(doc,Serial);
+	// serializeJsonPretty(doc,Serial);
 
-	JsonArray spoolsOrderArray = doc.as<JsonArray>()[0];
+	JsonArray spoolsOrderArray = doc.as<JsonArray>();
 
-	for (int v : spoolsOrderArray) {
-		// spoolsOrderVector.push_back(v);
-		std::cout << "Slot: " << v << std::endl;
+	for (int i=0; i<spoolsOrderArray.size(); i++)
+	{
+		JsonDocument spoolDoc;
+		spoolDoc.set(spoolsOrderArray[i]); 
+		std::cout << "slot: " << doc[i]["slot"] <<  " spoolId: " << doc[i]["spoolId"] << std::endl;
+		spoolsVector.push_back(std::move(spoolDoc));
 	}
+
+	for (JsonDocument v : spoolsVector) 
+	{
+		std::cout << v << std::endl;
+	}
+
+	// JsonDocument spoolsOrderArray = doc.as<JsonDocument>();
+
+	// for (JsonArray v : doc.as<JsonArray>()) {
+	// 	// spoolsOrderVector.push_back(v.as<int>());
+	// 	// spoolsOrderVector.push_back(v);
+	// 	std::cout << "Slot: " << v << std::endl;
+	// }
 
 }
 
