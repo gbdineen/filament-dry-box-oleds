@@ -245,4 +245,5 @@
  .pio/libdeps/drybox_oleds_common/WebSockets/src/WebSocketsClient.h \
  .pio/libdeps/drybox_oleds_common/WebSockets/src/WebSockets.h \
  .pio/libdeps/drybox_oleds_common/WebSockets/src/WebSocketsVersion.h \
- .pio/libdeps/drybox_oleds_common/PubSubClient/src/PubSubClient.h
+ .pio/libdeps/drybox_oleds_common/PubSubClient/src/PubSubClient.h \
+ src/spoolman_server.h

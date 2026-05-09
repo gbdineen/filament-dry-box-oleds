@@ -6,6 +6,9 @@
 
 // Call once after WiFi connects
 void setupSpoolServer();
+void getAllSlotIds(int* arr);
+int  getSpoolIdForSlot(int slotNum); 
+bool isSlotEmpty(int slotNum);
 
 // Register a callback to be notified when the web UI sends a new slot order
 // Callback receives the new order as a vector of spool IDs e.g. {1, 3}

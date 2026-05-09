@@ -1,16 +1,109 @@
 #include "spools.h"
+#include "spoolman_server.h"
 
 
 
 Spools::Spools() 
-	// : spoolsOrder{}
 {}
 
 void Spools::initSpools() {
 
-	getSpoolsOrder();
+	// getSpoolsOrder();
 	// loadSpools();
+	getSlots();
 }	
+
+void Spools::getSlots()
+{
+
+	spoolsVector.clear();
+
+	// std::array<int>& slots = getAllSlotIds(int ids[]); 
+	int ids[4];
+	getAllSlotIds(ids);
+	for (int i = 0; i < 4; i++) {
+    	Serial.printf("Slot %d → spool %d\n", i+1, ids[i]);
+
+		JsonDocument spoolmanObject;
+
+		if (ids[i] == -1) 
+		{
+			const char* empty = "{}";
+			spoolmanObject = empty;
+			// JsonObject empty = spoolmanObject.to<JsonObject>();
+			// DeserializationError error = deserializeJson(spoolmanObject, empty);
+			// if (error) {
+			// 	Serial.print(F("deserializeJson() failed: "));
+			// 	Serial.println(error.f_str());
+			// 	return;
+			// }
+			
+		}
+		else
+		{
+			spoolmanObject = getSpool(ids[i]);
+		}
+
+	//   serializeJsonPretty(spoolmanObject,Serial);
+
+		 spoolsVector.push_back(spoolmanObject);
+
+ 	}
+	loopSpoolsVector();
+}
+
+void Spools::loopSpoolsVector() 
+{
+
+	for (JsonDocument v : spoolsVector) 
+	{
+		std::cout << v << "\n" << std::endl;
+	}
+}
+
+JsonDocument Spools::getSpool(int &spoolId)
+{
+	std::string spoolIdStr = std::to_string(spoolId);
+	std::string spoolQuery = baseAPI_URL + "spool/" + spoolIdStr;
+
+	// Serial.println(spoolQuery.c_str());
+
+	http.useHTTP10(true);
+
+	// Query spoolman to get the spool with the specified id
+	http.begin(wifiClientHttp, spoolQuery.c_str());
+	http.GET();
+
+	JsonDocument doc;
+	JsonDocument filter;
+	// DeserializationError error;
+
+	filter["id"] = true;
+	filter["remaining_weight"] = true;
+	filter["location"] = true;
+	filter["filament"]["name"] = true;
+	filter["filament"]["material"] = true;
+
+	DeserializationError error = deserializeJson(doc, http.getStream(), DeserializationOption::Filter(filter));
+	if (error)
+	{
+		Serial.print(F("deserializeJson() failed: "));
+		Serial.println(error.c_str());
+		// return;
+	}
+
+	// serializeJsonPretty(doc,Serial);
+
+	JsonDocument spoolObject;
+	spoolObject.set(doc);
+
+
+	// http.end();
+
+	return std::move(spoolObject);
+
+}
+
 
 
 void Spools::getSpoolsOrder() {
@@ -57,14 +150,6 @@ void Spools::getSpoolsOrder() {
 		std::cout << v << std::endl;
 	}
 
-	// JsonDocument spoolsOrderArray = doc.as<JsonDocument>();
-
-	// for (JsonArray v : doc.as<JsonArray>()) {
-	// 	// spoolsOrderVector.push_back(v.as<int>());
-	// 	// spoolsOrderVector.push_back(v);
-	// 	std::cout << "Slot: " << v << std::endl;
-	// }
-
 }
 
 void Spools::setSpoolsOrder(const String& newOrder) {
@@ -90,7 +175,6 @@ void Spools::setSpoolsOrder(const String& newOrder) {
 	// }
 
 }
-
 
 
 void Spools::loadSpools() {
@@ -231,46 +315,6 @@ void Spools::loadSpools() {
 // }
 
 
-void Spools::getSpool(int &spoolId)
-{
-	std::string spoolIdStr = std::to_string(spoolId);
-	std::string spoolQuery = baseAPI_URL + "spool/" + spoolIdStr;
-
-	// Serial.println(spoolQuery.c_str());
-
-	http.useHTTP10(true);
-
-	// Query spoolman to get the spool with the specified id
-	http.begin(wifiClientHttp, spoolQuery.c_str());
-	http.GET();
-
-	JsonDocument doc;
-	JsonDocument filter;
-	// DeserializationError error;
-
-	filter["id"] = true;
-	filter["remaining_weight"] = true;
-	filter["location"] = true;
-	filter["filament"]["name"] = true;
-	filter["filament"]["material"] = true;
-
-	DeserializationError error = deserializeJson(doc, http.getStream(), DeserializationOption::Filter(filter));
-	if (error)
-	{
-		Serial.print(F("deserializeJson() failed: "));
-		Serial.println(error.c_str());
-		return;
-	}
-
-	http.end();
-
-	// JsonDocument output;
-  	// // // serializeJson(doc, output);
-	// JsonDocument *ptr = nullptr;
-	// *ptr = &doc;
-
-	// return ptr;
-}
 
 
 void Spools::addSpool(int &spoolId)
@@ -333,9 +377,6 @@ const std::vector<JsonDocument>& Spools::getSpools()
 {
 	return spoolsVector;
 }
-
-
-
 
 
 std::vector<int>& Spools::getSpoolsOrderVector() {

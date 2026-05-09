@@ -56,6 +56,7 @@ private:
 
     const char *ssid = "Cedar Basecamp";
     const char *password = "N1mbl3Sh@rk";
+    const char* hostname = "spool_manager";
 
     // MQTT broker details
     const char *mqttHostIP = "10.0.0.226";

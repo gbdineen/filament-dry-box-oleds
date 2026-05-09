@@ -104,6 +104,16 @@ void Displays::spoolWeightDisplay()
 	{
 
 		displayArray[i].clearDisplay();
+		const char* empty = "{}";
+
+		if (spools[i] == "{}")
+		{
+			const char* noSpoolMsg = "EMPTY";
+			printMessage(i, noSpoolMsg, false);
+
+		}
+		else
+		{
 
 		int disp_padding_top = 20;
 		int meter_w = disp_w - 20;
@@ -161,8 +171,9 @@ void Displays::spoolWeightDisplay()
 
 		displayArray[i].display();
 		delay(1);
+		}
 	}
-	checkEmptySlots();
+	// checkEmptySlots();
 }
 
 void Displays::overviewDisplay()
@@ -175,44 +186,56 @@ void Displays::overviewDisplay()
 	for (int i = 0; i < spools.size(); i++)
 
 	{
-
-		// serializeJsonPretty(spools[i], Serial);
-
 		displayArray[i].clearDisplay();
+		const char* empty = "{}";
 
-		int spoolId = spools[i]["id"];
-		int remWeight = spools[i]["remaining_weight"];
-		const char *material = spools[i]["filament"]["material"];
-		const char *name = spools[i]["filament"]["name"];
+		if (spools[i] == "{}")
+		{
+			const char* noSpoolMsg = "EMPTY";
+			printMessage(i, noSpoolMsg, false);
 
-		u8g2_for_adafruit_gfx.begin(displayArray[i]);
-		u8g2_for_adafruit_gfx.setFont(u8g2_font_helvB14_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
-		u8g2_for_adafruit_gfx.setFontMode(1);				 // use u8g2 transparent mode (this is default)
-		u8g2_for_adafruit_gfx.setFontDirection(0);
-
-		int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(name);
-		int16_t x1, y1;
-		uint16_t w, h;
-		displayArray[i].getTextBounds(name, 0, 0, &x1, &y1, &w, &h);
-		int16_t text_center_x = disp_center_x - (text_width / 2);
-		int16_t text_center_y = disp_center_y + (h/2);
-
-		u8g2_for_adafruit_gfx.setCursor(text_center_x,text_center_y+padding_screen_top);
-		u8g2_for_adafruit_gfx.print(name);
-		
-		if(text_width >= disp_w) {
-			displayArray[i].startscrollright(0x04, 0x06);
 		}
+		else
+		{
 
-		printPersistantInfo(u8g2_for_adafruit_gfx, spoolId,material);
+			// serializeJsonPretty(spools[i], Serial);
 
-		displayArray[i].invertDisplay(false);
+			// displayArray[i].clearDisplay();
 
-		displayArray[i].display();
-		delay(10);
+			int spoolId = spools[i]["id"];
+			int remWeight = spools[i]["remaining_weight"];
+			const char *material = spools[i]["filament"]["material"];
+			const char *name = spools[i]["filament"]["name"];
+
+			u8g2_for_adafruit_gfx.begin(displayArray[i]);
+			u8g2_for_adafruit_gfx.setFont(u8g2_font_helvB14_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
+			u8g2_for_adafruit_gfx.setFontMode(1);				 // use u8g2 transparent mode (this is default)
+			u8g2_for_adafruit_gfx.setFontDirection(0);
+
+			int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(name);
+			int16_t x1, y1;
+			uint16_t w, h;
+			displayArray[i].getTextBounds(name, 0, 0, &x1, &y1, &w, &h);
+			int16_t text_center_x = disp_center_x - (text_width / 2);
+			int16_t text_center_y = disp_center_y + (h/2);
+
+			u8g2_for_adafruit_gfx.setCursor(text_center_x,text_center_y+padding_screen_top);
+			u8g2_for_adafruit_gfx.print(name);
+			
+			if(text_width >= disp_w) {
+				displayArray[i].startscrollright(0x04, 0x06);
+			}
+
+			printPersistantInfo(u8g2_for_adafruit_gfx, spoolId,material);
+
+			displayArray[i].invertDisplay(false);
+
+			displayArray[i].display();
+			delay(10);	
+		}				
 
 	}
-	checkEmptySlots();
+	// checkEmptySlots();
 }
 
 /****************************************/

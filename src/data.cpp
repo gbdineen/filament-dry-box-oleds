@@ -134,7 +134,7 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
         case WStype_TEXT:
 
-            Serial.println("[WSc] incoming");
+            // Serial.println("[WSc] incoming");
             // Serial.println(payload.as<String>());
 
             // break;
@@ -272,12 +272,18 @@ boolean Data::mqttReconnect() {
 void Data::begin()
 {
 
+   	Serial.begin(115200);
+    while (!Serial)
+        continue; 
+	Serial.print("Serial active");
+   
     // WiFi.disconnect(true);
     // WiFi.mode(WIFI_OFF);
     // delay(500);  // longer delay
     // esp_wifi_stop();  // force stop the wifi driver
     // delay(500);
-    // WiFi.mode(WIFI_STA);
+    WiFi.mode(WIFI_STA);
+    WiFi.setHostname(hostname);
 
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
@@ -285,6 +291,7 @@ void Data::begin()
         Serial.println("Connecting to WiFi...");
     }
     Serial.println("Connected to WiFi");
+    Serial.println(WiFi.localIP()); 
 
     setupSpoolServer();
 

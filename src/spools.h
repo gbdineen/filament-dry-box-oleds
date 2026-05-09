@@ -1,6 +1,8 @@
 #ifndef SPOOLS_H
 #define SPOOLS_H
 
+// #include "displays.h"
+
 #include <ArduinoJson.h>
 #include <iostream>
 #include <string> 
@@ -25,16 +27,19 @@ class Spools
         void setSpoolsOrder(const String& newOrder);
         void loadSpools();
         void addSpool(int &spoolId);
-        void getSpool(int &spoolId);
+        JsonDocument getSpool(int &spoolId);
         void deleteSpool(int &spoolId);
         int getSpoolsCount();
+        void loopSpoolsVector();
         // std::vector<JsonArray> getSpoolOrder();
         void updateSpool(int& sid, int& w, const char* &m, const char* &n, int* d);
         void refactorSpoolsOrder();
+        void getSlots();
         void begin();
         
     private:
 
+       
         bool debug = false;
 
         // JSON STUFF

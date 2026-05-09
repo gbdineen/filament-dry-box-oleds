@@ -1,7 +1,5 @@
-.pio/build/drybox_oleds_common/src/main.cpp.o: src/main.cpp src/spools.h \
- .pio/libdeps/drybox_oleds_common/ArduinoJson/src/ArduinoJson.h \
- .pio/libdeps/drybox_oleds_common/ArduinoJson/src/ArduinoJson.hpp \
- .pio/libdeps/drybox_oleds_common/ArduinoJson/src/ArduinoJson/Configuration.hpp \
+.pio/build/drybox_oleds_common/src/main.cpp.o: src/main.cpp \
+ src/spoolman_server.h \
  C:/Users/k1gbd/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
  C:/Users/k1gbd/.platformio/packages/framework-arduinoespressif32/cores/esp32/esp_arduino_version.h \
  C:/Users/k1gbd/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/freertos/include/freertos/FreeRTOS.h \
@@ -180,6 +178,10 @@
  C:/Users/k1gbd/.platformio/packages/framework-arduinoespressif32/tools/sdk/esp32s3/include/esp_hw_support/include/soc/esp32/spiram.h \
  C:/Users/k1gbd/.platformio/packages/framework-arduinoespressif32/cores/esp32/io_pin_remap.h \
  C:/Users/k1gbd/.platformio/packages/framework-arduinoespressif32/cores/esp32/Arduino.h \
+ src/spools.h \
+ .pio/libdeps/drybox_oleds_common/ArduinoJson/src/ArduinoJson.h \
+ .pio/libdeps/drybox_oleds_common/ArduinoJson/src/ArduinoJson.hpp \
+ .pio/libdeps/drybox_oleds_common/ArduinoJson/src/ArduinoJson/Configuration.hpp \
  C:/Users/k1gbd/.platformio/packages/framework-arduinoespressif32/libraries/HTTPClient/src/HTTPClient.h \
  C:/Users/k1gbd/.platformio/packages/framework-arduinoespressif32/libraries/WiFi/src/WiFiClient.h \
  C:/Users/k1gbd/.platformio/packages/framework-arduinoespressif32/cores/esp32/Client.h \
@@ -257,4 +259,4 @@
  .pio/libdeps/drybox_oleds_common/Adafruit\ SSD1306/Adafruit_SSD1306.h \
  .pio/libdeps/drybox_oleds_common/U8g2_for_Adafruit_GFX/src/U8g2_for_Adafruit_GFX.h \
  .pio/libdeps/drybox_oleds_common/U8g2_for_Adafruit_GFX/src/u8g2_fonts.h \
- src/data.h src/spoolman_server.h
+ src/data.h
