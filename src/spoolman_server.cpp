@@ -172,7 +172,7 @@ void onWsEvent(AsyncWebSocket*, AsyncWebSocketClient* client,
         if (deserializeJson(doc, msg) != DeserializationError::Ok) return;
         if (strcmp(doc["type"] | "", "slotorder") != 0) return;
 
-        Serial.println("onWSEvent spoolman_server");
+        // Serial.println("onWSEvent spoolman_server");
         String orderJson;
         serializeJson(doc["payload"], orderJson);
         if (writeSlotOrder(orderJson)) {

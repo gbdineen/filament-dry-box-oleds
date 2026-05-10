@@ -150,8 +150,8 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
             filter["payload"]["filament"]["name"] = true;
             filter["payload"]["filament"]["material"] = true;
 
-            // DeserializationError error = deserializeJson(doc, payload);
-            DeserializationError error =  deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+            DeserializationError error = deserializeJson(doc, payload);
+            // DeserializationError error =  deserializeJson(doc, payload, DeserializationOption::Filter(filter));
             if (error)
             {
                 Serial.print(F("deserializeJson() failed: "));
@@ -177,11 +177,12 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
                     String location = doc["payload"]["location"].as<String>();
                     
                     displaysRef.stopPageDisplays();
+                    displaysRef.overviewDisplay(); 
 
                     std::vector<JsonDocument> spools = spoolsRef.getSpools();
 
                     int vSize = spools.size();
-                    Serial.println("Spools Size: " + String(vSize));
+                    // Serial.println("Spools Size: " + String(vSize));
                     bool newSpool = false;
 
                     for (int i=0; i<vSize; i++)
@@ -189,8 +190,8 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
 
                         int currId = spools[i]["id"].as<int>();
 
-                        Serial.print("currId: "); Serial.print(currId);
-                        Serial.print(" | spoolId: "); Serial.println(spoolId); 
+                        // Serial.print("currId: "); Serial.print(currId);
+                        // Serial.print(" | spoolId: "); Serial.println(spoolId); 
 
                         if (currId == spoolId)
                         {
@@ -263,12 +264,6 @@ boolean Data::mqttReconnect() {
   return mqttClient.connected();
 }
 
-// void onSlotOrderUpdated(const String& json) {
-//     // parse json into whatever spoolsRef.setSpoolsOrder() expects
-//     spoolsRef.setSpoolsOrder();
-//     spoolsRef.loadSpools();
-// }
-
 void Data::begin()
 {
 
@@ -294,23 +289,6 @@ void Data::begin()
     Serial.println(WiFi.localIP()); 
 
     setupSpoolServer();
-
-    // setOrderUpdateCallback([this](const String& json) {
-        
-
-    //     Serial.println("Order Update Callback Triggered");
-    //     spoolsRef.setSpoolsOrder(json);
-    //     spoolsRef.loadSpools();
-
-    // });
-
-
-    // setOrderUpdateCallback([this](std::vector<int> newOrder) {
-        
-    //     spoolsRef.setSpoolsOrder(newOrder);
-    //     spoolsRef.loadSpools();
-
-    // });
 
     webSocket.begin(apiHostIP, wsPort, "/api/v1/");
     webSocket.onEvent(webSocketEventStatic);

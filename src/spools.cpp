@@ -22,7 +22,7 @@ void Spools::getSlots()
 	int ids[4];
 	getAllSlotIds(ids);
 	for (int i = 0; i < 4; i++) {
-    	Serial.printf("Slot %d → spool %d\n", i+1, ids[i]);
+    	// Serial.printf("Slot %d → spool %d\n", i+1, ids[i]);
 
 		JsonDocument spoolmanObject;
 
@@ -49,7 +49,7 @@ void Spools::getSlots()
 		 spoolsVector.push_back(spoolmanObject);
 
  	}
-	loopSpoolsVector();
+	// loopSpoolsVector();
 }
 
 void Spools::loopSpoolsVector() 

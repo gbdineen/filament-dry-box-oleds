@@ -27,6 +27,8 @@ class Displays
         void startPageDisplays();
         void stopPageDisplays();
         void setDisplayPaging(bool paging);
+        void resetTimer();
+        void setScreenMode(std::string disp);
         void printPersistantInfo(U8G2_FOR_ADAFRUIT_GFX &gfx, int &sid, const char * &m);
         void checkEmptySlots();
         void printMessage(int& d, const char*& msg, bool inv);

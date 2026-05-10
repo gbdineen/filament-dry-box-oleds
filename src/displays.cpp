@@ -63,6 +63,13 @@ void Displays::drawOPLogo(Adafruit_SSD1306 &display)
 	}
 }
 
+void Displays::setScreenMode(std::string disp)
+{
+
+	screenMode = disp;
+}
+
+
 void Displays::setDisplayPaging(bool paging)
 {
 
@@ -73,12 +80,21 @@ void Displays::stopPageDisplays()
 {
 
 	setDisplayPaging(false);
+	// displayPaging = false;
 }
 
 void Displays::startPageDisplays()
 {
 
+	// resetTimer();
+	// screenMode=mode;
+	// displayPaging = true;
 	setDisplayPaging(true);
+}
+
+void Displays::resetTimer()
+{
+	previousMillis = 0;
 }
 
 void Displays::printPersistantInfo(U8G2_FOR_ADAFRUIT_GFX &gfx, int &sid, const char * &m) {

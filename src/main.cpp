@@ -20,7 +20,12 @@ unsigned long previousMillis = 0;
 void onSlotOrderUpdated(const String& json) {
 
 	displays.stopPageDisplays();
+	displays.overviewDisplay();
+	// displays.setScreenMode("overview");
 	spools.getSlots();
+	// displays.resetTimer();
+	// displays.setScreenMode("overview");
+	
 	displays.startPageDisplays();
 
 }
@@ -36,8 +41,11 @@ void wsCallback(const char *payload)
 		displays.initDisplays();
 		spools.initSpools();
 
-		// displays.setDisplayPaging(true);
-		displays.startPageDisplays();
+		// displays.overviewDisplay();
+
+		displays.setDisplayPaging(false);
+		displays.overviewDisplay();
+		// displays.startPageDisplays();
 	}
 }
 
