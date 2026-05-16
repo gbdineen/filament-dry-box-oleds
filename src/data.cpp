@@ -149,9 +149,10 @@ void Data::webSocketEvent(WStype_t type, uint8_t *payload, size_t length)
             filter["payload"]["remaining_weight"] = true;
             filter["payload"]["filament"]["name"] = true;
             filter["payload"]["filament"]["material"] = true;
+            filter["payload"]["filament"]["extra"]["friendly_color_name"] = true;
 
-            DeserializationError error = deserializeJson(doc, payload);
-            // DeserializationError error =  deserializeJson(doc, payload, DeserializationOption::Filter(filter));
+            // DeserializationError error = deserializeJson(doc, payload);
+            DeserializationError error =  deserializeJson(doc, payload, DeserializationOption::Filter(filter));
             if (error)
             {
                 Serial.print(F("deserializeJson() failed: "));
@@ -267,10 +268,10 @@ boolean Data::mqttReconnect() {
 void Data::begin()
 {
 
-   	Serial.begin(115200);
-    while (!Serial)
-        continue; 
-	Serial.print("Serial active");
+   	// Serial.begin(115200);
+    // while (!Serial)
+    //     continue; 
+	// Serial.print("Serial active");
    
     // WiFi.disconnect(true);
     // WiFi.mode(WIFI_OFF);
@@ -283,8 +284,9 @@ void Data::begin()
     WiFi.begin(ssid, password);
     while (WiFi.status() != WL_CONNECTED) {
         delay(500);
-        Serial.println("Connecting to WiFi...");
+        // Serial.println("Connecting to WiFi...");
     }
+    Serial.begin(115200);
     Serial.println("Connected to WiFi");
     Serial.println(WiFi.localIP()); 
 

@@ -83,6 +83,7 @@ JsonDocument Spools::getSpool(int &spoolId)
 	filter["location"] = true;
 	filter["filament"]["name"] = true;
 	filter["filament"]["material"] = true;
+	filter["filament"]["extra"]["friendly_color_name"] = true;
 
 	DeserializationError error = deserializeJson(doc, http.getStream(), DeserializationOption::Filter(filter));
 	if (error)
@@ -91,6 +92,9 @@ JsonDocument Spools::getSpool(int &spoolId)
 		Serial.println(error.c_str());
 		// return;
 	}
+
+	// String friendly_color_name = doc["filament"]["extra"]["friendly_color_name"];
+	// Serial.println("Friendly Color Name: " + friendly_color_name);
 
 	// serializeJsonPretty(doc,Serial);
 

@@ -221,26 +221,28 @@ void Displays::overviewDisplay()
 			int spoolId = spools[i]["id"];
 			int remWeight = spools[i]["remaining_weight"];
 			const char *material = spools[i]["filament"]["material"];
-			const char *name = spools[i]["filament"]["name"];
+			// const char *name = spools[i]["filament"]["name"];
+			std::string name_string = spools[i]["filament"]["extra"]["friendly_color_name"];
+			std::string name =  name_string.substr(1, name_string.size() - 2);
 
 			u8g2_for_adafruit_gfx.begin(displayArray[i]);
 			u8g2_for_adafruit_gfx.setFont(u8g2_font_helvB14_tr); // 10px high  // select u8g2 font from here: https://github.com/olikraus/u8g2/wiki/fntlistall
 			u8g2_for_adafruit_gfx.setFontMode(1);				 // use u8g2 transparent mode (this is default)
 			u8g2_for_adafruit_gfx.setFontDirection(0);
 
-			int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(name);
+			int16_t text_width = u8g2_for_adafruit_gfx.getUTF8Width(name.c_str());
 			int16_t x1, y1;
 			uint16_t w, h;
-			displayArray[i].getTextBounds(name, 0, 0, &x1, &y1, &w, &h);
+			displayArray[i].getTextBounds(name.c_str(), 0, 0, &x1, &y1, &w, &h);
 			int16_t text_center_x = disp_center_x - (text_width / 2);
 			int16_t text_center_y = disp_center_y + (h/2);
 
 			u8g2_for_adafruit_gfx.setCursor(text_center_x,text_center_y+padding_screen_top);
-			u8g2_for_adafruit_gfx.print(name);
+			u8g2_for_adafruit_gfx.print(name.c_str());
 			
-			if(text_width >= disp_w) {
-				displayArray[i].startscrollright(0x04, 0x06);
-			}
+			// if(text_width >= disp_w) {
+			// 	displayArray[i].startscrollright(0x04, 0x06);
+			// }
 
 			printPersistantInfo(u8g2_for_adafruit_gfx, spoolId,material);
 

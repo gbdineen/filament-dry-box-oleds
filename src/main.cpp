@@ -43,9 +43,9 @@ void wsCallback(const char *payload)
 
 		// displays.overviewDisplay();
 
-		displays.setDisplayPaging(false);
+		// displays.setDisplayPaging(false);
 		displays.overviewDisplay();
-		// displays.startPageDisplays();
+		displays.startPageDisplays();
 	}
 }
 
